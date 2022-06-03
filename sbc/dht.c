@@ -58,7 +58,7 @@ void read_dht11_dat()
 	     (dht11_dat[4] == ( (dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF) ) )
 	{
 		f = dht11_dat[2] * 9. / 5. + 32;
-		printf( "Humidity = %d.%d %% Temperature = %d.%d C (%.1f F)\n",
+		printf( "Umidade = %d.%d %% Temperatura = %d.%d° C (%.1f° F)\n",
 			dht11_dat[0], dht11_dat[1], dht11_dat[2], dht11_dat[3], f );
 		delay( 1000 ); 
 
@@ -69,7 +69,7 @@ void read_dht11_dat()
  
 int main( void )
 {
-	printf( "Raspberry Pi wiringPi DHT11 Temperature test program\n" );
+	printf( "Sensor DHT11 - Raspberry Pi Zero\n" );
  
 	if ( wiringPiSetup() == -1 )
 		exit( 1 );
