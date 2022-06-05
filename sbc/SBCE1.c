@@ -7,6 +7,7 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include "ads1115_rpi.h"
+
 /* Define configurações do LCD*/
 
 #define LCD_Rows 2
@@ -43,8 +44,8 @@
 #define ES_TIME   9
 
 /* prototipos de função*/
-void leitura(float *luminosidade,float *pressao);
-
+void leitura(float *luminosidade,float *pressao,float * temperatura, *foat umidade);
+int getMilisegundos(int digitos[7]);
 
 int main(void){
 
@@ -70,11 +71,16 @@ int main(void){
     // leitura
     float pressao,luminosidade,temperatura,umidade;
 
-    // variavel de controle do tempo
-    int digitos_medicao[7] ={0};
+    /* variavel de controle do tempo
+       {[dezena minuto]-[unidade minuto] digitos 6-5}
+       {[dezena segundo]-[unidade segundo] digitos 4-3}
+       {[centena milisegundo]-[dezena milisegundo]-[unidade milisegundo] digitos 2-1-0}  
+    
+    */
+    int digitos_medicao[7] ={0}; 
     int tempo_medicao = 300000;
     int idx =0;
-    
+
     // variaveis auxiliares;
     int idx_historico =0; // variavel que controla a disposição do menu dos historico
     int H_temperaturas[10]={0};
@@ -87,14 +93,6 @@ int main(void){
     // strings de texto
     char menu[5][16] = {"TEMPERATURA","UMIDADE","PRESSAO","LUMINOSIDADE","TEMPO LEITURA"};
     char subMenuTempo[4][16] = {"SEGUNDOS","MINUTOS","HORAS","VOLTAR"};
-
-    //variveis e inicialização para o conversor Analogico-Digital
-        if(openI2CBus("/dev/i2c-1") == -1)  //verifica se a conexão foi feita com sucesso
-        {
-            return EXIT_FAILURE;
-        }
-        setI2CSlave(0x48);  // configura o endereço do ad1115 como slave
-
         do{
             /* Realiza leitura dos botões*/
             b0 = digitalRead(B0); // botão pressionado tem como leitura um nivél logico baixo
@@ -306,7 +304,16 @@ int main(void){
     return 0;
 }
 
-void leitura(float *luminosidade,float *pressao){
+void leitura(float *luminosidade,float *pressao,float * temperatura, *foat umidade){
         *luminosidade= readVoltage(0);
         *pressao= readVoltage(3);
+}
+
+/*  Função getMilisegundos
+|   Recebe um vetor com os digitos referentes as grandezas de tempo e converte para milisegundos
+*/
+int getMilisegundos(int digitos[7]){
+    return digitos[0]+ (digitos[1]*10) + (digitos[2] * 100)+
+            (digitos[3]*1000) +  (digitos[4]*10000) +
+            ( digitos[5]+digitos[6]*10) *60000;
 }
