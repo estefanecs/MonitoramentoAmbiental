@@ -1,3 +1,11 @@
+/*
+ ============================================================================
+ Name        : Conversao analogica-digtal através do potenciometro
+ Author      : Giovanni Bauermeister
+ Description : Read analog values from potentiometer using ADS1115 and prints to terminal
+ ============================================================================
+ */
+
 #include <wiringPi.h>
 #include <stdio.h>
 #include <stdlib.h>
