@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <unistd.h>
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include "ads1115_rpi.h"
+
 #define MAXTIMINGS	85
 #define DHTPIN		0 // Usa a GPIO 17 se no WiringPiSetup
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
@@ -66,17 +72,34 @@ void read_dht11_dat()
 		//printf( "Data not good, skip\n" );
 	}
 }
- 
+
+float medidaLuminosidade(){
+	float volts = readVoltage(0); //Potenciometro do canal 0
+	float luminosidade;
+	luminosidade = (65535 * volts)/3.3; //65535LUX é o valor máximo lido pelo sensor simulado
+	return luminosidade;
+}
+
+float medidaPressao(){
+	float volts = readVoltage(3); //Potenciometro do canal 3
+	float pressao;
+	pressao = (1100 * volts)/3.3; //1100pHa é o valor máximo lido pelo sensor simulado
+	return pressao;	
+}
+
 int main( void )
 {
-	printf( "Sensor DHT11 - Raspberry Pi Zero\n" );
- 
 	if ( wiringPiSetup() == -1 )
 		exit( 1 );
- 
+ 	if(openI2CBus("/dev/i2c-1") == -1){
+		return EXIT_FAILURE;
+	}
+	setI2CSlave(0x48);
 	while ( 1 )
 	{
-		read_dht11_dat();
+		read_dht11_dat(); //Ler o sensor DHT11
+		printf("CH_0 = %.2f V | ", medidaLuminosidade()); //Ler o sensor de Luminosidade
+		printf("CH_3 = %.2f V \n",medidaPressao()); //Ler o sensor de Pressao atmosferica
 	}
  
 	return(0);
