@@ -6,15 +6,14 @@
 #include <linux/i2c-dev.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
-
 #include "ads1115_rpi.h"
 /* Define configurações do LCD*/
 
 #define LCD_Rows 2
 #define LCD_Cols  16
 #define LCD_bits  4
-#define LCD_RS	6
-#define LCD_E 	31
+#define LCD_RS  6
+#define LCD_E   31
 #define LCD_D0 26
 #define LCD_D1 27
 #define LCD_D2 28
@@ -44,12 +43,14 @@
 #define ES_TIME   9
 
 /* prototipos de função*/
-void leitura(float *umidade,float *pressao);
+void leitura(float *luminosidade,float *pressao);
 
 
 int main(void){
-    int lcd;
-    wiringPiSetup();
+
+    int lcd;         // variavel para o display LCD
+    wiringPiSetup(); // configuração do wiringPi
+
     // define os botões como entradas
     pinMode(B0,INPUT);
     pinMode(B1,INPUT);
@@ -57,14 +58,23 @@ int main(void){
 
     //variavel do estado
     int estado=0;
+
     // chama a função que confira os pinos do display LCD
     lcd = lcdInit(LCD_Rows,LCD_Cols,LCD_bits,LCD_RS,LCD_E,LCD_D0,LCD_D1,LCD_D2,LCD_D3,LCD_D4,LCD_D5,LCD_D6,LCD_D7);
-    lcdClear(lcd);
+    lcdClear(lcd); // limpa o display
+
     // variveis do estado do botão
     int b0,b1,b2;
     b0=b1=b2=0; // inicializa os botões com 0
+
     // leitura
-    float pressao,umidade;
+    float pressao,luminosidade,temperatura,umidade;
+
+    // variavel de controle do tempo
+    int digitos_medicao[7] ={0};
+    int tempo_medicao = 300000;
+    int idx =0;
+    
     // variaveis auxiliares;
     int idx_historico =0; // variavel que controla a disposição do menu dos historico
     int H_temperaturas[10]={0};
@@ -72,7 +82,7 @@ int main(void){
     int H_pressao[10]={0};
     int H_luminosidade[10]={0};
 
-    float umidade,pressao;
+   
 
     // strings de texto
     char menu[5][16] = {"TEMPERATURA","UMIDADE","PRESSAO","LUMINOSIDADE","TEMPO LEITURA"};
@@ -85,11 +95,11 @@ int main(void){
         }
         setI2CSlave(0x48);  // configura o endereço do ad1115 como slave
 
-    	do{
+        do{
             /* Realiza leitura dos botões*/
-    		b0 = digitalRead(B0); // botão pressionado tem como leitura um nivél logico baixo
-    		b1 = digitalRead(B1); // botão solto tem como leitura um nivél logico alto
-    		b2 = digitalRead(B2);
+            b0 = digitalRead(B0); // botão pressionado tem como leitura um nivél logico baixo
+            b1 = digitalRead(B1); // botão solto tem como leitura um nivél logico alto
+            b2 = digitalRead(B2);
 
             /*Limpa o display Lcd a cada execução vez*/
              lcdClear(lcd);
@@ -102,110 +112,111 @@ int main(void){
             |   b1 é usado para função_1 de cada menu e submenu
             |   b2 éusado para função_2 de cada menu e submenu
             */
-    		switch(estado){
-    			case ES_MENU0:	// Estado Menu inicial exibindo opções de temperatura e historico de Temperatura
+            switch(estado){
+                case ES_MENU0:  // Estado Menu inicial exibindo opções de temperatura e historico de Temperatura
                     /*Imprime no Display as informações do menu atual*/
-    				lcdPosition(lcd,0,0);
-    				lcdPuts(lcd,menu[0]);
-    				lcdPosition(lcd,0,1);
-    				lcdPuts(lcd,"-->Historico");
+                    lcdPosition(lcd,0,0);
+                    lcdPuts(lcd,menu[0]);
+                    lcdPosition(lcd,0,1);
+                    lcdPuts(lcd,"-->Historico");
 
-    				/*LOGICA DE MUDANÇA DE ESTADO*/
-    				if(!b1){	  // Botão que seleciona primeira opção apertado
-    					estado=ES_HTEMP; //  Alterna para Historico de medições
-    				}
-    				if(!b0){	  //Botão de alternar Menu pressionado
-    					estado=ES_MENU1; // Alterna para proxima opção do Menu
-    				}
-    			break;
+                    /*LOGICA DE MUDANÇA DE ESTADO*/
+                    if(!b1){      // Botão que seleciona primeira opção apertado
+                        estado=ES_HTEMP; //  Alterna para Historico de medições
+                    }
+                    if(!b0){      //Botão de alternar Menu pressionado
+                        estado=ES_MENU1; // Alterna para proxima opção do Menu
+                    }
+                break;
 
-    			case ES_MENU1:	// Estado Menu inicial exibindo opções de Umidade e historico de Umidade
+                case ES_MENU1:  // Estado Menu inicial exibindo opções de Umidade e historico de Umidade
                     /*Imprime no Display as informações do menu atual*/
-    				lcdPosition(lcd,0,0);
-    				lcdPuts(lcd,menu[1]);
-    				lcdPosition(lcd,0,1);
-    				lcdPuts(lcd,"-->Historico");
+                    lcdPosition(lcd,0,0);
+                    lcdPuts(lcd,menu[1]);
+                    lcdPosition(lcd,0,1);
+                    lcdPuts(lcd,"-->Historico");
 
-    				/*LOGICA DE MUDANÇA DE ESTADO*/
-    				if(!b1){	  // Botão que seleciona primeira opção apertado
-    					estado=ES_HUMID; //  Alterna para Historico de medições
-    				}
-    				if(!b0){	  //Botão de alternar Menu pressionado
-    					estado=ES_MENU2; // Alterna para proxima opção do Menu
-    				}
-    			break;
+                    /*LOGICA DE MUDANÇA DE ESTADO*/
+                    if(!b1){      // Botão que seleciona primeira opção apertado
+                        estado=ES_HUMID; //  Alterna para Historico de medições
+                    }
+                    if(!b0){      //Botão de alternar Menu pressionado
+                        estado=ES_MENU2; // Alterna para proxima opção do Menu
+                    }
+                break;
 
-                case ES_MENU2:	// Estado Menu inicial exibindo opções de Pressao e historico de Pressao
+                case ES_MENU2:  // Estado Menu inicial exibindo opções de Pressao e historico de Pressao
                     /*Imprime no Display as informações do menu atual*/
-    				lcdPosition(lcd,0,0);
-    				lcdPuts(lcd,menu[2]);
-    				lcdPosition(lcd,0,1);
-    				lcdPuts(lcd,"-->Historico");
+                    lcdPosition(lcd,0,0);
+                    lcdPuts(lcd,menu[2]);
+                    lcdPosition(lcd,0,1);
+                    lcdPuts(lcd,"-->Historico");
 
-    				/*LOGICA DE MUDANÇA DE ESTADO*/
-    				if(!b1){	  // Botão que seleciona primeira opção apertado
-    					estado=ES_HPRES; //  Alterna para Historico de medições
-    				}
-    				if(!b0){	  //Botão de alternar Menu pressionado
-    					estado=ES_MENU3; // Alterna para proxima opção do Menu
-    				}
-    			break;
+                    /*LOGICA DE MUDANÇA DE ESTADO*/
+                    if(!b1){      // Botão que seleciona primeira opção apertado
+                        estado=ES_HPRES; //  Alterna para Historico de medições
+                    }
+                    if(!b0){      //Botão de alternar Menu pressionado
+                        estado=ES_MENU3; // Alterna para proxima opção do Menu
+                    }
+                break;
 
-    			case ES_MENU3:	// Estado Menu inicial exibindo opções de Luminosidade e historico de Luminosidade
+                case ES_MENU3:  // Estado Menu inicial exibindo opções de Luminosidade e historico de Luminosidade
                     /*Imprime no Display as informações do menu atual*/
-    				lcdPosition(lcd,0,0);
-    				lcdPuts(lcd,menu[3]);
-    				lcdPosition(lcd,0,1);
-    				lcdPuts(lcd,"-->Historico");
+                    lcdPosition(lcd,0,0);
+                    lcdPuts(lcd,menu[3]);
+                    lcdPosition(lcd,0,1);
+                    lcdPuts(lcd,"-->Historico");
 
-    				/*LOGICA DE MUDANÇA DE ESTADO*/
-    				if(!b1){	  // Botão que seleciona primeira opção apertado
-    					estado=ES_HUMID; //  Alterna para Historico de medições
-    				}
-    				if(!b0){	  //Botão de alternar Menu pressionado
-    					estado=ES_MENU4; // Alterna para proxima opção do Menu
-    				}
-    			break;
+                    /*LOGICA DE MUDANÇA DE ESTADO*/
+                    if(!b1){      // Botão que seleciona primeira opção apertado
+                        estado=ES_HUMID; //  Alterna para Historico de medições
+                    }
+                    if(!b0){      //Botão de alternar Menu pressionado
+                        estado=ES_MENU4; // Alterna para proxima opção do Menu
+                    }
+                break;
 
-    			case ES_MENU4:	// Estado Menu inicial exibindo opções de Tempo e alterar tempo
+                case ES_MENU4:  // Estado Menu inicial exibindo opções de Tempo e alterar tempo
                     /*Imprime no Display as informações do menu atual*/
-    				lcdPosition(lcd,0,0);
-    				lcdPuts(lcd,menu[4]);
-    				lcdPosition(lcd,0,1);
-    				lcdPuts(lcd,"->Alterar tempo");
+                    lcdPosition(lcd,0,0);
+                    lcdPuts(lcd,menu[4]);
+                    lcdPosition(lcd,0,1);
+                    lcdPuts(lcd,"->Alterar tempo");
 
-    				/*LOGICA DE MUDANÇA DE ESTADO*/
-    				if(!b1){	  // Botão que seleciona primeira opção apertado
-    					estado=ES_TIME; //  Alterna para Historico de medições
-    				}
-    				if(!b0){	  //Botão de alternar Menu pressionado
-    					estado=ES_MENU0; // Alterna para proxima opção do Menu
-    				}
-    			break;
+                    /*LOGICA DE MUDANÇA DE ESTADO*/
+                    if(!b1){      // Botão que seleciona primeira opção apertado
+                        estado=ES_TIME; //  Alterna para Historico de medições
+                        idx=0;
+                    }
+                    if(!b0){      //Botão de alternar Menu pressionado
+                        estado=ES_MENU0; // Alterna para proxima opção do Menu
+                    }
+                break;
 
                 case ES_HTEMP:
                     /*Imprime no Display as informações do menu atual*/
-    				lcdPosition(lcd,0,0);
-    				lcdPrintf(lcd,"%d-%d", idx_historico+1,H_temperaturas[idx_historico]);
-    				lcdPosition(lcd,0,1);
-    				lcdPrintf(lcd,"%d-%d" ,idx_historico+2,H_temperaturas[idx_historico+1]);
+                    lcdPosition(lcd,0,0);
+                    lcdPrintf(lcd,"%d-%d", idx_historico+1,H_temperaturas[idx_historico]);
+                    lcdPosition(lcd,0,1);
+                    lcdPrintf(lcd,"%d-%d" ,idx_historico+2,H_temperaturas[idx_historico+1]);
 
-    				/*LOGICA DE MUDANÇA DE ESTADO*/
-    				if(!b1){	  // Botão que seleciona primeira opção apertado
-    					estado=ES_MENU0;  // Alterna para Menu anterior
-    					idx_historico=0;  // reseta o indice do historico
-    				}
-    				/*Logica adicional para configuração do menu*/
-    				if(!b0){	  //Botão de alternar Menu pressionado
-                        		if(idx_historico==8)
-                        			idx_historico=0;
-                        		else
-                        			idx_historico+=2;
-    				}
+                    /*LOGICA DE MUDANÇA DE ESTADO*/
+                    if(!b1){      // Botão que seleciona primeira opção apertado
+                        estado=ES_MENU0;  // Alterna para Menu anterior
+                        idx_historico=0;  // reseta o indice do historico
+                    }
+                    /*Logica adicional para configuração do menu*/
+                    if(!b0){      //Botão de alternar Menu pressionado
+                                if(idx_historico==8)
+                                    idx_historico=0;
+                                else
+                                    idx_historico+=2;
+                    }
                 break;
 
                 case ES_HUMID:
-                	/*Imprime no Display as informações do menu atual*/
+                    /*Imprime no Display as informações do menu atual*/
                     lcdPosition(lcd,0,0);
                     lcdPrintf(lcd,"%d-%d", idx_historico+1,H_umidades[idx_historico]);
                     lcdPosition(lcd,0,1);
@@ -255,7 +266,7 @@ int main(void){
 
                     /*LOGICA DE MUDANÇA DE ESTADO*/
                     if(!b1){      // Botão que seleciona primeira opção apertado
-                        estado=ES_MENU3; // Alterna para Menu anterior
+                        estado= ES_MENU3; // Alterna para Menu anterior
                         idx_historico=0; // reseta o indice do historico
                     }
                     /*Logica adicional para configuração do menu*/
@@ -268,15 +279,34 @@ int main(void){
                 break;
 
                 case ES_TIME:
+                     /*Imprime no Display as informações do menu atual*/
+                    lcdPosition(lcd,0,0);
+                    lcdPrintf(lcd,"%d%d:",digitos_medicao[6],digitos_medicao[5]);
+                    lcdPosition(lcd,3,0);
+                    lcdPrintf(lcd,"%d%d:",digitos_medicao[4],digitos_medicao[3]);
+                    lcdPosition(lcd,6,0);
+                    lcdPrintf(lcd,"%d%d%d",digitos_medicao[2],digitos_medicao[1],digitos_medicao[0]);
+                    lcdPosition(lcd,0,1);
+                    lcdPrintf(lcd,"Digito:%d",idx+1);
+
+                    if(!b1){    // Incrementa o digito
+                        tempo_medicao[idx] == 9 ? idx=0: tempo_medicao[idx]++;  
+                    }
+                    if(!b2){    // Sai do menu de alterar tempo
+                        estado = ES_MENU3;
+                    }
+                    if(!b0){    // Alterna o digito
+                        idx ==5 ? idx=0:idx++;
+                    }
                 break;
-    			default: break;
-    		}
-    		delay(500);
-    	}while(TRUE);
+                default: break;
+            }
+            delay(500);
+        }while(TRUE);
     return 0;
 }
 
-void leitura(float *umidade,float *pressao);{
-        *umidade= readVoltage(0);
+void leitura(float *luminosidade,float *pressao){
+        *luminosidade= readVoltage(0);
         *pressao= readVoltage(3);
 }
