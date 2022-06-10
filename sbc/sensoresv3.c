@@ -13,6 +13,7 @@
 //#include <MQTTClient.h>
 #define MAXTIMINGS	85
 #define DHTPIN		0 // Usa a GPIO 17 se no WiringPiSetup
+#define TIMEOUT_DHT11 20
 /* Define configurações do LCD*/
 
 #define LCD_Rows 2
@@ -115,7 +116,7 @@ int main( void ){
 void leitura_dht11(char *temperatura, char *umidade){
 
     int leu = 0;
-    
+    int Timeout = 0;
     do{
         char umidade2[10]; //armazena a segunda parte do valor de umidade
         char temperatura2[10]; //armazena a segunda parte do valor de temperatura
@@ -176,9 +177,10 @@ void leitura_dht11(char *temperatura, char *umidade){
 
         }else  {
             leu = 0;
-            delay( 1000 ); 
+            Timeout ++;
+            delay( 500 ); 
         }
-    }while(leu == 0);
+    }while(leu == 0 && Timeout < TIMEOUT_DHT11);
 	
 }
 
