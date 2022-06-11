@@ -12,6 +12,7 @@
 
 #define MAXTIMINGS	85
 #define DHTPIN		0 // Usa a GPIO 17 se no WiringPiSetup
+#define MAX 10 // tamanho do vetor de leituras
 /* Define configurações do LCD*/
 
 #define LCD_Rows 2
@@ -47,8 +48,20 @@
 #define ES_HLUMI  8
 #define ES_TIME   9
 
-//Variaveis globais
+/*Variaveis globais */
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
+
+typedef struct Dados{   // Dados de leituras
+    int lumi;
+    int press;
+    float temp;
+    float umi;
+}Dados;
+Dados historico[MAX];
+/* variaveis de controle da lista do historico */
+int L=-1;
+int O=-1
+
 
 /* prototipos de função*/
 
@@ -57,7 +70,8 @@ void leitura_dht11(char *temperatura, char *umidade); //Leitura do DHT11
 long int maps(long int in, long int in_min,long int in_max, long int out_min, long int out_max);
 float fmap(float in, float in_min,float in_max, float out_min, float out_max);
 int getMilisegundos(int digitos[7]);
-
+void getOrdenada(Dados v[MAX]); 
+void add(int lum, int press, float temp , float umi);
 
 int main(void){
 
@@ -460,4 +474,54 @@ long int maps(long int in, long int in_min,long int in_max, long int out_min, lo
 */
 float fmap(float in, float in_min,float in_max, float out_min, float out_max){
     return (in- in_min) * (out_max- out_min) / (in_max - in_min) + out_min;
+}
+
+/*
+|   add Insere um novo item na vetor do historico
+|   quando a lista possuir 10 itens o item mais antigo
+|   é sobrescrito
+*/
+void add(int lum, int press, float temp , float umi){
+    if(L== -1){     // se a lista está vazia
+            L=0;    // Medição mais recente é na primeira posição
+            O=0;    // medição mais antiga é na primeira popsição
+
+            //Insere os novos itens
+            historico[L].lumi= lum;
+            historico[L].press= press;
+            historico[L].temp= temp;
+            historico[L].umi= umi;
+        }
+        else{
+            if(L == MAX-1){
+                L=0;
+                O++;
+            }
+            else if(L<O){
+                L++;
+                O++;
+            }
+            else
+                L++;
+            // Insere Elementos
+            historico[L].lumi= lum;
+            historico[L].press= press;
+            historico[L].temp= temp;
+            historico[L].umi= umi;
+        }
+}
+
+/*
+|   Cria um vetor ordenado da medição mais recente para a mais antiga
+*/
+void getOrdenada(Dados v[MAX]){
+    int i,idx;
+    idx= L;
+    for(i=0;i<MAX;i++){
+        d[i]=hist[idx];
+        if(idx !=O && idx ==0)
+            idx= MAX-1;
+        else
+            idx--;
+    }
 }
