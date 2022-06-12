@@ -41,53 +41,21 @@ public class Historico extends javax.swing.JFrame implements Runnable {
         jLabel1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         temperaturaLabel = new javax.swing.JLabel();
-        temperatura1 = new javax.swing.JLabel();
-        temperatura4 = new javax.swing.JLabel();
-        temperatura2 = new javax.swing.JLabel();
-        temperatura3 = new javax.swing.JLabel();
-        temperatura5 = new javax.swing.JLabel();
-        temperatura6 = new javax.swing.JLabel();
-        temperatura7 = new javax.swing.JLabel();
-        temperatura9 = new javax.swing.JLabel();
-        temperatura8 = new javax.swing.JLabel();
-        temperatura10 = new javax.swing.JLabel();
-        voltar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        historicoTemperatura = new javax.swing.JTextPane();
         jPanel8 = new javax.swing.JPanel();
         umidadeLabel1 = new javax.swing.JLabel();
-        umidade1 = new javax.swing.JLabel();
-        umidade4 = new javax.swing.JLabel();
-        umidade2 = new javax.swing.JLabel();
-        umidade3 = new javax.swing.JLabel();
-        umidade5 = new javax.swing.JLabel();
-        umidade6 = new javax.swing.JLabel();
-        umidade7 = new javax.swing.JLabel();
-        umidade9 = new javax.swing.JLabel();
-        umidade8 = new javax.swing.JLabel();
-        umidade10 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        historicoUmidade = new javax.swing.JTextPane();
         jPanel9 = new javax.swing.JPanel();
         pressaoLabel = new javax.swing.JLabel();
-        umidade20 = new javax.swing.JLabel();
-        pressao4 = new javax.swing.JLabel();
-        pressao2 = new javax.swing.JLabel();
-        pressao3 = new javax.swing.JLabel();
-        pressao5 = new javax.swing.JLabel();
-        pressao6 = new javax.swing.JLabel();
-        pressao7 = new javax.swing.JLabel();
-        pressao9 = new javax.swing.JLabel();
-        pressao8 = new javax.swing.JLabel();
-        pressao10 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        historicoPressao = new javax.swing.JTextPane();
         jPanel13 = new javax.swing.JPanel();
         luminosidadeLabel = new javax.swing.JLabel();
-        luminosidade1 = new javax.swing.JLabel();
-        luminosidade4 = new javax.swing.JLabel();
-        luminosidade2 = new javax.swing.JLabel();
-        luminosidade3 = new javax.swing.JLabel();
-        luminosidade5 = new javax.swing.JLabel();
-        luminosidade6 = new javax.swing.JLabel();
-        luminosidade7 = new javax.swing.JLabel();
-        luminosidade9 = new javax.swing.JLabel();
-        luminosidade8 = new javax.swing.JLabel();
-        luminosidade10 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        historicoLuminosidade = new javax.swing.JTextPane();
+        voltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,45 +73,9 @@ public class Historico extends javax.swing.JFrame implements Runnable {
         temperaturaLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         temperaturaLabel.setText("TEMPERATURA");
 
-        temperatura1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        temperatura1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        temperatura1.setText("0");
-
-        temperatura4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        temperatura4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        temperatura4.setText("0");
-
-        temperatura2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        temperatura2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        temperatura2.setText("0");
-
-        temperatura3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        temperatura3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        temperatura3.setText("0");
-
-        temperatura5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        temperatura5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        temperatura5.setText("0");
-
-        temperatura6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        temperatura6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        temperatura6.setText("0");
-
-        temperatura7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        temperatura7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        temperatura7.setText("0");
-
-        temperatura9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        temperatura9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        temperatura9.setText("0");
-
-        temperatura8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        temperatura8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        temperatura8.setText("0");
-
-        temperatura10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        temperatura10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        temperatura10.setText("0");
+        historicoTemperatura.setBorder(null);
+        historicoTemperatura.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jScrollPane2.setViewportView(historicoTemperatura);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -152,65 +84,18 @@ public class Historico extends javax.swing.JFrame implements Runnable {
             .addComponent(temperaturaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(temperatura1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(temperatura10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(temperatura9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(temperatura4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(temperatura8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(temperatura7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(temperatura6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(temperatura5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(temperatura3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2)
                 .addContainerGap())
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(temperatura2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(temperaturaLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(temperatura1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(temperatura3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(temperatura4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(temperatura5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(temperatura6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(temperatura7, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(temperatura8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(temperatura9, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(temperatura10, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel7Layout.createSequentialGroup()
-                    .addGap(55, 55, 55)
-                    .addComponent(temperatura2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(183, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
-
-        voltar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        voltar.setText("Voltar");
-        voltar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                voltarMouseClicked(evt);
-            }
-        });
-        voltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                voltarActionPerformed(evt);
-            }
-        });
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 51, 255), new java.awt.Color(0, 51, 255), new java.awt.Color(204, 204, 255), new java.awt.Color(51, 102, 255)));
@@ -220,45 +105,10 @@ public class Historico extends javax.swing.JFrame implements Runnable {
         umidadeLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         umidadeLabel1.setText("UMIDADE");
 
-        umidade1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        umidade1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        umidade1.setText("0");
-
-        umidade4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        umidade4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        umidade4.setText("0");
-
-        umidade2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        umidade2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        umidade2.setText("0");
-
-        umidade3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        umidade3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        umidade3.setText("0");
-
-        umidade5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        umidade5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        umidade5.setText("0");
-
-        umidade6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        umidade6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        umidade6.setText("0");
-
-        umidade7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        umidade7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        umidade7.setText("0");
-
-        umidade9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        umidade9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        umidade9.setText("0");
-
-        umidade8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        umidade8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        umidade8.setText("0");
-
-        umidade10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        umidade10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        umidade10.setText("0");
+        historicoUmidade.setBorder(null);
+        historicoUmidade.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        historicoUmidade.setAlignmentX(1.0F);
+        jScrollPane1.setViewportView(historicoUmidade);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -267,51 +117,17 @@ public class Historico extends javax.swing.JFrame implements Runnable {
             .addComponent(umidadeLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(umidade1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(umidade10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(umidade9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(umidade4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(umidade8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(umidade7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(umidade6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(umidade5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(umidade3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
                 .addContainerGap())
-            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel8Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(umidade2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(umidadeLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(umidade1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(umidade3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(umidade4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(umidade5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(umidade6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(umidade7, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(umidade8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(umidade9, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(umidade10, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel8Layout.createSequentialGroup()
-                    .addGap(55, 55, 55)
-                    .addComponent(umidade2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(154, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
@@ -322,98 +138,28 @@ public class Historico extends javax.swing.JFrame implements Runnable {
         pressaoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pressaoLabel.setText("PRESSÃO ATM");
 
-        umidade20.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        umidade20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        umidade20.setText("0");
-
-        pressao4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        pressao4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pressao4.setText("0");
-
-        pressao2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        pressao2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pressao2.setText("0");
-
-        pressao3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        pressao3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pressao3.setText("0");
-
-        pressao5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        pressao5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pressao5.setText("0");
-
-        pressao6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        pressao6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pressao6.setText("0");
-
-        pressao7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        pressao7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pressao7.setText("0");
-
-        pressao9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        pressao9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pressao9.setText("0");
-
-        pressao8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        pressao8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pressao8.setText("0");
-
-        pressao10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        pressao10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pressao10.setText("0");
+        historicoPressao.setBorder(null);
+        historicoPressao.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jScrollPane3.setViewportView(historicoPressao);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pressaoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(umidade20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pressao10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pressao9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pressao4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pressao8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pressao7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pressao6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pressao5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pressao3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane3)
                 .addContainerGap())
-            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel9Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(pressao2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(pressaoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(umidade20, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(pressao3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pressao4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pressao5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pressao6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pressao7, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pressao8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pressao9, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pressao10, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel9Layout.createSequentialGroup()
-                    .addGap(55, 55, 55)
-                    .addComponent(pressao2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(183, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
@@ -424,45 +170,9 @@ public class Historico extends javax.swing.JFrame implements Runnable {
         luminosidadeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         luminosidadeLabel.setText("LUMINOSIDADE");
 
-        luminosidade1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        luminosidade1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        luminosidade1.setText("0");
-
-        luminosidade4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        luminosidade4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        luminosidade4.setText("0");
-
-        luminosidade2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        luminosidade2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        luminosidade2.setText("0");
-
-        luminosidade3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        luminosidade3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        luminosidade3.setText("0");
-
-        luminosidade5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        luminosidade5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        luminosidade5.setText("0");
-
-        luminosidade6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        luminosidade6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        luminosidade6.setText("0");
-
-        luminosidade7.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        luminosidade7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        luminosidade7.setText("0");
-
-        luminosidade9.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        luminosidade9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        luminosidade9.setText("0");
-
-        luminosidade8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        luminosidade8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        luminosidade8.setText("0");
-
-        luminosidade10.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        luminosidade10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        luminosidade10.setText("0");
+        historicoLuminosidade.setBorder(null);
+        historicoLuminosidade.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jScrollPane4.setViewportView(historicoLuminosidade);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -471,52 +181,26 @@ public class Historico extends javax.swing.JFrame implements Runnable {
             .addComponent(luminosidadeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(luminosidade1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(luminosidade10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(luminosidade9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(luminosidade4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(luminosidade8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(luminosidade7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(luminosidade6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(luminosidade5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(luminosidade3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane4)
                 .addContainerGap())
-            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel13Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(luminosidade2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(luminosidadeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(luminosidade1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(luminosidade3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(luminosidade4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(luminosidade5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(luminosidade6, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(luminosidade7, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(luminosidade8, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(luminosidade9, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(luminosidade10, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel13Layout.createSequentialGroup()
-                    .addGap(55, 55, 55)
-                    .addComponent(luminosidade2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(183, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
+
+        voltar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        voltar.setText("Voltar");
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -535,8 +219,8 @@ public class Historico extends javax.swing.JFrame implements Runnable {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(20, 20, 20)
+                        .addComponent(voltar)))
                 .addGap(0, 14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -550,9 +234,9 @@ public class Historico extends javax.swing.JFrame implements Runnable {
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59))
+                .addGap(52, 52, 52)
+                .addComponent(voltar)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -573,76 +257,67 @@ public class Historico extends javax.swing.JFrame implements Runnable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void voltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_voltarMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_voltarMouseClicked
-
     private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
-        this.setVisible(false);
-        
+       this.setVisible(false);
     }//GEN-LAST:event_voltarActionPerformed
 
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane historicoLuminosidade;
+    private javax.swing.JTextPane historicoPressao;
+    private javax.swing.JTextPane historicoTemperatura;
+    private javax.swing.JTextPane historicoUmidade;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JLabel luminosidade1;
-    private javax.swing.JLabel luminosidade10;
-    private javax.swing.JLabel luminosidade2;
-    private javax.swing.JLabel luminosidade3;
-    private javax.swing.JLabel luminosidade4;
-    private javax.swing.JLabel luminosidade5;
-    private javax.swing.JLabel luminosidade6;
-    private javax.swing.JLabel luminosidade7;
-    private javax.swing.JLabel luminosidade8;
-    private javax.swing.JLabel luminosidade9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel luminosidadeLabel;
-    private javax.swing.JLabel pressao10;
-    private javax.swing.JLabel pressao2;
-    private javax.swing.JLabel pressao3;
-    private javax.swing.JLabel pressao4;
-    private javax.swing.JLabel pressao5;
-    private javax.swing.JLabel pressao6;
-    private javax.swing.JLabel pressao7;
-    private javax.swing.JLabel pressao8;
-    private javax.swing.JLabel pressao9;
     private javax.swing.JLabel pressaoLabel;
-    private javax.swing.JLabel temperatura1;
-    private javax.swing.JLabel temperatura10;
-    private javax.swing.JLabel temperatura2;
-    private javax.swing.JLabel temperatura3;
-    private javax.swing.JLabel temperatura4;
-    private javax.swing.JLabel temperatura5;
-    private javax.swing.JLabel temperatura6;
-    private javax.swing.JLabel temperatura7;
-    private javax.swing.JLabel temperatura8;
-    private javax.swing.JLabel temperatura9;
     private javax.swing.JLabel temperaturaLabel;
-    private javax.swing.JLabel umidade1;
-    private javax.swing.JLabel umidade10;
-    private javax.swing.JLabel umidade2;
-    private javax.swing.JLabel umidade20;
-    private javax.swing.JLabel umidade3;
-    private javax.swing.JLabel umidade4;
-    private javax.swing.JLabel umidade5;
-    private javax.swing.JLabel umidade6;
-    private javax.swing.JLabel umidade7;
-    private javax.swing.JLabel umidade8;
-    private javax.swing.JLabel umidade9;
     private javax.swing.JLabel umidadeLabel1;
     private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void run() {
+        int i, j, t, z;
+        String umidades, temperaturas, luminosidades, pressoes;
         while (true) {
-           
-
+            //Histórico de umidade
+            umidades = "";
+            historicoUmidade.setText(null);
+            for (i = 0; i < controlador.getUmidades().size(); i++) {
+                umidades = umidades.concat(controlador.getUmidades().get(i) + "\n");
+            }
+            historicoUmidade.setText(umidades);
+            //Histórico de temperatura
+            temperaturas = "";
+            historicoTemperatura.setText(null);
+            for (j = 0; j < controlador.getTemperaturas().size(); j++) {
+                temperaturas = temperaturas.concat(controlador.getTemperaturas().get(j)+ "\n");
+            }
+            historicoTemperatura.setText(temperaturas);
+            //Histórico de luminosidade
+            luminosidades = "";
+            historicoLuminosidade.setText(null);
+            for (t = 0; t < controlador.getLuminosidades().size(); t++) {
+                luminosidades = luminosidades.concat(controlador.getLuminosidades().get(t)+ "\n");
+            }
+            historicoLuminosidade.setText(luminosidades);
+            //Histórico de pressao atmosferica
+            pressoes = "";
+            historicoPressao.setText(null);
+            for (z = 0; z < controlador.getPressoes().size(); z++) {
+                pressoes = pressoes.concat(controlador.getPressoes().get(z)+ "\n");
+            }
+            historicoPressao.setText(pressoes);
         }
     }
 
