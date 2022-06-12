@@ -21,7 +21,7 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
     public MonitoramentoSensores() {
         initComponents();
         this.setLocationRelativeTo(null);
-        controlador = new ControladorDados();
+        controlador = ControladorDados.getInstancia();
         umidade.setText("35");
         luminosidade.setText("44" + " mmHg");
         temperatura.setText("45" + " mpm");

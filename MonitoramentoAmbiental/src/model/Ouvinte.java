@@ -44,7 +44,7 @@ public class Ouvinte implements IMqttMessageListener {
     @Override
     public void messageArrived(String topic, MqttMessage mm) throws Exception {
         String mensagem = new String(mm.getPayload());
-        System.out.println("Dado lido: " + mensagem); //Print a nível de controle
+        System.out.println("Dado lido no tópico: "+topic+": "+mensagem);
         switch (topic) {
             case "monitoramentoAmbiental/temperatura":
                 dados.setTemperatura(mensagem);
@@ -61,6 +61,34 @@ public class Ouvinte implements IMqttMessageListener {
             case "monitoramentoAmbiental/tempo":
                 dados.setTempo(mensagem);
                 break;
+            case "monitoramentoAmbiental/historicoTemperatura":
+                String[] temperaturas= mensagem.split(":"); //Separa a string de dados
+                dados.getTemperaturas().clear();
+                for(int i =0; i<temperaturas.length; i++){
+                    dados.getTemperaturas().add(temperaturas[i]);
+                }
+                break;  
+            case "monitoramentoAmbiental/historicoUmidade":
+                 String[] umidades= mensagem.split(":"); //Separa a string de dados
+                 dados.getUmidades().clear();
+                for(int i =0; i<umidades.length; i++){
+                    dados.getUmidades().add(umidades[i]);
+                }
+                break;  
+            case "monitoramentoAmbiental/historicoLuminosidade":
+                 String[] luminosidades= mensagem.split(":"); //Separa a string de dados
+                 dados.getLuminosidades().clear();
+                for(int i =0; i<luminosidades.length; i++){
+                    dados.getLuminosidades().add(luminosidades[i]);
+                }
+                break;  
+            case "monitoramentoAmbiental/historicoPressao":
+                 String[] pressoes= mensagem.split(":"); //Separa a string de dados
+                 dados.getPressoes().clear();
+                 for(int i=0; i<pressoes.length;i++){
+                     dados.getPressoes().add(pressoes[i]);
+                 }
+                break;  
             default:
                 System.out.println("Tópico não encontrado");
                 break;

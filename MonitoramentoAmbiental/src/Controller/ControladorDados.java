@@ -1,5 +1,6 @@
 package Controller;
 
+import java.util.ArrayList;
 import model.DadoSensores;
 import model.Editor;
 import model.Ouvinte;
@@ -8,8 +9,9 @@ public class ControladorDados {
 
     private DadoSensores dados; //Armazena os dados ouvidos do broker
     private Editor publicador; //ClienteMQTT do tipo editor
+    private static ControladorDados instancia;
 
-    public ControladorDados() {
+    private ControladorDados() {
         dados = DadoSensores.getInstancia();
         publicador = new Editor("tcp://broker.mqttdashboard.com:1883"); //Cria o publicador, passando o endereço do broker
         publicador.iniciar();
@@ -19,8 +21,19 @@ public class ControladorDados {
         Ouvinte ouvinteLuminosidade = new Ouvinte(null, null, "monitoramentoAmbiental/luminosidade", 2);
         Ouvinte ouvintePressao = new Ouvinte(null, null, "monitoramentoAmbiental/pressao", 2);
         Ouvinte ouvinteTempo = new Ouvinte(null, null, "monitoramentoAmbiental/tempo", 2);
+        Ouvinte ouvinteTemperaturas = new Ouvinte(null, null, "monitoramentoAmbiental/historicoTemperatura", 2);
+        Ouvinte ouvinteUmidades = new Ouvinte(null, null, "monitoramentoAmbiental/historicoUmidade", 2);
+        Ouvinte ouvinteLuminosidades = new Ouvinte(null, null, "monitoramentoAmbiental/historicoLuminosidade", 2);
+        Ouvinte ouvintePressoes = new Ouvinte(null, null, "monitoramentoAmbiental/historicoPressao", 2);
     }
-
+    
+    public static synchronized ControladorDados getInstancia() {
+        if (instancia == null) {
+            instancia = new ControladorDados();
+        }
+        return instancia;
+    }
+        
     /**
      * Método que publica no broker, o intervalo de tempo entre as medidas
      *
@@ -74,5 +87,40 @@ public class ControladorDados {
     public String getTempo() {
         return dados.getTempo();
     }
+   
+        /**
+     * Método que retorna a lista contendo o histórico da temperatura
+     *
+     * @return temperaturas
+     */
+    public ArrayList<String> getTemperaturas() {
+        return dados.getTemperaturas();
+    }
 
+    /**
+     * Método que retorna a lista contendo o histórico da luminosidade
+     *
+     * @return luminosidades
+     */
+    public ArrayList<String> getLuminosidades() {
+        return dados.getLuminosidades();
+    }
+
+    /**
+     * Método que retorna a lista contendo o histórico da pressao atmosferica
+     *
+     * @return pressoes
+     */
+    public ArrayList<String> getPressoes() {
+         return dados.getPressoes();
+    }
+
+    /**
+     * Método que retorna a lista contendo o histórico da umidade
+     *
+     * @return umidades
+     */
+    public ArrayList<String> getUmidades() {
+        return dados.getUmidades();
+    }
 }

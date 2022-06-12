@@ -22,18 +22,11 @@ public class Historico extends javax.swing.JFrame implements Runnable {
     public Historico() {
         initComponents();
         this.setLocationRelativeTo(null);
-        controlador = new ControladorDados();
+        controlador = ControladorDados.getInstancia();;
         
         Thread t = new Thread(this);
         t.start();
 
-    }
-     //Método que atualiza os 7 pacientes graves na tela
-    public void atualizarPacientesGraves(){
-       //Limpa os labels
-       temperatura1.setText("HELLLOOOO\nATATAATTATA\nATATAT");
-       //Se existir pacienest graves, altera cada label para o nome do paciente
-       
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -594,9 +587,6 @@ public class Historico extends javax.swing.JFrame implements Runnable {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -633,46 +623,13 @@ public class Historico extends javax.swing.JFrame implements Runnable {
     private javax.swing.JLabel temperatura8;
     private javax.swing.JLabel temperatura9;
     private javax.swing.JLabel temperaturaLabel;
-    private javax.swing.JLabel temperaturaLabel2;
-    private javax.swing.JLabel temperaturaLabel3;
-    private javax.swing.JLabel temperaturaLabel4;
     private javax.swing.JLabel umidade1;
     private javax.swing.JLabel umidade10;
     private javax.swing.JLabel umidade2;
     private javax.swing.JLabel umidade20;
     private javax.swing.JLabel umidade3;
-    private javax.swing.JLabel umidade30;
-    private javax.swing.JLabel umidade31;
-    private javax.swing.JLabel umidade32;
-    private javax.swing.JLabel umidade33;
-    private javax.swing.JLabel umidade34;
-    private javax.swing.JLabel umidade35;
-    private javax.swing.JLabel umidade36;
-    private javax.swing.JLabel umidade37;
-    private javax.swing.JLabel umidade38;
-    private javax.swing.JLabel umidade39;
     private javax.swing.JLabel umidade4;
-    private javax.swing.JLabel umidade40;
-    private javax.swing.JLabel umidade41;
-    private javax.swing.JLabel umidade42;
-    private javax.swing.JLabel umidade43;
-    private javax.swing.JLabel umidade44;
-    private javax.swing.JLabel umidade45;
-    private javax.swing.JLabel umidade46;
-    private javax.swing.JLabel umidade47;
-    private javax.swing.JLabel umidade48;
-    private javax.swing.JLabel umidade49;
     private javax.swing.JLabel umidade5;
-    private javax.swing.JLabel umidade50;
-    private javax.swing.JLabel umidade51;
-    private javax.swing.JLabel umidade52;
-    private javax.swing.JLabel umidade53;
-    private javax.swing.JLabel umidade54;
-    private javax.swing.JLabel umidade55;
-    private javax.swing.JLabel umidade56;
-    private javax.swing.JLabel umidade57;
-    private javax.swing.JLabel umidade58;
-    private javax.swing.JLabel umidade59;
     private javax.swing.JLabel umidade6;
     private javax.swing.JLabel umidade7;
     private javax.swing.JLabel umidade8;
@@ -683,8 +640,8 @@ public class Historico extends javax.swing.JFrame implements Runnable {
 
     @Override
     public void run() {
-
         while (true) {
+           
 
         }
     }

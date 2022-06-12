@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class DadoSensores {
 
     private static DadoSensores instancia;
@@ -8,11 +10,19 @@ public class DadoSensores {
     private String luminosidade;
     private String pressao;
     private String tempo;
+    private ArrayList<String> umidades;
+    private ArrayList<String> temperaturas;
+    private ArrayList<String> luminosidades;
+    private ArrayList<String> pressoes;
 
     /**
      * Método construtor para a classe DadoSensores
      */
     private DadoSensores() {
+        umidades = new ArrayList<>();
+        temperaturas = new ArrayList<>();
+        luminosidades = new ArrayList<>();
+        pressoes = new ArrayList<>();
     }
 
     public static synchronized DadoSensores getInstancia() {
@@ -110,6 +120,42 @@ public class DadoSensores {
      */
     public void setTempo(String tempo) {
         instancia.tempo = tempo;
+    }
+
+    /**
+     * Método que retorna a lista contendo o histórico da temperatura
+     *
+     * @return temperaturas
+     */
+    public ArrayList<String> getTemperaturas() {
+        return temperaturas;
+    }
+
+    /**
+     * Método que retorna a lista contendo o histórico da luminosidade
+     *
+     * @return luminosidades
+     */
+    public ArrayList<String> getLuminosidades() {
+        return luminosidades;
+    }
+
+    /**
+     * Método que retorna a lista contendo o histórico da pressao atmosferica
+     *
+     * @return pressoes
+     */
+    public ArrayList<String> getPressoes() {
+        return pressoes;
+    }
+
+    /**
+     * Método que retorna a lista contendo o histórico da umidade
+     *
+     * @return umidades
+     */
+    public ArrayList<String> getUmidades() {
+        return umidades;
     }
 
 }
