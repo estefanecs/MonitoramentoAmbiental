@@ -1,0 +1,38 @@
+Baixar o mosquitto pelo github
+	https://github.com/eclipse/mosquitto
+
+Baixar o Uthash pelo github
+	https://github.com/troydhanson/uthash
+
+
+Passar os arquivos SOURCE e INCLUDE do Uthash para as pastas de MESMO NOME dentro do Mosquitto
+
+Entrar na pasta do Mosquitto
+
+sudo make install WITH_TLS=no WITH_CJSON=no WITH_BUNDLED_DEPS=no WITH_DOCS=no
+
+sudo ldconfig // Fazer o sistema reconhecer a nova biblioteca
+
+Broker se encontra na pasta Mosquitto/src
+Sub e Pub se encontra na pasta Mosquitto/client
+libmosquitto se encontra na pastar Mosquitto/lib
+
+------- Links importantes ----------------------------|
+									|
+https://mosquitto.org/api/files/mosquitto-h.html 	|
+									|
+https://mosquitto.org/man/mosquitto-8.html		|
+									|
+https://mosquitto.org/man/mosquitto_pub-1.html		|
+									|
+https://mosquitto.org/man/mosquitto_sub-1.html		|
+									|
+------------------------------------------------------|
+
+------- Comandos de teste (no diretorio client) -------------
+
+
+
+sudo ./mosquitto_sub -t sensors/temperature -q 1
+sudo ./mosquitto_pub -t sensors/temperature -m 32 -q 1
+
