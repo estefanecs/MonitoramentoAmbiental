@@ -29,10 +29,15 @@ https://mosquitto.org/man/mosquitto_sub-1.html		|
 									|
 ------------------------------------------------------|
 
-------- Comandos de teste (no diretorio client) -------------
+------- Comandos de teste (no diretorio client) ------------|
+										|
+-t indica o topico							|
+-q indica o quality of service					|
+-m indica a mensagem a ser enviada					|
+										|
+sudo ./mosquitto_sub -t sensors/temperature -q 1		|
+sudo ./mosquitto_pub -t sensors/temperature -m 32 -q 1	|
+										|
+------------------------------------------------------------|
 
-
-
-sudo ./mosquitto_sub -t sensors/temperature -q 1
-sudo ./mosquitto_pub -t sensors/temperature -m 32 -q 1
-
+Utilizar <mosquitto.h>
