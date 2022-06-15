@@ -348,6 +348,7 @@ void add(int lum, int press, char *temp , char *umi){
     historico[L].press= press;
     strcpy(historico[L].temp,temp);
     strcpy(historico[L].umi,umi);
+    getDataTempo(historico[L].data_hora_atual);
 }
 
 //--------------------------------------------------------------------------
