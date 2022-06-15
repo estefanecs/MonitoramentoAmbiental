@@ -1,6 +1,7 @@
 package Controller;
 
 import java.util.ArrayList;
+import model.ClienteMQTT;
 import model.DadoSensores;
 import model.Editor;
 import model.Ouvinte;
@@ -12,20 +13,25 @@ public class ControladorDados {
     private static ControladorDados instancia;
 
     private ControladorDados() {
-        dados = DadoSensores.getInstancia();
-        publicador = new Editor("tcp://broker.mqttdashboard.com:1883"); //Cria o publicador, passando o endereço do broker
+        dados = DadoSensores.getInstancia();//obtem a instancia da classe DadosSensores
+        //Cria o editor e inicializa a conexao
+        publicador = new Editor("tcp://test.mosquitto.org:1883","aluno", "aluno*123"); //Cria o publicador, passando o endereço do broker
         publicador.iniciar();
+        //Cira o cliente MQTT e inicializa a conexao
+        //ClienteMQTT clienteMQTT = new ClienteMQTT("tcp://10.0.0.101:1883", "aluno", "aluno*123");
+        ClienteMQTT clienteMQTT = new ClienteMQTT("tcp://test.mosquitto.org:1883", "aluno", "aluno*123");
+        clienteMQTT.iniciar();
         //Instancia os ouvintes, que recebe as informações sobre cada sensor.
-        Ouvinte ouvinteTemperatura = new Ouvinte(null, null, "monitoramentoAmbiental/temperatura", 2);
-        Ouvinte ouvinteUmidade = new Ouvinte(null, null, "monitoramentoAmbiental/umidade", 2);
-        Ouvinte ouvinteLuminosidade = new Ouvinte(null, null, "monitoramentoAmbiental/luminosidade", 2);
-        Ouvinte ouvintePressao = new Ouvinte(null, null, "monitoramentoAmbiental/pressao", 2);
-        Ouvinte ouvinteTempo = new Ouvinte(null, null, "monitoramentoAmbiental/tempo", 2);
-        Ouvinte ouvinteTemperaturas = new Ouvinte(null, null, "monitoramentoAmbiental/historicoTemperatura", 2);
-        Ouvinte ouvinteUmidades = new Ouvinte(null, null, "monitoramentoAmbiental/historicoUmidade", 2);
-        Ouvinte ouvinteLuminosidades = new Ouvinte(null, null, "monitoramentoAmbiental/historicoLuminosidade", 2);
-        Ouvinte ouvintePressoes = new Ouvinte(null, null, "monitoramentoAmbiental/historicoPressao", 2);
-    }
+        Ouvinte ouvinteTemperatura = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/temperatura", 2);
+        Ouvinte ouvinteUmidade = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/umidade", 2);
+        Ouvinte ouvinteLuminosidade = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/luminosidade", 2);
+        Ouvinte ouvintePressao = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/pressao", 2);
+        Ouvinte ouvinteTempo = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/tempo", 2);
+        Ouvinte ouvinteTemperaturas = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/historicoTemperatura", 2);
+        Ouvinte ouvinteUmidades = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/historicoUmidade", 2);
+        Ouvinte ouvinteLuminosidades = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/historicoLuminosidade", 2);
+        Ouvinte ouvintePressoes = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/historicoPressao", 2);
+        }
     
     public static synchronized ControladorDados getInstancia() {
         if (instancia == null) {

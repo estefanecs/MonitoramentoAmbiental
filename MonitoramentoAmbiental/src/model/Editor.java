@@ -27,8 +27,10 @@ public class Editor implements MqttCallbackExtended {
     /**
      * Construtor da classe
      * @param servidor - endereco do servidor
+     * @param usuario - Identificador de usu·rio.
+     * @param senha - Senha de conex„o
      */
-    public Editor(String servidor) {
+    public Editor(String servidor, String usuario, String senha) {
         this.servidor = servidor;
 
         mqttOptions = new MqttConnectOptions();
@@ -37,6 +39,11 @@ public class Editor implements MqttCallbackExtended {
         mqttOptions.setKeepAliveInterval(10);
         mqttOptions.setAutomaticReconnect(true);
         mqttOptions.setCleanSession(false);
+        //Configura o usu·rio caso haja.
+        if (usuario != null && senha != null) {
+            mqttOptions.setUserName(usuario);
+            mqttOptions.setPassword(senha.toCharArray());
+        }
     }
     
     /**
@@ -45,7 +52,7 @@ public class Editor implements MqttCallbackExtended {
     public void iniciar() {
         try {
             System.out.println("Conectando ao broker MQTT " + servidor);
-            //Cria o cliente e inciia a conex„o
+            //Cria o cliente e inicia a conex„o
             client = new MqttClient(servidor, String.format("cliente_editor_java_%d", System.currentTimeMillis()), new MqttDefaultFilePersistence(System.getProperty("java.io.tmpdir")));
             client.setCallback(this);
             client.connect(mqttOptions); 
@@ -59,7 +66,7 @@ public class Editor implements MqttCallbackExtended {
      * e estiver conectado com o broker
      */
     public void finalizar() {
-        if (client != null && client.isConnected()) { //Se cliente n√£o for nulo e estiver conectado
+        if (client != null && client.isConnected()) { //Se cliente nao for nulo ou estiver conectado
             try {
                 client.disconnect(); //Disconecta
                 client.close(); 
@@ -101,7 +108,7 @@ public class Editor implements MqttCallbackExtended {
     }
 
      /**
-     * MÈtodo que sinaliza se a conex√£o com o broker foi perdida
+     * MÈtodo que sinaliza se a conexao com o broker foi perdida
      * @param thrwbl 
      */
     @Override

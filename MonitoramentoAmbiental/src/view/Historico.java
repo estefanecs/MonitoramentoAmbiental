@@ -1,24 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import Controller.ControladorDados;
-import java.util.ArrayList;
 
-/**
- *
- * @author estef
- */
 public class Historico extends javax.swing.JFrame implements Runnable {
 
     private ControladorDados controlador;
 
-    /**
-     * Creates new form MonitoramentoSensores
-     */
     public Historico() {
         initComponents();
         this.setLocationRelativeTo(null);

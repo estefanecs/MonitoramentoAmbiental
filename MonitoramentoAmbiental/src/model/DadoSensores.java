@@ -16,7 +16,7 @@ public class DadoSensores {
     private ArrayList<String> pressoes;
 
     /**
-     * Método construtor para a classe DadoSensores
+     * Método construtor privado para a classe DadoSensores
      */
     private DadoSensores() {
         umidades = new ArrayList<>();
@@ -25,6 +25,12 @@ public class DadoSensores {
         pressoes = new ArrayList<>();
     }
 
+    /**
+     * Método que retorna a instância da classe caso exista e cria uma se não
+     * houver instância.
+     *
+     * @return DadoSensores
+     */
     public static synchronized DadoSensores getInstancia() {
         if (instancia == null) {
             instancia = new DadoSensores();
