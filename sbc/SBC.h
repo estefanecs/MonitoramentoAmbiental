@@ -5,7 +5,7 @@
 #define MAXTIMINGS	85
 #define DHTPIN		0 // Usa a GPIO 17 se no WiringPiSetup
 #define MAX 10 
-/* Define configuraÃ§Ãµes do LCD*/
+/* Define configurações do LCD*/
 
 #define LCD_Rows 2
 #define LCD_Cols  16
@@ -21,7 +21,7 @@
 #define LCD_D6  0
 #define LCD_D7  0
 
-/* Define pinos dos botÃµes */
+/* Define pinos dos botões */
 #define B0 21
 #define B1 24
 #define B2 25
