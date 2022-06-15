@@ -15,11 +15,10 @@ public class ControladorDados {
     private ControladorDados() {
         dados = DadoSensores.getInstancia();//obtem a instancia da classe DadosSensores
         //Cria o editor e inicializa a conexao
-        publicador = new Editor("tcp://test.mosquitto.org:1883","aluno", "aluno*123"); //Cria o publicador, passando o endereço do broker
+        publicador = new Editor("tcp://10.0.0.101:1883","aluno", "aluno*123"); //Cria o publicador, passando o endereço do broker
         publicador.iniciar();
-        //Cira o cliente MQTT e inicializa a conexao
-        //ClienteMQTT clienteMQTT = new ClienteMQTT("tcp://10.0.0.101:1883", "aluno", "aluno*123");
-        ClienteMQTT clienteMQTT = new ClienteMQTT("tcp://test.mosquitto.org:1883", "aluno", "aluno*123");
+        //Cria o cliente MQTT e inicializa a conexao
+        ClienteMQTT clienteMQTT = new ClienteMQTT("tcp://10.0.0.101:1883", "aluno", "aluno*123");
         clienteMQTT.iniciar();
         //Instancia os ouvintes, que recebe as informações sobre cada sensor.
         Ouvinte ouvinteTemperatura = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/temperatura", 2);
