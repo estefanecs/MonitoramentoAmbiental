@@ -39,15 +39,15 @@ int main(void){
 
     //Limpa o historico
     for(i=0;i<MAX;i++){
-        historico[i].lumi= 0;
+        historico[i].lumi = 0;
         historico[i].press= 0;
-        strcpy(historico[i].temp,"0.0");
-        strcpy(historico[i].umi,"0.0");
+        strcpy(historico[i].temp,"-");
+        strcpy(historico[i].umi,"-");
     
         historico_display[i].lumi= 0;
         historico_display[i].press= 0;
-        strcpy(historico_display[i].temp,"0.0");
-        strcpy(historico_display[i].umi,"0.0");
+        strcpy(historico_display[i].temp,"-");
+        strcpy(historico_display[i].umi,"-");
     }
 
     pthread_t threadSensores, interface;
