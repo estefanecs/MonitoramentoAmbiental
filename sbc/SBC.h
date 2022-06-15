@@ -45,6 +45,7 @@ typedef struct Dados{   // Dados de leituras
     int press;
     char temp[10];
     char umi[10];
+    struct tm * data_hora_atual;
 }Dados;
 
 /* prototipos de função*/
@@ -58,6 +59,6 @@ typedef struct Dados{   // Dados de leituras
 	void add(int lum, int press, char *temp , char *umi);
 	void *leituraSensores();
 	void *displayLCD();
-
+	void getDataTempo(struct tm *data);
 
 #endif

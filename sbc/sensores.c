@@ -10,6 +10,7 @@
 #include <fcntl.h>
 #include "ads1115_rpi.h"
 #include <lcd.h>
+#include <time.h>
 
 /*Variavel global*/
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
@@ -112,4 +113,10 @@ long int maps(long int in, long int in_min,long int in_max, long int out_min, lo
 */
 float fmap(float in, float in_min,float in_max, float out_min, float out_max){
     return (in- in_min) * (out_max- out_min) / (in_max - in_min) + out_min;
+}
+
+void getDataTempo(struct tm *data){
+    time_t segundos;
+    time(&segundos); 
+    data = localtime(&segundos);
 }

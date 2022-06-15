@@ -11,6 +11,7 @@
 #include <lcd.h>
 #include <pthread.h>
 #include "SBC.h"
+#include <time.h>
 
 /*-------------------Variaveis globais-----------------*/
 unsigned int tempo =0;
