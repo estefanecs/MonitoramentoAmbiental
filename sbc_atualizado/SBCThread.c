@@ -309,11 +309,11 @@ void *displayLCD(){
     		default: break;
     	}
 
-        if(!b0 || !b1 || !b2){
-            lcdClear(lcd);
+        if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
+            lcdClear(lcd);      
         }
 
-    	delay(100);
+    	delay(100);    // delay para a thread do display
 	}
 	pthread_exit(NULL);
 }
