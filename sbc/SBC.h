@@ -1,12 +1,11 @@
-
 #ifndef SBC_H
 #define SBC_H
 
 #define MAXTIMINGS	85
-#define DHTPIN		0 // Usa a GPIO 17 se no WiringPiSetup
+#define DHTPIN		0 // Usa a GPIO 17 no WiringPiSetup
 #define MAX 10 
-/* Define configurações do LCD*/
 
+//Define as confirguacoes do LCD
 #define LCD_Rows 2
 #define LCD_Cols  16
 #define LCD_bits  4
@@ -21,14 +20,12 @@
 #define LCD_D6  0
 #define LCD_D7  0
 
-/* Define pinos dos botões */
+//Define pinos dos botoes
 #define B0 21
 #define B1 24
 #define B2 25
-// Led da placa
-#define LED 22
 
-/* Define estados da maquina de estados*/
+/Define estados da maquina de estados*/
 #define ES_MENU0  0
 #define ES_MENU1  1
 #define ES_MENU2  2
@@ -40,25 +37,27 @@
 #define ES_HLUMI  8
 #define ES_TIME   9
 
-typedef struct Dados{   // Dados de leituras
-    int lumi;
-    int press;
-    char temp[10];
-    char umi[10];
-    struct tm * data_hora_atual;
+//Struct para dados das leituras realizadas
+typedef struct Dados{   
+    int lumi; //luminosidade
+    int press; //pressao atmosferica
+    char temp[10]; //temperatura
+    char umi[10]; //umidade
+    struct tm * data_hora_atual; //data e hora atual
 }Dados;
 
-/* prototipos de função*/
-
-	void leitura(int *luminosidade,int *pressao,char *temperatura,char *umidade,Dados *historico_display);
-	void leitura_dht11(char *temperatura, char *umidade); //Leitura do DHT11
-	long int maps(long int in, long int in_min,long int in_max, long int out_min, long int out_max);
-	float fmap(float in, float in_min,float in_max, float out_min, float out_max);
-	int getMilisegundos(int digitos[7]);
-	void getOrdenada(Dados *v); 
-	void add(int lum, int press, char *temp , char *umi);
-	void *leituraSensores();
-	void *displayLCD();
-	void getDataTempo(struct tm *data);
+//Prototipos de funcao
+void leitura(int *luminosidade,int *pressao,char *temperatura,char *umidade,Dados *historico_display);
+void leitura_dht11(char *temperatura, char *umidade);
+long int maps(long int in, long int in_min,long int in_max, long int out_min, long int out_max);
+float fmap(float in, float in_min,float in_max, float out_min, float out_max);
+int getMilisegundos(int digitos[7]);
+void getOrdenada(Dados *v); 
+void add(int lum, int press, char *temp , char *umi);
+void *leituraSensores();
+void *displayLCD();
+void getDataTempo(struct tm *data);
+void on_connect(struct mosquitto *mosq, void *obj, int rc);
+void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg);
 
 #endif
