@@ -18,6 +18,12 @@ void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_messag
 	printf("Nova mensagem para o topico %s: %s\n", msg->topic, (char *) msg->payload);
 }
 
+void isConnect(int rc, struct mosquitto *cliente){
+	if(rc != 0){
+		printf("O Cliente nao conseguiu se conectar ao broker!\n");
+		mosquitto_destroy(cliente);
+	}	
+}
 int main(int argc, char *argv[])
 {
 	int rc,rc2, id = 12;
