@@ -29,10 +29,10 @@ Executar dentro da pasta dist,no terminal: java -jar MonitoramentoAmbiental.jar
 
 <p align="justify">O menu de  alterar tempo de sensoriamento exibe o tempo atual do intervalo de medição e a opção para alterar o tempo de medição ao pressionar o <strong>botão 2</strong>, no submenu de alterar o tempo de exibição são exibidos 7 dígitos que podem ser incrementados de 0-9 para definir o intervalo de tempo novo, os dois primeiros dígitos correspondem ao valor de minutos, o terceiro e quarto dígitos correspondem ao tempo em segundos e os trẽs últimos ao tempo em milisegundos, para alternar entre os dígitos o <strong>botão 1</strong> é usado, para incrementar o digito o <strong>botão 2</strong> é pressionado os valores para o dígito vão de 0 até 9 de modo circular, para sair do submenu e alterar o tempo de medição o <strong>botão 3</strong> de ser pressionado.
 </p>
-	<h4>IMAGEM AQUI </h4>
+	<p align="center"><img src ="imagens/modelo interface.png"></p>
 <p align="justify">A logica de controle do display foi implementada como uma máquina de estados, para cada estado listado uma configuração diferente é exibida no display, com essa abordagem pode-se garantir uma progressão lógica na exibição da interface e a facilidade de inserir novos estados se fossem necessários. A variável <strong>estado</strong> guarda o estado atual para o display, os estados são definidos no arquivo SBC.h, a implementação da máquina de estados seguiu a abordagem com o uso do switch-case assim em cada case do switch as instrunções para o display são definidas, a lógica da mudança de estado é feita com base no estado atual e com os botões, nos menus e submenus as transições ocorrem quando os botões <strong>B1</strong> e <strong>B2</strong> são pressionados apenas com a exceção do submenu de alterar tempo em que só ocorre uma transição de estado quando <strong>botão 3</strong> é pressionado.
 </p>
-
+	<p align="center"><img src ="imagens/estados display.png"></p>
 <p align="justify">O programa da interface é rodado numa thread em que possui um loop infinito que executa infinitamente o switch-case	
 </p>
 <p align="center"><img src ="imagens/loop do switch-case display.jpg"></p>
