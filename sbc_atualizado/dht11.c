@@ -52,6 +52,7 @@ int * leitura_dht11(){
         {
             return dht11_dat;
         }
+        delay(500);
     }while(1);
     
 }
