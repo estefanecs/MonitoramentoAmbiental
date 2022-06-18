@@ -49,8 +49,8 @@ typedef struct Dados{
 //Prototipos de funcao
 void leitura(int *luminosidade,int *pressao,char *temperatura,char *umidade,Dados *historico_display);
 void leitura_dht11(char *temperatura, char *umidade);
-long int maps(long int in, long int in_min,long int in_max, long int out_min, long int out_max);
-float fmap(float in, float in_min,float in_max, float out_min, float out_max);
+long int maps(long int valorLido, long int minPotenciometro,float maxPotenciometro, long int minSensor, long int maxSensor);
+float fmap(float valorLido, float minPotenciometro,float maxPotenciometro, float minSensor, float maxSensor);
 int getMilisegundos(int digitos[7]);
 void getOrdenada(Dados *v); 
 void add(int lum, int press, char *temp , char *umi);
