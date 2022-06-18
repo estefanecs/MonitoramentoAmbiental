@@ -15,7 +15,7 @@
 /*Variavel global*/
 int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 
-/*Arquivo para funções dos sensores*/
+//Arquivo para funcoes dos sensores
 
 void leitura(int *luminosidade,int *pressao,char *temperatura, char *umidade,Dados *historico_display){
     /*  Realiza a leitura dos sensores*/
@@ -25,7 +25,7 @@ void leitura(int *luminosidade,int *pressao,char *temperatura, char *umidade,Dad
 
     /*Insere novas leituras no historico*/
         add(*luminosidade,*pressao,temperatura,umidade); // insere no historico
-        getOrdenada(historico_display);  //atualiza vetor de exbição do display
+        getOrdenada(historico_display);  //atualiza vetor de exibicao do display
         printf("LEITURA REALIZADA \n");
 }
 
@@ -69,7 +69,7 @@ void leitura_dht11(char *temperatura, char *umidade){
     
             if ( (i >= 4) && (i % 2 == 0) ){
                 dht11_dat[j / 8] <<= 1;
-                if ( counter > 16 ) // antes era 16
+                if ( counter > 16 )
                     dht11_dat[j / 8] |= 1;
                 j++;
             }
@@ -102,22 +102,20 @@ void leitura_dht11(char *temperatura, char *umidade){
     
 }
 
-/* maps recebe um inteiro e mapeia de uma faixa de valores inteiros para outra faixa valores inteiro */
-long int maps(long int in, long int in_min,long int in_max, long int out_min, long int out_max){
-    return (in- in_min) * (out_max- out_min) / (in_max - in_min) + out_min;
+//A funcao maps recebe um inteiro e mapeia de uma faixa de valores inteiros para outra faixa valores inteiro
+long int maps(long int valorLido, long int minPotenciometro,long int maxPotenciometro, long int minSensor, long int maxSensor){
+    return (valorLido- minPotenciometro) * (maxSensor- minSensor) / (maxPotenciometro - minPotenciometro) + minSensor;
 }
 
 /* 
-|   fmap recebe um número de ponto flutuante e mapeia de uma faixa de valores de ponto flutuante
+|   fmap recebe um numero de ponto flutuante e mapeia de uma faixa de valores de ponto flutuante
 |   para outra faixa valores
 */
-float fmap(float in, float in_min,float in_max, float out_min, float out_max){
-    return (in- in_min) * (out_max- out_min) / (in_max - in_min) + out_min;
+float fmap(float valorLido, float minPotenciometro,float maxPotenciometro, float minSensor, float maxSensor){
+    return (valorLido- minPotenciometro) * (maxSensor- minSensor) / (maxPotenciometro - minPotenciometro) + minSensor;
 }
 
-/*
-|   Função getDataTempo faz a leitura da data e hora atual e insere na struct de data recebida
-*/
+//Funcao getDataTempo faz a leitura da data e hora atual e insere na struct de data recebida
 void getDataTempo(struct tm *data){
     time_t segundos;
     time(&segundos); 
