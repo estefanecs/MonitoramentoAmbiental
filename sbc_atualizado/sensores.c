@@ -19,7 +19,7 @@ int dht11_dat[5] = { 0, 0, 0, 0, 0 };
 
 void leitura(int *luminosidade,int *pressao,char *temperatura, char *umidade,Dados *historico_display){
     /*  Realiza a leitura dos sensores*/
-        *luminosidade= fmap(readVoltage(0),0,3.28,0,65400);
+        *luminosidade= fmap(readVoltage(0),0,3.28,1,65535);
         *pressao= fmap(readVoltage(3),0,3.28,300,1100);
         leitura_dht11(temperatura, umidade); //Leitura do DHT11
 
