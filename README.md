@@ -39,11 +39,12 @@ Executar dentro da pasta dist,no terminal: java -jar MonitoramentoAmbiental.jar
 <p align="justify">
 Ao final do loop é verificado se um botão foi pressionado, se algum botão é pressionado o display é limpo para escrita do novo estado
 </p>
-```s
-  		 if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
-            lcdClear(lcd);      
-        }
-```
+'''s
+  if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
+         lcdClear(lcd);      
+  }
+'''
+
 <p align="justify"> O switch verifica qual o case para o estado atual e então imprime no display os dados para a configuração atual(funções lcdPrint e lcdPosition) </p>
 <p align="center"><img src ="imagens/switch case statment e logica de mudança de estado.jpg"></p>
 <p align="justify"> No fim de cada case há um trecho que verifica a lógica da mudança de próximo estado, baseado no estado atual e 	em qual botão foi pressionado a variável estado é atualizada para o próximo estado
