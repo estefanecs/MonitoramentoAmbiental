@@ -103,7 +103,7 @@ void leitura_dht11(char *temperatura, char *umidade){
 }
 
 //A funcao maps recebe um inteiro e mapeia de uma faixa de valores inteiros para outra faixa valores inteiro
-long int maps(long int valorLido, long int minPotenciometro,long int maxPotenciometro, long int minSensor, long int maxSensor){
+long int maps(long int valorLido, long int minPotenciometro, float maxPotenciometro, long int minSensor, long int maxSensor){
     return (valorLido- minPotenciometro) * (maxSensor- minSensor) / (maxPotenciometro - minPotenciometro) + minSensor;
 }
 
