@@ -33,10 +33,14 @@ function test() {
 <p align="justify">A biblioteca configura os parâmetros MUX, PGA e MODE do registrador <i>Config Register</i>, antes de realizar a leitura dos dados. O parâmetro MUX configura o multiplexador para a leitura dos canais. O PGA(Programmable Gain Amplifier) configura a faixa de medição do conversor. O parâmetro MODE corresponde ao bit 8 e configura a forma de operação: <i>conversões continuamente</i> ou uma conversão e aguardo pela leitura. Foi configurado nesse projeto a segunda forma, inserindo o valor 1 no bit 8.</p>
 
 <p align="justify">A interface l2C é inicializada com o endereço do barramento I2C <i>/dev/i2c-1</i>, que é passado como parâmetro da função:</p>
+
 ```
 int openI2CBus(char *bus);
 ```
 <p align="justify">A configuração do endereço do ADS1115 é através do pino <strong>ADDR</strong>. Nesse problema, utilizou-se o pino ADDR conectado ao GND, no qual o endereço correspondente é 0x48 em hexadecimal. A função que realiza essa configuração é:</p>
+```
+int setI2CSlave(unsigned char endereco);
+```
 ```
 int setI2CSlave(unsigned char endereco);
 ```
@@ -45,9 +49,14 @@ int setI2CSlave(unsigned char endereco);
 ```
 voltagem = (float)valorAnalogico*4.096/32767.0;
 ```
-
+```
+voltagem = (float)valorAnalogico*4.096/32767.0;
+```
 <p align="justify">Para transformar o sinal digital na medida equivalente dos sensores simulados, foi realizado o mapeamento com regra de três composta. A função têm como parâmetros o valor lido e convertido do potenciômetro, valor mínimo e máximo de tensão do potenciômetro e a faixa mínima e máxima de valor do sensor simulado. </p><br> 
 <p align="justify"> A conta realizada para o mapeamento resulta um valor equivalente de uma medida do sensor e é a seguinte: </p>
+```
+float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, float minSensor, float maxSensor);
+```
 ```
 float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, float minSensor, float maxSensor);
 ```
@@ -69,7 +78,10 @@ float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, floa
 
 <p align="justify">Já a publicação no tópico <i>"monitoramentoAmbiental/tempo"</i> acontece sempre. Na interface há um campo para que o usuário insira o intervalo de tempo que deseja. Esse valor inserido na interface é convertido para String e em seguida para byte, e passado como parâmetro no método que realiza a publicação no tópico. É interessante ressaltar que o método publicar da biblioteca Paho tem como parâmetro o tópico, o dado a ser publicado no tipo Byte e a qualidade de serviço(0,1 ou 2). </p>
 ```
-public void publicar(String topico, byte[] informacao, int qos)
+public void publicar(String topico, byte[] informacao, int qos);
+```
+```
+public void publicar(String topico, byte[] informacao, int qos);
 ```
 <p align="justify">Como a interface implementa o padrão MVC, há um controlador que é responsável pela troca de informações entre a model e a view. Sendo assim, é nele que são criados os clientes MQTT editor e ouvintes de cada tópico. Os clientes MQTT conectam-se ao broker <strong>10.0.0.101</strong> com o usuário <strong>aluno</strong> e senha <strong>aluno*123</strong>. Esse broker foi criado em uma rede local, mas caso deseja-se é possível alterar o endereço para um broker disponível na internet, assim como o usuário e senha. </p>
 
@@ -110,6 +122,11 @@ if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
    lcdClear(lcd);      
 }
 ```
+```
+if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
+   lcdClear(lcd);      
+}
+```
 <p align="justify"> O switch verifica qual o case para o estado atual e então imprime no display os dados para a configuração atual (funções lcdPrint e lcdPosition).</p>
 
 <p align="center"><img src ="imagens/switch case statment e logica de mudança de estado.jpg"></p>
@@ -126,8 +143,14 @@ if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
 ```
 java -jar MonitoramentoAmbiental.jar
 ```
+```
+java -jar MonitoramentoAmbiental.jar
+```
 <h2>SBC</h2>
 <p align="justify">Os arquivos da pasta <i>SBC</i> devem ser salvos na Raspberry. Dentro da pasta contendo os arquivos baixados, execute no terminal o comando:</p>
+```
+make
+```
 ```
 make
 ```
