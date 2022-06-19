@@ -3,37 +3,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <unistd.h>
-#include <linux/i2c-dev.h>
-#include <sys/ioctl.h>
-#include <fcntl.h>
-
-#include "ads1115_rpi.h"
-#include "dht11.h"
-
 #include <lcd.h>
-#include <pthread.h>
+//#include <pthread.h>
 #include "SBC.h"
-#include <time.h>
 
-/*-------------------Variaveis globais-----------------*/
-unsigned int tempo =0;
-unsigned int tempoAnterior=0;
-char tempoLido[]="";
-unsigned int intervaloTempo=1;
-int tempo_medicao = 10000;
-char temperatura[10]={"0"};
-char umidade[10]={"0"};	
-int  pressao=0,luminosidade=0;
-//Variaveis de historico das medicoes
-Dados historico[MAX]; 
-Dados historico_display[MAX];
-//Variaveis de controle da lista do historico
-int L=-1;
-int O=-1;
+//Define as confirguacoes do LCD
+#define LCD_Rows 2
+#define LCD_Cols  16
+#define LCD_bits  4
+#define LCD_RS  6
+#define LCD_E   31
+#define LCD_D0 26
+#define LCD_D1 27
+#define LCD_D2 28
+#define LCD_D3 29
+#define LCD_D4  0
+#define LCD_D5  0
+#define LCD_D6  0
+#define LCD_D7  0
+
+//Define pinos dos botoes
+#define B0 21
+#define B1 24
+#define B2 25
+
+/Define estados da maquina de estados*/
+#define ES_MENU0  0
+#define ES_MENU1  1
+#define ES_MENU2  2
+#define ES_MENU3  3
+#define ES_MENU4  4
+#define ES_HTEMP  5
+#define ES_HUMID  6
+#define ES_HPRES  7
+#define ES_HLUMI  8
+#define ES_TIME   9
+
 /*----------------------------------------------------*/
 
-void *displayLCD(){
+void *displayLCD(int pressao,int luminosidade,int temperatura,int humidade,Dados * historico_display){
     wiringPiSetup(); // configuracao do wiringPi
     //define os botoes como entrada
     pinMode(B0,INPUT);
@@ -75,7 +83,7 @@ void *displayLCD(){
     		case ES_MENU0:	// Estado que exibe a medida atual da temperatura e a opcao de historico de temperatura
                  /*Imprime no Display as informacoes do menu atual*/
     			lcdPosition(lcd,0,0);
-    			lcdPrintf(lcd,"%s:%s",menu[0],temperatura);
+    			lcdPrintf(lcd,"%s:%d",menu[0],temperatura);
     			lcdPosition(lcd,0,1);
     			lcdPuts(lcd,"-->Historico");
     			
@@ -91,7 +99,7 @@ void *displayLCD(){
     		case ES_MENU1:	// Estado que exibe a medida atual de umidade e a opcao de historico de umidade
                 /*Imprime no Display as informacoes do menu atual*/
     			lcdPosition(lcd,0,0);
-    			lcdPrintf(lcd,"%s:%s",menu[1],umidade);
+    			lcdPrintf(lcd,"%s:%d",menu[1],umidade);
     			lcdPosition(lcd,0,1);
     			lcdPuts(lcd,"-->Historico");
 
@@ -156,9 +164,9 @@ void *displayLCD(){
             case ES_HTEMP:
                /*Imprime no Display as informacoes do menu atual*/
                 lcdPosition(lcd,0,0);
-                lcdPrintf(lcd,"%d-%s", idx_historico+1,historico_display[idx_historico].temp);
+                lcdPrintf(lcd,"%d-%d", idx_historico+1,historico_display[idx_historico].temp);
                 lcdPosition(lcd,0,1);
-                lcdPrintf(lcd,"%d-%s" ,idx_historico+2,historico_display[idx_historico+1].temp);
+                lcdPrintf(lcd,"%d-%d" ,idx_historico+2,historico_display[idx_historico+1].temp);
 
     			/*LOGICA DE MUDANCA DE ESTADO*/
     			if(!b1){	  // Botao que seleciona primeira opcao apertado
@@ -177,9 +185,9 @@ void *displayLCD(){
             case ES_HUMID:
                 /*Imprime no Display as informacoes do menu atual*/
                 lcdPosition(lcd,0,0);
-                lcdPrintf(lcd,"%d-%s", idx_historico+1,historico_display[idx_historico].umi);
+                lcdPrintf(lcd,"%d-%d", idx_historico+1,historico_display[idx_historico].umi);
                 lcdPosition(lcd,0,1);
-                lcdPrintf(lcd,"%d-%s" ,idx_historico+2,historico_display[idx_historico+1].umi);
+                lcdPrintf(lcd,"%d-%d" ,idx_historico+2,historico_display[idx_historico+1].umi);
 
                 /*LOGICA DE MUDANCA DE ESTADO*/
                 if(!b1){      // Botao que seleciona primeira opcao apertado
@@ -269,5 +277,5 @@ void *displayLCD(){
 
     	delay(100);    // delay para a thread do display
 	}
-	pthread_exit(NULL);
+	//pthread_exit(NULL);
 }
