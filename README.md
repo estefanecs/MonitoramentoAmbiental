@@ -1,13 +1,6 @@
 
 <h1  align="center"> Protótipo de sistema para monitoramento ambiental </h1>
 
-
-```
-function test() {
-  console.log("notice the blank line before this function?");
-}
-```
-
 <h1>Apresentação do sistema</h1>
 <p align="justify">O sistema proposto realiza o monitoramento ambiental no cenário da Internet das Coisas (IoT, do inglês, Internet of Things), no qual implementa  o protocolo de troca de mensagens Message Queue Telemetry Transport (MQTT).</p>
 
@@ -43,22 +36,12 @@ int openI2CBus(char *bus);
 int setI2CSlave(unsigned char endereco);
 ```
 
-```
-int setI2CSlave(unsigned char endereco);
-```
-```
-int setI2CSlave(unsigned char endereco);
-```
-
 <p align="justify">Por fim, para realizar a leitura e conversão do dado em sinal analógico para digital é utilizado a função <strong>readVoltage</strong>, que tem como parâmetro o canal do potenciômetro. A conversão do sinal lido é feito da seguinte forma:</p>
 
 ```
 voltagem = (float)valorAnalogico*4.096/32767.0;
 ```
 
-```
-voltagem = (float)valorAnalogico*4.096/32767.0;
-```
 <p align="justify">Para transformar o sinal digital na medida equivalente dos sensores simulados, foi realizado o mapeamento com regra de três composta. A função têm como parâmetros o valor lido e convertido do potenciômetro, valor mínimo e máximo de tensão do potenciômetro e a faixa mínima e máxima de valor do sensor simulado. </p><br> 
 <p align="justify"> A conta realizada para o mapeamento resulta um valor equivalente de uma medida do sensor e é a seguinte: </p>
 
@@ -66,9 +49,6 @@ voltagem = (float)valorAnalogico*4.096/32767.0;
 float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, float minSensor, float maxSensor);
 ```
 
-```
-float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, float minSensor, float maxSensor);
-```
 <h2>Protocolo Message Queuing Telemetry Transport (MQTT)</h2>
 
 <h2>Histórico de medições</h2>
@@ -91,9 +71,6 @@ float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, floa
 public void publicar(String topico, byte[] informacao, int qos);
 ```
 
-```
-public void publicar(String topico, byte[] informacao, int qos);
-```
 <p align="justify">Como a interface implementa o padrão MVC, há um controlador que é responsável pela troca de informações entre a model e a view. Sendo assim, é nele que são criados os clientes MQTT editor e ouvintes de cada tópico. Os clientes MQTT conectam-se ao broker <strong>10.0.0.101</strong> com o usuário <strong>aluno</strong> e senha <strong>aluno*123</strong>. Esse broker foi criado em uma rede local, mas caso deseja-se é possível alterar o endereço para um broker disponível na internet, assim como o usuário e senha. </p>
 
 <p align="justify">A interface possui duas telas, uma para a exibição dos dados dos sensores e outra para a exibição do histórico das medições de cada sensor. As telas implementam o Runnable, e ficam sempre atualizando os valores do campos exibidos, além de ficar sempre enviando o valor do campo de alterar o intervalo de tempo entre as medições.</p>
@@ -135,11 +112,6 @@ if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
 }
 ```
 
-```
-if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
-   lcdClear(lcd);      
-}
-```
 <p align="justify"> O switch verifica qual o case para o estado atual e então imprime no display os dados para a configuração atual (funções lcdPrint e lcdPosition).</p>
 
 <p align="center"><img src ="imagens/switch case statment e logica de mudança de estado.jpg"></p>
@@ -157,18 +129,9 @@ if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
 ```
 java -jar MonitoramentoAmbiental.jar
 ```
-
-```
-java -jar MonitoramentoAmbiental.jar
-```
 <h2>SBC</h2>
 <p align="justify">Os arquivos da pasta <i>SBC</i> devem ser salvos na Raspberry. Dentro da pasta contendo os arquivos baixados, execute no terminal o comando:</p>
 
 ```
 make
 ```
-
-```
-make
-```
-
