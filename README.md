@@ -83,12 +83,12 @@ Executar dentro da pasta dist,no terminal: java -jar MonitoramentoAmbiental.jar
 <h1>Como executar o projeto</h1>
 <h2>Interface Desktop</h2>
 <p align="justify">Para executar a interface desktop é necessário ter o Java instalado na máquina. Dentro da pasta <i>MonitoramentoAmbiental->dist</i> abra o terminal e execute o comando:</p>
-	```s
-  		java -jar MonitoramentoAmbiental.jar
+```s
+  		 java -jar MonitoramentoAmbiental.jar
 ```
 <h2>SBC</h2>
 <p align="justify">Os arquivos da pasta <i>SBC</i> devem ser salvos na Raspberry. Dentro da pasta contendo os arquivos baixados, execute no terminal o comando:</p>
 ```s
- make
+ 	make
 ```
 
