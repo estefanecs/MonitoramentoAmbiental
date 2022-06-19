@@ -166,8 +166,12 @@ void *displayLCD(int pressao,int luminosidade,int temperatura,int humidade,Dados
                 lcdPosition(lcd,0,0);
                 lcdPrintf(lcd,"%d-%d", idx_historico+1,historico_display[idx_historico].temp);
                 lcdPosition(lcd,0,1);
-                lcdPrintf(lcd,"%d-%d" ,idx_historico+2,historico_display[idx_historico+1].temp);
-
+                lcdPrintf(lcd,"%d/%d/%d  %d:%d:%d" ,historico_display[idx_historico+1].data_hora_atual->tm_mday
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_mon+1
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_year+1900
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_hour
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_min
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_sec);
     			/*LOGICA DE MUDANCA DE ESTADO*/
     			if(!b1){	  // Botao que seleciona primeira opcao apertado
     				estado=ES_MENU0;  // Alterna para Menu anterior
@@ -175,10 +179,10 @@ void *displayLCD(int pressao,int luminosidade,int temperatura,int humidade,Dados
     			}
     			 /*Logica adicional para configuracao do menu*/
     			if(!b0){	  //Botao de alternar Menu pressionado
-                    if(idx_historico==8)
+                    if(idx_historico==9)
                         idx_historico=0;
                     else
-                        idx_historico+=2;
+                        idx_historico+=1;
     			}
                 break;
 
@@ -187,7 +191,12 @@ void *displayLCD(int pressao,int luminosidade,int temperatura,int humidade,Dados
                 lcdPosition(lcd,0,0);
                 lcdPrintf(lcd,"%d-%d", idx_historico+1,historico_display[idx_historico].umi);
                 lcdPosition(lcd,0,1);
-                lcdPrintf(lcd,"%d-%d" ,idx_historico+2,historico_display[idx_historico+1].umi);
+                lcdPrintf(lcd,"%d/%d/%d  %d:%d:%d" ,historico_display[idx_historico+1].data_hora_atual->tm_mday
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_mon+1
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_year+1900
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_hour
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_min
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_sec);
 
                 /*LOGICA DE MUDANCA DE ESTADO*/
                 if(!b1){      // Botao que seleciona primeira opcao apertado
@@ -196,10 +205,10 @@ void *displayLCD(int pressao,int luminosidade,int temperatura,int humidade,Dados
             	}
                  /*Logica adicional para configuracao do menu*/
                 if(!b0){      //Botao de alternar Menu pressionado
-                    if(idx_historico==8)
+                    if(idx_historico==9)
                         idx_historico=0;
                     else
-                        idx_historico+=2;
+                        idx_historico+=1;
                 }
                 break;
 
@@ -208,7 +217,12 @@ void *displayLCD(int pressao,int luminosidade,int temperatura,int humidade,Dados
                 lcdPosition(lcd,0,0);
                 lcdPrintf(lcd,"%d-%d", idx_historico+1,historico_display[idx_historico].press);
                 lcdPosition(lcd,0,1);
-                lcdPrintf(lcd,"%d-%d" ,idx_historico+2,historico_display[idx_historico+1].press);
+                lcdPrintf(lcd,"%d/%d/%d  %d:%d:%d" ,historico_display[idx_historico+1].data_hora_atual->tm_mday
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_mon+1
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_year+1900
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_hour
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_min
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_sec);
 
               /*LOGICA DE MUDANCA DE ESTADO*/
                 if(!b1){     // Botao que seleciona primeira opcao apertado
@@ -217,10 +231,10 @@ void *displayLCD(int pressao,int luminosidade,int temperatura,int humidade,Dados
                 }
                 /*Logica adicional para configuracao do menu*/
                 if(!b0){       //Botao de alternar Menu pressionado
-                    if(idx_historico==8)
+                    if(idx_historico==9)
                         idx_historico=0;
                     else
-                        idx_historico+=2;
+                        idx_historico+=1;
                 }
                 break;
 
@@ -229,7 +243,12 @@ void *displayLCD(int pressao,int luminosidade,int temperatura,int humidade,Dados
                 lcdPosition(lcd,0,0);
                 lcdPrintf(lcd,"%d-%d", idx_historico+1,historico_display[idx_historico].lumi);
                 lcdPosition(lcd,0,1);
-                lcdPrintf(lcd,"%d-%d" ,idx_historico+2,historico_display[idx_historico+1].lumi);
+                lcdPrintf(lcd,"%d/%d/%d  %d:%d:%d" ,historico_display[idx_historico+1].data_hora_atual->tm_mday
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_mon+1
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_year+1900
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_hour
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_min
+                                                   ,historico_display[idx_historico+1].data_hora_atual->tm_sec);
                 
                  /*Imprime no Display as informacoes do menu atual*/
                 if(!b1){      // Botao que seleciona primeira opcao apertado
@@ -238,10 +257,10 @@ void *displayLCD(int pressao,int luminosidade,int temperatura,int humidade,Dados
                 }
                 /*Logica adicional para configuracao do menu*/
                 if(!b0){      //Botao de alternar Menu pressionado
-                    if(idx_historico==8)
+                    if(idx_historico==9)
                         idx_historico=0;
                     else
-                        idx_historico+=2;
+                        idx_historico+=1;
                 }
                 break;
 
@@ -262,7 +281,7 @@ void *displayLCD(int pressao,int luminosidade,int temperatura,int humidade,Dados
                 if(!b2){    // Sai do menu de alterar tempo
                     estado = ES_MENU4;  // altera para o estado do menu de configurar tempo
                     /* atualiza o tempo de medicao*/
-                    tempo_medicao= getMilisegundos(digitos_medicao); // chama funcao que converte o tempo definido nos digitos
+                    intervaloTempo = getSegundos(digitos_medicao); // chama funcao que converte o tempo definido nos digitos
                 }
                 if(!b0){    // Alterna o digito
                     idx ==6 ? idx=0:idx++;

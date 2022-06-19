@@ -20,7 +20,7 @@
 unsigned int tempo =0;
 unsigned int tempoAnterior=0;
 char tempoLido[]="";
-unsigned int intervaloTempo=1;
+float intervaloTempo =3.0;
 int tempo_medicao = 10000;
 char temperatura[10]={"0"};
 char umidade[10]={"0"};	
@@ -90,6 +90,13 @@ int getMilisegundos(int digitos[7]){
     return digitos[0]+ (digitos[1]*10) + (digitos[2] * 100)+
             (digitos[3]*1000) +  (digitos[4]*10000) +
             ( digitos[5]+digitos[6]*10) *60000;
+}
+
+// Funcao que recebe um vetor com os digitos referentes as grandezas de tempo e converte para milisegundos.
+float getSegundos(int digitos[7]){
+    return (digitos[0]+ (digitos[1]*10.0) + (digitos[2] * 100.0) /1000.0)+
+            (digitos[3]) +  (digitos[4]*10) +
+            ( digitos[5]+digitos[6]*10) *60;
 }
 
 //-------------------- Funcao para leitura dos sensores  --------------------
