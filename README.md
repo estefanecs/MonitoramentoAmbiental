@@ -42,7 +42,8 @@ int setI2CSlave(unsigned char endereco);
 voltagem = (float)valorAnalogico*4.096/32767.0;
 ```
 
-<p align="justify">Para transformar o sinal digital na medida equivalente dos sensores simulados, foi realizado o mapeamento com regra de três composta. A função têm como parâmetros o valor lido e convertido do potenciômetro, valor mínimo e máximo de tensão do potenciômetro e a faixa mínima e máxima de valor do sensor simulado. </p><br> 
+<p align="justify">Para transformar o sinal digital na medida equivalente dos sensores simulados, foi realizado o mapeamento com regra de três composta. A função têm como parâmetros o valor lido e convertido do potenciômetro, valor mínimo e máximo de tensão do potenciômetro e a faixa mínima e máxima de valor do sensor simulado. </p>
+
 <p align="justify"> A conta realizada para o mapeamento resulta um valor equivalente de uma medida do sensor e é a seguinte: </p>
 
 ```
@@ -63,6 +64,7 @@ float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, floa
 <p align="justify">Quando uma mensagem é publicada nos tópicos, o ouvinte MQTT no método <i>messageArrived</i> verifica em qual tópico a mensagem foi publicada e salva o dado recebido no atributo correspondente na classe <i>DadoSensores</i>. Essa verificação é realizada utilizando a estrutura condicional <i>Switch case</i>.</p>
 
 <p align="justify">Por exemplo, se a mensagem foi publicada no tópico <i>"monitoramentoAmbiental/luminosidade"</i>, o dado recebido será salvo alterando o valor do atributo <i>luminosidade</i> da classe <i>DadoSensores</i>.</p>
+
 <p align="justify">Se o tópico for referente ao histórico de uma das medições, inicialmente a string de dados recebida é separada e convertida para um vetor. Em seguida, o atributo ArrayList da medição correspondente é limpo com o método <i>clear()</i>, e por fim, cada elemento do vetor contendo os dados recebidos é adicionado na ArrayList, atualizando assim o histórico atual.</p>
 
 <p align="justify">Já a publicação no tópico <i>"monitoramentoAmbiental/tempo"</i> acontece sempre. Na interface há um campo para que o usuário insira o intervalo de tempo que deseja. Esse valor inserido na interface é convertido para String e em seguida para byte, e passado como parâmetro no método que realiza a publicação no tópico. É interessante ressaltar que o método publicar da biblioteca Paho tem como parâmetro o tópico, o dado a ser publicado no tipo Byte e a qualidade de serviço(0,1 ou 2). </p>
