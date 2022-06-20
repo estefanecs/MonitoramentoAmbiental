@@ -25,7 +25,7 @@
 #define B1 24
 #define B2 25
 
-/Define estados da maquina de estados*/
+/*Define estados da maquina de estados*/
 #define ES_MENU0  0
 #define ES_MENU1  1
 #define ES_MENU2  2
