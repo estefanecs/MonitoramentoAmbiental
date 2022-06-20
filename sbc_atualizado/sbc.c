@@ -42,7 +42,7 @@ int main(void){
     setI2CSlave(0x48); //Ativa a configuracao do I2C
     
     //Configuracao do cliente leitor do MQTT
-    int rc;
+    int rc, id=0;
 	struct mosquitto *leitor;
 	leitor = mosquitto_new("inscrito",true,&id);
 	mosquitto_connect_callback_set(leitor, on_connect);
