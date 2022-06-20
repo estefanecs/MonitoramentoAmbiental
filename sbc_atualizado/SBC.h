@@ -38,7 +38,7 @@
 #define ES_TIME   9
 
 //Struct para dados das leituras realizadas
-typedef struct Dados{   
+typedef struct Dados{
     int lumi; //luminosidade
     int press; //pressao atmosferica
     char temp[10]; //temperatura
