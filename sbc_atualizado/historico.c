@@ -55,3 +55,25 @@ void getOrdenada(Dados *v){
     }
 }
 //---------------------------------------------------------------------------
+void escrever_arquivo(Dados *data){
+	FILE *pont_arq;	// ponteiro para o arquivo
+	pont_arq = fopen("historico.txt", "w"); //Cria arquivo para escrita
+	int i=0;
+	
+	if(pont_arq == NULL){
+		printf("Erro na abertura");
+		exit(1);
+	}
+	
+	for(i=0;i<10;i++){
+		fputs("---------------\n",pont_arq);
+		fprintf(pont_arq,"Temperatura=%.3f\n",data[i].temp);
+		fprintf(pont_arq,"Umidade=%.3f\n",data[i].umi);
+		fprintf(pont_arq,"Luminosidade=%d\n",data[i].lumi);
+		fprintf(pont_arq,"Pressao=%d\n",data[i].press);
+		fprintf(pont_arq,"Data %d|%d|%d Hora %d:%d:%d \n",data[i].data_hora_atual->tm_mday,data[i].data_hora_atual->tm_mon+1,data[i].data_hora_atual->tm_year+1900
+		,data[i].data_hora_atual->tm_hour,data[i].data_hora_atual->tm_min,data[i].data_hora_atual->tm_sec);
+	}
+	
+	fclose(pont_arq);
+}
