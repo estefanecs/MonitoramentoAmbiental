@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <mosquitto.h>
 #include <string.h>
+#include "mqtt.h"
 
 #define broker_temperatura "monitoramentoAmbiental/temperatura"
 #define broker_umidade "monitoramentoAmbiental/umidade"
@@ -13,26 +14,32 @@
 #define broker_luminosidade_h "monitoramentoAmbiental/historicoLuminosidade"
 #define broker_pressao_h "monitoramentoAmbiental/historicoPressao"
 
-void publicar(char *publisher_nome,char *topico, char *msg){
+/**
+ * @brief 
+ * 
+ * @param publisher_nome 
+ * @param topico 
+ * @param msg 
+ */
+void publicar(Publisher pub){
 
     int rc;
 	struct mosquitto *mosq;
 	mosquitto_lib_init();
 
-	char pub[] = "Publisher: "; 
-    strcat(pub, publisher_nome);
+	mosq = mosquitto_new(pub.Nome,true,NULL);
 
-	mosq = mosquitto_new(pub,true,NULL);
-	
-	rc = mosquitto_connect(mosq,topico,1883,60);
+	mosquitto_username_pw_set(mosq,"aluno","aluno*123"); //Define usuario e senha
+
+	rc = mosquitto_connect(mosq,pub.Host,1883,60);
 	if(rc != 0){
-			printf("O Cliente nao conseguiu se conectar ao broker! - {{%d}}\n", rc);
+			printf("O Publisher nao conseguiu se conectar ao broker! - {{%d}}\n", rc);
 			mosquitto_destroy(mosq);
 			return -1;
 	}
 	printf("Estamos conectados ao broker.\n");
 	
-	mosquitto_publish(mosq,NULL,topico,strlen(msg),msg,1,false);
+	mosquitto_publish(mosq,NULL,pub.Topico,strlen(pub.Msg),pub.Msg,1,true);
 	
 	mosquitto_disconnect(mosq);
 	mosquitto_destroy(mosq);
@@ -42,29 +49,36 @@ void publicar(char *publisher_nome,char *topico, char *msg){
 	return 0;
 }
 
-void client(char *client_nome,char *topico){
+/**
+ * @brief 
+ * 
+ * @param client_nome 
+ * @param topico 
+ */
+void create_client(Cliente Observer){
+
 
     int rc;
 	
 	mosquitto_lib_init();
 	
 	struct mosquitto *mosq;
-	
-    char client[] = "Inscrito: "; 
-    strcat(client, client_nome);
 
-	mosq = mosquitto_new(client,true,NULL);
+	mosq = mosquitto_new(Observer.Nome,true,NULL);
 	mosquitto_connect_callback_set(mosq, on_connect);
 	mosquitto_message_callback_set(mosq, on_message);
 	
-	rc = mosquitto_connect(mosq,topico,1883,10);
-    mosquitto_subscribe(mosq,NULL,topico,1);
+	mosquitto_username_pw_set(mosq,"aluno","aluno*123"); //Define usuario e senha
+
+	rc = mosquitto_connect(mosq,Observer.Host,1883,10);
 	
 	if(rc){
 		printf("Nao foi possivel conectar ao broker - {{%d}}\n",rc);
 		return -1;
 	}
-	
+
+	mosquitto_subscribe(mosq,NULL,Observer.Topico,1);
+
 	mosquitto_loop_start(mosq);
 	printf("Aperte Enter para sair...\n");
 	getchar();

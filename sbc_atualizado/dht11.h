@@ -1,6 +1,6 @@
 #ifndef _dht11_h
 #define _dht11_h
 
-int * leitura_dht11();
+void * leitura_dht11(void * arg);
 
 #endif

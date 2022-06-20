@@ -14,14 +14,19 @@
  * 
  * @return int* vetor de tamanho 2, com o resultado dos dois sensores analogicos
  */
-int * leitura_analogica(){
+void * leitura_analogica(void * arg){
 
-        int sensor[2] = {0};
+    float *fptr = (float *)arg;
+    do{
+        float sensor[2] = {0};
     /*  Realiza a leitura dos sensores*/
         sensor[0] = fmap(readVoltage(0),0,3.28,1,65535);
         sensor[1] = fmap(readVoltage(3),0,3.28,300,1100);
 
-        return sensor;
+        *fptr = (int)sensor[0];
+        *(fptr+1) = (int)sensor[1];
+    }while(1);
+    return sensor;
 }
 
 

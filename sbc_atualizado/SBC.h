@@ -1,11 +1,5 @@
-#ifndef SBC_H
-#define SBC_H
-
-#define MAXTIMINGS	85
-#define DHTPIN		0 // Usa a GPIO 17 no WiringPiSetup
-#define MAX 10 
-
-
+#ifndef sbc_H
+#define sbc_H
 
 //Struct para dados das leituras realizadas
 typedef struct Dados{   
@@ -17,12 +11,9 @@ typedef struct Dados{
 }Dados;
 
 //Prototipos de funcao
-void leitura(int *luminosidade,int *pressao,char *temperatura,char *umidade,Dados *historico_display);
 int getMilisegundos(int digitos[7]);
-void getOrdenada(Dados *v); 
-void add(int lum, int press, char *temp , char *umi);
-void *leituraSensores();
-void *displayLCD();
-void getDataTempo(struct tm *data);
+//void getOrdenada(Dados *v); 
+//void add(int lum, int press, char *temp , char *umi);
+//void getDataTempo(struct tm *data);
 
 #endif

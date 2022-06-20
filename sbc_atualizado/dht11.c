@@ -5,7 +5,16 @@
 
 #include "dht11.h"
 
-int * leitura_dht11(){
+
+/**
+ * @brief A leitura do DHT11 eh feita aqui
+ * 
+ * @param value Int de tamanho [4]
+ * @return void* 
+ */
+void * leitura_dht11(void * arg){
+
+    float *fptr = (float *)arg;
 
     int dht11_dat[5] = {0};
 
@@ -50,9 +59,14 @@ int * leitura_dht11(){
         if ( (j >= 40) &&
             (dht11_dat[4] == ( (dht11_dat[0] + dht11_dat[1] + dht11_dat[2] + dht11_dat[3]) & 0xFF) ) )
         {
-            return dht11_dat;
+
+            *fptr = dht11_dat[0];
+            *(fptr+1) = dht11_dat[1];
+            *(fptr+2) = dht11_dat[2];
+            *(fptr+3) = dht11_dat[3];
         }
         delay(500);
     }while(1);
-    
+
+    return dht11_dat;
 }
