@@ -3,7 +3,7 @@
 
 <h1>Apresentação do sistema</h1>
 <p align="justify">O sistema proposto realiza o monitoramento ambiental no cenário da Internet das Coisas (IoT, do inglês, Internet of Things), no qual implementa  o protocolo de troca de mensagens Message Queue Telemetry Transport (MQTT). É divido em 3 módulos: SBC, Interface remota e Interface Local.</p>
-
+<p align="center"><img src ="imagens/arquitetura do sistema.drawio.png"></p>
 <p align="justify"> O protótipo é capaz de tratar e controlar medidas de temperatura, umidade, pressão atmosférica e luminosidade através de leitura de sensores. Esse módulo é chamado de Single Board Computer (SBC).  Além disso, o protótipo possui duas Interface Homem-Máquina (IHM) que apresenta em tempo real as medições de cada sensor, histórico com as 10 últimas medições de cada sensor, além de permitir o ajuste do intervalo de tempo entre as medições. A IHM local utiliza o display LCD e a IHM remota é uma interface desktop em JAVA.</p>
 
 <p align=”justify”>Para o desenvolvimento do SBC utilizou-se o conceito de threads para que fosse possível realizar a leitura de forma simultânea a exibição das informações no display LCD, bem como a alteração do intervalo de tempo na interface. Optou-se por utilizar threads pela facilidade de implementação além de ser viável para a solução deste problema.</p>
