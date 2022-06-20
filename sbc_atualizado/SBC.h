@@ -57,7 +57,4 @@ void add(int lum, int press, char *temp , char *umi);
 void *leituraSensores();
 void *displayLCD();
 void getDataTempo(struct tm *data);
-void on_connect(struct mosquitto *mosq, void *obj, int rc);
-void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg);
-
 #endif
