@@ -310,7 +310,7 @@ int getMilisegundos(int digitos[7]){
 void *leituraSensores(){
 	while(1){
         leitura(&luminosidade,&pressao,temperatura,umidade,historico_display); //Realiza a leitura dos sensores
-        printf("Tempo de leitura:%d milisegundos\n", intervaloTempo);
+        printf("Tempo de leitura:%.3f segundos\n", intervaloTempo);
         printf("| pressao:%d | luminosidade:%d\n",pressao,luminosidade);
 		sleep(intervaloTempo);
     }
