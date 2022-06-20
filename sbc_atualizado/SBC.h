@@ -59,4 +59,5 @@ void *leituraSensores();
 void *displayLCD();
 void getDataTempo(struct tm *data);
 void escrever_arquivo(Dados *data);
+void ler_arquivo(Dados *data)
 #endif
