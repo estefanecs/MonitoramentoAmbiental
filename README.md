@@ -134,8 +134,10 @@ if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
 java -jar MonitoramentoAmbiental.jar
 ```
 <h2>SBC</h2>
-<p align="justify">Os arquivos da pasta <i>SBC</i> devem ser salvos na Raspberry. Dentro da pasta contendo os arquivos baixados, execute no terminal o comando:</p>
+<p align="justify">Os arquivos da pasta <i>SBC</i> devem ser salvos na Raspberry. Dentro da pasta contendo os arquivos baixados, execute no terminal os comandos:</p>
 
 ```
 make
+
+sudo ./sbc
 ```
