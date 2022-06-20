@@ -4,9 +4,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <lcd.h>
-
-#include "displayLCD.h"
-#include "sbc.h"
+//#include <pthread.h>
+#include "SBC.h"
 
 //Define as confirguacoes do LCD
 #define LCD_Rows 2

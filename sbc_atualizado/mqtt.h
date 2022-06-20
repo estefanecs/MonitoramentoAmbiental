@@ -1,6 +1,7 @@
 #ifndef _mqtt_h
 #define _mqtt_h
 
+#include <mosquitto.h>
 
 //Struct para cliente mqtt
 typedef struct Cliente{   
