@@ -58,4 +58,5 @@ void add(int lum, int press, char *temp , char *umi);
 void *leituraSensores();
 void *displayLCD();
 void getDataTempo(struct tm *data);
+void escrever_arquivo(Dados *data);
 #endif

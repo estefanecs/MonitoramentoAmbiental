@@ -364,3 +364,50 @@ float getSegundos(int digitos[7]){
             (digitos[3]) +  (digitos[4]*10) +
             ( digitos[5]+digitos[6]*10) *60;
 }
+
+// Funcao que escreve o historico no arquivo
+void ler_arquivo(Dados *data){
+    FILE *arq; // ponteiro para o arquivo
+    pont_arq = fopen("historico.txt", "r"); //Cria arquivo para leitura
+    int i=0;
+    char buff[100];
+        
+        if(arq == NULL){
+            printf("Erro na abertura");
+        exit(1);
+        }
+        
+        for(i=0;i<MAX;i++){
+            fgets(buff,100,pont_arq);
+            fscanf(arq,"Temperatura=%f\n",&data[i].temp);
+            fscanf(arq,"Umidade=%f\n",&data[i].umi);
+            fscanf(arq,"Luminosidade=%d\n",&data[i].lumi);
+            fscanf(arq,"Pressao=%d\n",&data[i].press);
+            printf("Temp= %.2f Umi = %.2f Lumi = %d Press = %d\n",data[i].temp,data[i].umi,data[i].lumi,data[i].press);
+            fgets(buff,100,arq);
+            puts(buff);
+        }
+}
+
+void escrever_arquivo(Dados *data){
+    FILE *arq; // ponteiro para o arquivo
+    pont_arq = fopen("historico.txt", "w"); //Cria arquivo para escrita
+    int i=0;
+    
+    if(arq == NULL){
+        printf("Erro na abertura");
+        exit(1);
+    }
+    
+    for(i=0;i<10;i++){
+        fputs("---------------\n",pont_arq);
+        fprintf(arq,"Temperatura=%.3f\n",data[i].temp);
+        fprintf(arq,"Umidade=%.3f\n",data[i].umi);
+        fprintf(arq,"Luminosidade=%d\n",data[i].lumi);
+        fprintf(arq,"Pressao=%d\n",data[i].press);
+        fprintf(arq,"Data %d|%d|%d Hora %d:%d:%d\n",data[i].data_hora_atual->tm_mday,data[i].data_hora_atual->tm_mon+1,data[i].data_hora_atual->tm_year+1900
+        ,data[i].data_hora_atual->tm_hour,data[i].data_hora_atual->tm_min,data[i].data_hora_atual->tm_sec);
+    }
+    
+    fclose(pont_arq);
+}
