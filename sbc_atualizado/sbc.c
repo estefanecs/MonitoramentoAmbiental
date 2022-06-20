@@ -12,8 +12,6 @@
 #include <pthread.h>
 #include "SBC.h"
 #include <time.h>
-#include <mosquitto.h>
-
 /*-------------------Variaveis globais-----------------*/
 unsigned int tempo =0;
 unsigned int tempoAnterior=0;
@@ -33,27 +31,13 @@ int O=-1;
 
 
 int main(void){
-	wiringPiSetup(); //Configuracao do wiringPi
-	mosquitto_lib_init(); //Inicializa a biblioteca do MQTT, mosquitto
+    wiringPiSetup(); //Configuracao do wiringPi
     int i; //variavel para loop
     if(openI2CBus("/dev/i2c-1") == -1){ //Verifica se houve falha ao mapear o I2C
         return EXIT_FAILURE;
     }
     setI2CSlave(0x48); //Ativa a configuracao do I2C
-    
-    //Configuracao do cliente leitor do MQTT
-    int rc, id=0;
-	struct mosquitto *leitor;
-	leitor = mosquitto_new("inscrito",true,&id);
-	mosquitto_connect_callback_set(leitor, on_connect);
-	mosquitto_message_callback_set(leitor, on_message);
-	mosquitto_username_pw_set(leitor,"aluno","aluno*123"); //Define usuario e senha
-	rc = mosquitto_connect(leitor,"10.0.0.101",1883,10); //Inicializa a conexao com o broker
-	if(rc){ //Verifica se a conexao foi bem sucedida
-		printf("O cliente nao conseguiu conecta-se ao broker\n");
-		return -1;
-	}
-
+	
     //Limpa o historico
     for(i=0;i<MAX;i++){
         historico[i].lumi = 0;
@@ -72,11 +56,7 @@ int main(void){
 	pthread_create(&interface,NULL,displayLCD,NULL); //Criacao da thread para exibir dados no display LCD
         
 	while(1){
-		mosquitto_loop_start(leitor);
-		mosquitto_loop_stop(leitor,true);
 	}
-	mosquitto_disconnect(leitor);
-	mosquitto_destroy(leitor);
 }
 
 //-------------------- Funcao para a exibicao de dados no display LCD --------------------
@@ -378,22 +358,3 @@ void getOrdenada(Dados *v){
             idx--;
     }
 }
-//---------------------------------------------------------------------------
-//Funcao que verifica se foi possivel realizar a conexao com o broker e realiza a inscricao no topico de tempo caso haja.
-void on_connect(struct mosquitto *mosq, void *obj, int rc){
-		printf("ID: %d\n", * (int *) obj);
-		if(rc){
-			printf("Erro de codigo: %d\n",rc);
-			exit(-1);
-		}
-		mosquitto_subscribe(mosq,NULL,"monitoramentoAmbiental/tempo",1);
-}
-//---------------------------------------------------------------------------
-void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg){
-	printf("Nova mensagem para o topico %s: %s\n", msg->topic, (char *) msg->payload);
-	//strcpy(tempoLido,(char *) msg->payload); //Copia a mensagem recebida para o intervalo de tempo
-	//intervaloTempo = atoi(tempoLido);
-	intervaloTempo = atoi((char *) msg->payload); //A mensagem lida é convertida em inteiro e salvo no intervalo de tempo
-	
-}
-
