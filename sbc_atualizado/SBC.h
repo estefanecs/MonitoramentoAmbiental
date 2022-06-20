@@ -52,6 +52,7 @@ void leitura_dht11(char *temperatura, char *umidade);
 long int maps(long int valorLido, long int minPotenciometro,long int maxPotenciometro, long int minSensor, long int maxSensor);
 float fmap(float valorLido, float minPotenciometro,float maxPotenciometro, float minSensor, float maxSensor);
 int getMilisegundos(int digitos[7]);
+float getSegundos(int digitos[7]);
 void getOrdenada(Dados *v); 
 void add(int lum, int press, char *temp , char *umi);
 void *leituraSensores();
