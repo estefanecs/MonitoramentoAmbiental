@@ -16,8 +16,7 @@
 unsigned int tempo =0;
 unsigned int tempoAnterior=0;
 char tempoLido[]="";
-unsigned int intervaloTempo=1;
-int tempo_medicao = 10000;
+float intervaloTempo=1.0;
 char temperatura[10]={"0"};
 char umidade[10]={"0"};	
 int  pressao=0,luminosidade=0;
@@ -281,7 +280,7 @@ void *displayLCD(){
                 if(!b2){    // Sai do menu de alterar tempo
                     estado = ES_MENU4;  // altera para o estado do menu de configurar tempo
                     /* atualiza o tempo de medicao*/
-                    tempo_medicao= getMilisegundos(digitos_medicao); // chama funcao que converte o tempo definido nos digitos
+                    intervaloTempo= getSegundos(digitos_medicao); // chama funcao que converte o tempo definido nos digitos
                 }
                 if(!b0){    // Alterna o digito
                     idx ==6 ? idx=0:idx++;
@@ -311,7 +310,7 @@ int getMilisegundos(int digitos[7]){
 void *leituraSensores(){
 	while(1){
         leitura(&luminosidade,&pressao,temperatura,umidade,historico_display); //Realiza a leitura dos sensores
-        printf("Tempo de leitura:%d milisegundos\n", tempo_medicao);
+        printf("Tempo de leitura:%d milisegundos\n", intervaloTempo);
         printf("| pressao:%d | luminosidade:%d\n",pressao,luminosidade);
 		sleep(intervaloTempo);
     }
