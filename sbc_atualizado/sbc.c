@@ -12,6 +12,7 @@
 #include <pthread.h>
 #include "SBC.h"
 #include <time.h>
+#include <mosquitto.h>
 
 /*-------------------Variaveis globais-----------------*/
 unsigned int tempo =0;
@@ -309,7 +310,7 @@ void *displayLCD(){
     		default: break;
     	}
 
-        if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
+        if(!b0 || !b1 || !b2){  //Limpa o display se algum botÃ£o foi pressionado
             lcdClear(lcd);      
         }
 
@@ -392,7 +393,7 @@ void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_messag
 	printf("Nova mensagem para o topico %s: %s\n", msg->topic, (char *) msg->payload);
 	//strcpy(tempoLido,(char *) msg->payload); //Copia a mensagem recebida para o intervalo de tempo
 	//intervaloTempo = atoi(tempoLido);
-	intervaloTempo = atoi((char *) msg->payload); //A mensagem lida é convertida em inteiro e salvo no intervalo de tempo
+	intervaloTempo = atoi((char *) msg->payload); //A mensagem lida Ã© convertida em inteiro e salvo no intervalo de tempo
 	
 }
 
