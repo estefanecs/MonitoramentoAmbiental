@@ -66,7 +66,8 @@ int main(void){
     
 	CreateThreads();
 
-	
+	printf("Programa Inicializado\n");
+	getchar();
 
 }
 
@@ -307,6 +308,12 @@ void *displayLCD(){
     	delay(100);    // delay para a thread do display
 	}
 	pthread_exit(NULL);
+}
+
+int getMilisegundos(int digitos[7]){
+    return digitos[0]+ (digitos[1]*10) + (digitos[2] * 100)+
+            (digitos[3]*1000) +  (digitos[4]*10000) +
+            ( digitos[5]+digitos[6]*10) *60000;
 }
 
 void CreateThreads(){
