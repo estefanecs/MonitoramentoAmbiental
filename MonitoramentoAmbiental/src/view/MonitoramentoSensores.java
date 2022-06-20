@@ -19,7 +19,6 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
         //cria a thread para a tela e inicializa
         Thread t = new Thread(this);
         t.start();
-
     }
 
     /**
@@ -248,7 +247,7 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(tempo)
                                 .addGap(297, 297, 297))
                             .addGroup(jPanel1Layout.createSequentialGroup()

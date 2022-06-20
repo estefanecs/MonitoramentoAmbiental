@@ -71,7 +71,7 @@
                               <Component id="jPanel3" alignment="1" min="-2" pref="225" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="tempo" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="297" max="-2" attributes="0"/>
                               </Group>
