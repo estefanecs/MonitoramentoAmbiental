@@ -55,7 +55,20 @@ float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, floa
 <h2>Protocolo Message Queuing Telemetry Transport (MQTT)</h2>
 
 <h2>Histórico de medições</h2>
+<p align="justify">
+   Para garantir uma visualização do perfil das medidas do sensoriamento foi estabelecido um historico de dados
+   que armazena as dez ultimas medições realizadas sendo visivel na interface local e remota além da SBC gerar um arquivo de texto com esse historico para garantir a persistencia dos dados   
+</p>
 
+<p align="justify">
+   O Historico foi implementado como uma lista estática, usando um vetor de tamanho MAX definido no cabeçalho SBC.h e pelos ponteiros de indice L( ultima medida feita) e O( medida mais velha), foram definidas duas funções para o controle da estrutura do historico são elas ADD e getOrdenada.
+ </p>
+ <p align="justify">
+    ADD insere um novo elemento no vetor na próxima posição para o ponteiro L, a posição do ponteiro L é baseada na ocupação do vetor, ao atingir o tamanho máximo o ponteiro passa para a posição da medida mais antiga assim sempre a medida mais antiga é sobrescrita e o ponteiro O é incrementado para uma próxima posição.
+</p>
+<p align="justify">
+   A função getOrdenada criar um vetor do tipo Dados com os valores para o historico mas de forma ordenada da medição mais recente para mais antiga, essa função é usada para fornecer ao display um vetor ordenado para exibir o historico no display de modo sequencial sem nescessidade de ler o historico real na ordem de exibição. 
+</p>
 <h1>Interface Desktop</h1>
 <p align="justify">A interface Desktop foi desenvolvida usando a linguagem Java e a biblioteca Paho para a implementação do cliente MQTT.</p>
 
