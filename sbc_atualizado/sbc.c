@@ -357,3 +357,10 @@ void getOrdenada(Dados *v){
             idx--;
     }
 }
+
+// Funcao que recebe um vetor com os digitos referentes as grandezas de tempo e converte para milisegundos.
+float getSegundos(int digitos[7]){
+    return (digitos[0]+ (digitos[1]*10.0) + (digitos[2] * 100.0) /1000.0)+
+            (digitos[3]) +  (digitos[4]*10) +
+            ( digitos[5]+digitos[6]*10) *60;
+}
