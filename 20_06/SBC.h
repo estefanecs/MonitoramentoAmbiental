@@ -1,8 +1,8 @@
 #ifndef SBC_H
 #define SBC_H
 
-#define MAXTIMINGS	85
-#define DHTPIN		0 // Usa a GPIO 17 no WiringPiSetup
+#define MAXTIMINGS  85
+#define DHTPIN      0 // Usa a GPIO 17 no WiringPiSetup
 #define MAX 10 
 
 //Define as confirguacoes do LCD
@@ -38,7 +38,7 @@
 #define ES_TIME   9
 
 //Struct para dados das leituras realizadas
-typedef struct Dados{
+typedef struct Dados{   
     int lumi; //luminosidade
     int press; //pressao atmosferica
     char temp[10]; //temperatura
@@ -46,18 +46,20 @@ typedef struct Dados{
     struct tm * data_hora_atual; //data e hora atual
 }Dados;
 
+
 //Prototipos de funcao
 void leitura(int *luminosidade,int *pressao,char *temperatura,char *umidade,Dados *historico_display);
 void leitura_dht11(char *temperatura, char *umidade);
 long int maps(long int valorLido, long int minPotenciometro,long int maxPotenciometro, long int minSensor, long int maxSensor);
 float fmap(float valorLido, float minPotenciometro,float maxPotenciometro, float minSensor, float maxSensor);
 int getMilisegundos(int digitos[7]);
-float getSegundos(int digitos[7]);
 void getOrdenada(Dados *v); 
+float getSegundos(int digitos[7]);
 void add(int lum, int press, char *temp , char *umi);
 void *leituraSensores();
 void *displayLCD();
 void getDataTempo(struct tm *data);
-void escrever_arquivo(Dados *data);
-void ler_arquivo(Dados *data)
+void * PublicarValores();
+void LerIntervaloTempo();
+
 #endif

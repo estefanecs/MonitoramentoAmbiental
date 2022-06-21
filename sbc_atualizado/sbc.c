@@ -12,13 +12,11 @@
 #include <pthread.h>
 #include "SBC.h"
 #include <time.h>
-
 /*-------------------Variaveis globais-----------------*/
 unsigned int tempo =0;
 unsigned int tempoAnterior=0;
 char tempoLido[]="";
-unsigned int intervaloTempo=1;
-int tempo_medicao = 10000;
+float intervaloTempo=1.0;
 char temperatura[10]={"0"};
 char umidade[10]={"0"};	
 int  pressao=0,luminosidade=0;
@@ -32,27 +30,13 @@ int O=-1;
 
 
 int main(void){
-	wiringPiSetup(); //Configuracao do wiringPi
-	mosquitto_lib_init(); //Inicializa a biblioteca do MQTT, mosquitto
+    wiringPiSetup(); //Configuracao do wiringPi
     int i; //variavel para loop
     if(openI2CBus("/dev/i2c-1") == -1){ //Verifica se houve falha ao mapear o I2C
         return EXIT_FAILURE;
     }
     setI2CSlave(0x48); //Ativa a configuracao do I2C
-    
-    //Configuracao do cliente leitor do MQTT
-    int rc;
-	struct mosquitto *leitor;
-	leitor = mosquitto_new("inscrito",true,&id);
-	mosquitto_connect_callback_set(leitor, on_connect);
-	mosquitto_message_callback_set(leitor, on_message);
-	mosquitto_username_pw_set(leitor,"aluno","aluno*123"); //Define usuario e senha
-	rc = mosquitto_connect(leitor,"10.0.0.101",1883,10); //Inicializa a conexao com o broker
-	if(rc){ //Verifica se a conexao foi bem sucedida
-		printf("O cliente nao conseguiu conecta-se ao broker\n");
-		return -1;
-	}
-
+	
     //Limpa o historico
     for(i=0;i<MAX;i++){
         historico[i].lumi = 0;
@@ -71,11 +55,7 @@ int main(void){
 	pthread_create(&interface,NULL,displayLCD,NULL); //Criacao da thread para exibir dados no display LCD
         
 	while(1){
-		mosquitto_loop_start(leitor);
-		mosquitto_loop_stop(leitor,true);
 	}
-	mosquitto_disconnect(leitor);
-	mosquitto_destroy(leitor);
 }
 
 //-------------------- Funcao para a exibicao de dados no display LCD --------------------
@@ -300,7 +280,7 @@ void *displayLCD(){
                 if(!b2){    // Sai do menu de alterar tempo
                     estado = ES_MENU4;  // altera para o estado do menu de configurar tempo
                     /* atualiza o tempo de medicao*/
-                    tempo_medicao= getMilisegundos(digitos_medicao); // chama funcao que converte o tempo definido nos digitos
+                    intervaloTempo= getSegundos(digitos_medicao); // chama funcao que converte o tempo definido nos digitos
                 }
                 if(!b0){    // Alterna o digito
                     idx ==6 ? idx=0:idx++;
@@ -309,7 +289,7 @@ void *displayLCD(){
     		default: break;
     	}
 
-        if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
+        if(!b0 || !b1 || !b2){  //Limpa o display se algum botÃ£o foi pressionado
             lcdClear(lcd);      
         }
 
@@ -330,7 +310,7 @@ int getMilisegundos(int digitos[7]){
 void *leituraSensores(){
 	while(1){
         leitura(&luminosidade,&pressao,temperatura,umidade,historico_display); //Realiza a leitura dos sensores
-        printf("Tempo de leitura:%d milisegundos\n", tempo_medicao);
+        printf("Tempo de leitura:%.3f segundos\n", intervaloTempo);
         printf("| pressao:%d | luminosidade:%d\n",pressao,luminosidade);
 		sleep(intervaloTempo);
     }
@@ -377,22 +357,57 @@ void getOrdenada(Dados *v){
             idx--;
     }
 }
-//---------------------------------------------------------------------------
-//Funcao que verifica se foi possivel realizar a conexao com o broker e realiza a inscricao no topico de tempo caso haja.
-void on_connect(struct mosquitto *mosq, void *obj, int rc){
-		printf("ID: %d\n", * (int *) obj);
-		if(rc){
-			printf("Erro de codigo: %d\n",rc);
-			exit(-1);
-		}
-		mosquitto_subscribe(mosq,NULL,"monitoramentoAmbiental/tempo",1);
-}
-//---------------------------------------------------------------------------
-void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg){
-	printf("Nova mensagem para o topico %s: %s\n", msg->topic, (char *) msg->payload);
-	//strcpy(tempoLido,(char *) msg->payload); //Copia a mensagem recebida para o intervalo de tempo
-	//intervaloTempo = atoi(tempoLido);
-	intervaloTempo = atoi((char *) msg->payload); //A mensagem lida é convertida em inteiro e salvo no intervalo de tempo
-	
+
+// Funcao que recebe um vetor com os digitos referentes as grandezas de tempo e converte para milisegundos.
+float getSegundos(int digitos[7]){
+    return (digitos[0]+ (digitos[1]*10.0) + (digitos[2] * 100.0) /1000.0)+
+            (digitos[3]) +  (digitos[4]*10) +
+            ( digitos[5]+digitos[6]*10) *60;
 }
 
+// Funcao que escreve o historico no arquivo
+void ler_arquivo(Dados *data){
+    FILE *arq; // ponteiro para o arquivo
+    pont_arq = fopen("historico.txt", "r"); //Cria arquivo para leitura
+    int i=0;
+    char buff[100];
+        
+        if(arq == NULL){
+            printf("Erro na abertura");
+        exit(1);
+        }
+        
+        for(i=0;i<MAX;i++){
+            fgets(buff,100,pont_arq);
+            fscanf(arq,"Temperatura=%f\n",&data[i].temp);
+            fscanf(arq,"Umidade=%f\n",&data[i].umi);
+            fscanf(arq,"Luminosidade=%d\n",&data[i].lumi);
+            fscanf(arq,"Pressao=%d\n",&data[i].press);
+            printf("Temp= %.2f Umi = %.2f Lumi = %d Press = %d\n",data[i].temp,data[i].umi,data[i].lumi,data[i].press);
+            fgets(buff,100,arq);
+            puts(buff);
+        }
+}
+
+void escrever_arquivo(Dados *data){
+    FILE *arq; // ponteiro para o arquivo
+    pont_arq = fopen("historico.txt", "w"); //Cria arquivo para escrita
+    int i=0;
+    
+    if(arq == NULL){
+        printf("Erro na abertura");
+        exit(1);
+    }
+    
+    for(i=0;i<10;i++){
+        fputs("---------------\n",pont_arq);
+        fprintf(arq,"Temperatura=%.3f\n",data[i].temp);
+        fprintf(arq,"Umidade=%.3f\n",data[i].umi);
+        fprintf(arq,"Luminosidade=%d\n",data[i].lumi);
+        fprintf(arq,"Pressao=%d\n",data[i].press);
+        fprintf(arq,"Data %d|%d|%d Hora %d:%d:%d\n",data[i].data_hora_atual->tm_mday,data[i].data_hora_atual->tm_mon+1,data[i].data_hora_atual->tm_year+1900
+        ,data[i].data_hora_atual->tm_hour,data[i].data_hora_atual->tm_min,data[i].data_hora_atual->tm_sec);
+    }
+    
+    fclose(pont_arq);
+}

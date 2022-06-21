@@ -3,7 +3,7 @@
 
 <h1>Apresentação do sistema</h1>
 <p align="justify">O sistema proposto realiza o monitoramento ambiental no cenário da Internet das Coisas (IoT, do inglês, Internet of Things), no qual implementa  o protocolo de troca de mensagens Message Queue Telemetry Transport (MQTT). É divido em 3 módulos: SBC, Interface remota e Interface Local.</p>
-
+<p align="center"><img src ="imagens/arquitetura do sistema.drawio.png"></p>
 <p align="justify"> O protótipo é capaz de tratar e controlar medidas de temperatura, umidade, pressão atmosférica e luminosidade através de leitura de sensores. Esse módulo é chamado de Single Board Computer (SBC).  Além disso, o protótipo possui duas Interface Homem-Máquina (IHM) que apresenta em tempo real as medições de cada sensor, histórico com as 10 últimas medições de cada sensor, além de permitir o ajuste do intervalo de tempo entre as medições. A IHM local utiliza o display LCD e a IHM remota é uma interface desktop em JAVA.</p>
 
 <p align=”justify”>Para o desenvolvimento do SBC utilizou-se o conceito de threads para que fosse possível realizar a leitura de forma simultânea a exibição das informações no display LCD, bem como a alteração do intervalo de tempo na interface. Optou-se por utilizar threads pela facilidade de implementação além de ser viável para a solução deste problema.</p>
@@ -55,7 +55,20 @@ float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, floa
 <h2>Protocolo Message Queuing Telemetry Transport (MQTT)</h2>
 
 <h2>Histórico de medições</h2>
+<p align="justify">
+   Para garantir uma visualização do perfil das medidas do sensoriamento foi estabelecido um historico de dados
+   que armazena as dez ultimas medições realizadas sendo visivel na interface local e remota além da SBC gerar um arquivo de texto com esse historico para garantir a persistencia dos dados   
+</p>
 
+<p align="justify">
+   O Historico foi implementado como uma lista estática, usando um vetor de tamanho MAX definido no cabeçalho SBC.h e pelos ponteiros de indice L( ultima medida feita) e O( medida mais velha), foram definidas duas funções para o controle da estrutura do historico são elas ADD e getOrdenada.
+ </p>
+ <p align="justify">
+    ADD insere um novo elemento no vetor na próxima posição para o ponteiro L, a posição do ponteiro L é baseada na ocupação do vetor, ao atingir o tamanho máximo o ponteiro passa para a posição da medida mais antiga assim sempre a medida mais antiga é sobrescrita e o ponteiro O é incrementado para uma próxima posição.
+</p>
+<p align="justify">
+   A função getOrdenada criar um vetor do tipo Dados com os valores para o historico mas de forma ordenada da medição mais recente para mais antiga, essa função é usada para fornecer ao display um vetor ordenado para exibir o historico no display de modo sequencial sem nescessidade de ler o historico real na ordem de exibição. 
+</p>
 <h1>Interface Desktop</h1>
 <p align="justify">A interface Desktop foi desenvolvida usando a linguagem Java e a biblioteca Paho para a implementação do cliente MQTT.</p>
 
@@ -134,8 +147,10 @@ if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
 java -jar MonitoramentoAmbiental.jar
 ```
 <h2>SBC</h2>
-<p align="justify">Os arquivos da pasta <i>SBC</i> devem ser salvos na Raspberry. Dentro da pasta contendo os arquivos baixados, execute no terminal o comando:</p>
+<p align="justify">Os arquivos da pasta <i>SBC</i> devem ser salvos na Raspberry. Dentro da pasta contendo os arquivos baixados, execute no terminal os comandos:</p>
 
 ```
 make
+
+sudo ./sbc
 ```
