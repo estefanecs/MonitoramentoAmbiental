@@ -32,7 +32,7 @@
 unsigned int tempo =0;
 unsigned int tempoAnterior=0;
 char tempoLido[]="";
-float intervaloTempo=2.0;
+float intervaloTempo=1.0;
 char temperatura[10]={"0"};
 char umidade[10]={"0"}; 
 int  pressao=0,luminosidade=0;
@@ -436,39 +436,54 @@ void * PublicarValores(){
         publicar(historicoUmid);
         publicar(historicoTemp);
         
-        sleep(1);
+        sleep(intervaloTempo);
     }while(1);
     pthread_exit(NULL); //Encerra a thread
 }
 //--------------------------------------------------------------------------
+//Funcao que realiza a criacao da string do historico
 void stringHistorico(char *luminosidades, char *temperaturas, char *umidades,char *pressoes){
 	int i =0;
-	int dataHora= 2106; //simulando data e hora, apagar depois
-	char aux[300]="", aux2[300]="";
-	for (i=0; i<10;i++){
+	char aux[300]="";
+	char dia[20]="", mes[10]="", ano[10]="";
+	char hora[20]="", min[10]="", seg[10]="";
+	char data[25]="";
+	
+	for(i=0; i<10;i++){
+		
+		sprintf(dia," %d/", historico_display[i].data_hora_atual->tm_mday); //dia
+	  	sprintf(mes,"%d/",historico_display[i].data_hora_atual->tm_mon+1); //mês
+	  	sprintf(ano,"%d",historico_display[i].data_hora_atual->tm_year+1900); //ano
+	  	strcat(dia,mes);
+	  	strcat(dia,ano);
+			
+		sprintf(hora," %d:",historico_display[i].data_hora_atual->tm_hour);//hora   
+	  	sprintf(min, "%d:",historico_display[i].data_hora_atual->tm_min);//minuto
+	  	sprintf(seg,"%d-",historico_display[i].data_hora_atual->tm_sec);//segundo  
+	  	strcat(hora,min);
+	  	strcat(hora,seg);
+	  
+	  	strcpy(data,dia);
+	  	strcat(data,hora);
+  		
 		//Converte o historico de luminosidade para string e concatena
 		sprintf(aux, "%d",historico_display[i].lumi);
-		sprintf(aux2," %d-", dataHora); //simulando a data
-		strcat(aux,aux2);
+		strcat(aux,data);
 		strcat(luminosidades, aux);
 		
 		//Concatena o historico de temperatura
 		strcpy(aux,historico_display[i].temp);
-		sprintf(aux2," %d-", dataHora); //simulando a data
-		strcat(aux,aux2);
+		strcat(aux,data);
 		strcat(temperaturas, aux);
 		
 		//Concatena o historico de umidade
 		strcpy(aux,historico_display[i].umi);
-		sprintf(aux2," %d-", dataHora); //simulando a data
-		strcat(aux,aux2);
+		strcat(aux,data);
 		strcat(umidades, aux);
 		
 		//Converte o historico de pressao para string e concatena
 		sprintf(aux, "%d",historico_display[i].press);
-		sprintf(aux2," %d-", dataHora); //simulando a data
-		strcat(aux,aux2);
+		strcat(aux,data);
 		strcat(pressoes, aux);
-		
 	}
 }
