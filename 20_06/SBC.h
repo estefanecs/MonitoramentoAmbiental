@@ -61,5 +61,6 @@ void *displayLCD();
 void getDataTempo(struct tm *data);
 void * PublicarValores();
 void LerIntervaloTempo();
+void stringHistorico(char *luminosidades, char *temperaturas, char *umidades,char *pressoes);
 
 #endif
