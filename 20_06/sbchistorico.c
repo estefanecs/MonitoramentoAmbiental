@@ -32,7 +32,7 @@
 unsigned int tempo =0;
 unsigned int tempoAnterior=0;
 char tempoLido[]="";
-float intervaloTempo=2.0;
+global float intervaloTempo=2.0;
 char temperatura[10]={"0"};
 char umidade[10]={"0"}; 
 int  pressao=0,luminosidade=0;
