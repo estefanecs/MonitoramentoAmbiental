@@ -15,7 +15,7 @@ typedef struct Publisher{
     char Nome[255];
     char Host[255];
     char Topico[255];
-    char Msg[255];
+    char Msg[300];
 }Publisher;
 
 void publicar(Publisher pub);
