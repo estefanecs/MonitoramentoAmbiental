@@ -38,7 +38,7 @@ void publicar(Publisher pub){
 
 	rc = mosquitto_connect(mosq,pub.Host,1883,60);
 	if(rc != 0){
-			printf("O Publisher nao conseguiu se conectar ao broker! - {{%d}}\n", rc);
+			printf("O %s nao conseguiu se conectar ao broker! - {{%d}}\n", pub.Nome, rc);
 			mosquitto_destroy(mosq);
 			return ;
 	}
@@ -76,7 +76,7 @@ void create_client(Cliente Observer){
 	rc = mosquitto_connect(mosq,Observer.Host,1883,10);
 	
 	if(rc){
-		printf("Nao foi possivel conectar ao broker - {{%d}}\n",rc);
+		printf("O %s nao conseguiu conectar ao broker - {{%d}}\n", Observer, rc);
 		return ;
 	}
 
