@@ -406,13 +406,13 @@ void * PublicarValores(){
     Publisher historicoUmid = (Publisher){.Nome = "Historico Umidade - Pub",.Host = Host_broker,.Topico = broker_umidade_h,.Msg = ""};
     Publisher historicoTemp = (Publisher){.Nome = "Historico Temperatura - Pub",.Host = Host_broker,.Topico = broker_temperatura_h,.Msg = ""};
     
-    char tempo[255]="",pressao1[255]="",luminosidade1[255]="",historicoLumi[300]="",historicoTemp[300]="",historicoUmi[300]="",historicoPressao[300]="";
+    char tempo[255]="",pressao1[255]="",luminosidade1[255]="",luminosidade_h[300]="",temperatura_h[300]="",umidade_h[300]="",pressao_h[300]="";
     do{
     	//Converte os dados a serem enviados em string
         sprintf(tempo,"%f",intervaloTempo);
         sprintf(pressao1,"%d",pressao);
         sprintf(luminosidade1,"%d",luminosidade);
-        stringHistorico(historicoLumi,historicoTemp,historicoUmi,historicoPressao);
+        stringHistorico(luminosidade_h,temperatura_h,umidade_h,pressao_h);
 
 		//Copia os dados para o escopo de mensagem dos publicadores
         strcpy(pubPres.Msg,pressao1);
