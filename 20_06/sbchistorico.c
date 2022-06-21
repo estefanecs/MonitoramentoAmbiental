@@ -420,10 +420,10 @@ void * PublicarValores(){
         strcpy(pubUmid.Msg,umidade);
         strcpy(pubTemp.Msg,temperatura);
         strcpy(pubTempo.Msg,tempo);
-        strcpy(historicoPres.Msg,historicoPressao);
-        strcpy(historicoLumi.Msg,historicoLumi);
-        strcpy(historicoUmid.Msg,historicoUmi);
-        strcpy(historicoTemp.Msg,historicoTemp);
+        strcpy(historicoPres.Msg,pressao_h);
+        strcpy(historicoLumi.Msg,luminosidade_h);
+        strcpy(historicoUmid.Msg,umidade_h);
+        strcpy(historicoTemp.Msg,temperatura_h);
 
 		//Realiza a publicacao das mensagens no broker
         publicar(pubTempo);
