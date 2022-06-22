@@ -61,7 +61,7 @@ public class Ouvinte implements IMqttMessageListener {
 
             //Se o tópico for de histórico de temperatura
             case "monitoramentoAmbiental/historicoTemperatura":
-                String[] temperaturas = mensagem.split(":"); //Separa a string de dados recedida
+                String[] temperaturas = mensagem.split("-"); //Separa a string de dados recedida
                 dados.getTemperaturas().clear(); //limpa o array atual
                 for (int i = 0; i < temperaturas.length; i++) { //armazena as medicoes recebidas no array
                     dados.getTemperaturas().add(temperaturas[i]);
@@ -70,7 +70,7 @@ public class Ouvinte implements IMqttMessageListener {
 
             //Se o tópico for de histórico de umidade
             case "monitoramentoAmbiental/historicoUmidade":
-                String[] umidades = mensagem.split(":"); //Separa a string de dados recebida
+                String[] umidades = mensagem.split("-"); //Separa a string de dados recebida
                 dados.getUmidades().clear();//limpa o array atual
                 for (int i = 0; i < umidades.length; i++) {//armazena as medicoes recebidas no array
                     dados.getUmidades().add(umidades[i]);
@@ -79,7 +79,7 @@ public class Ouvinte implements IMqttMessageListener {
 
             //Se o tópico for de histórico de luminosidade
             case "monitoramentoAmbiental/historicoLuminosidade":
-                String[] luminosidades = mensagem.split(":"); //Separa a string de dados recebida
+                String[] luminosidades = mensagem.split("-"); //Separa a string de dados recebida
                 dados.getLuminosidades().clear();//limpa o array atual
                 for (int i = 0; i < luminosidades.length; i++) {//armazena as medicoes recebidas no array
                     dados.getLuminosidades().add(luminosidades[i]);
@@ -87,7 +87,7 @@ public class Ouvinte implements IMqttMessageListener {
                 break;
             //Se o tópico for de histórico de pressao atmosferica   
             case "monitoramentoAmbiental/historicoPressao":
-                String[] pressoes = mensagem.split(":"); //Separa a string de dados recebida
+                String[] pressoes = mensagem.split("-"); //Separa a string de dados recebida
                 dados.getPressoes().clear();//limpa o array atual
                 for (int i = 0; i < pressoes.length; i++) {//armazena as medicoes recebidas no array
                     dados.getPressoes().add(pressoes[i]);
