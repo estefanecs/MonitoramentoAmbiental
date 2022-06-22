@@ -142,7 +142,25 @@ mosquitto_lib_cleanup();                                    // Utilizamos a fun�
 <p align="justify">Abaixo mostraremos exemplo de código para um Publisher</p>
 
 ```c
+struct mosquitto *mosq;
+mosquitto_lib_init();
 
+mosq = mosquitto_new(Nome,true,NULL);
+
+mosquitto_username_pw_set(mosq,"aluno","aluno*123"); //Define usuario e senha
+
+mosquitto_connect(mosq,Host,1883,60);
+printf("%s conectou-se ao broker.\n",pub.Nome);
+	
+mosquitto_publish(mosq,NULL,Topico,strlen(Msg),Msg,1,true); // A diferença primordial para com o do subscriber
+									// é essa função. Nela indicamos a nossa sessão mosquitto
+									// indicamos qual tópico iremos publicar a mensagem
+									// indicamos o tamanho da mensagem e a própria mensagem
+									// assim como o QOS, neste caso, 1
+	
+mosquitto_disconnect(mosq);
+mosquitto_destroy(mosq);
+mosquitto_lib_cleanup();
 ```
 
 <h2>Histórico de medições</h2>
