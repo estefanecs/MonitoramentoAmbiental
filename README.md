@@ -55,14 +55,6 @@ float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, floa
 
 <h2>Protocolo Message Queuing Telemetry Transport (MQTT)</h2>
 <p align="justify">Foi implementado o protocolo MQTT, que é um protocolo de envio e recebimento de mensagens que utiliza um esquema <i>Publisher/Subscriber</i>. Cada subscriber se increve em um "Tópico" e aguarda recebimentos de mensagens, enquanto isso, o publisher envia essas mensagens para os tópicos específicos. O local onde os tópicos se encontram é chamado de <i>Broker</i>, é nele em que nossos Publishers e Subscribers se conectam e fazem a comunicação necessária. </p>
-<p align="justify">Utilizamos a ferramenta <i>Mosquitto</i> para nos auxiliar e, por isso, toda nossa comunicação de dados de sensores com o broker é feita com o <i>Mosquitto</i>. A biblioteca disponibilizada pelo <i>Mosquitto</i>, a <i>Mosquitto.h</i>, foi usada para implementarmos funções necessárias assim como suas modificação para acomodar as especificidades do nosso problema.</p>
-
-```c
-mosquitto_connect(); // Se conecta ao Host indicado
-mosquitto_publish(); // Publica uma menssagem em um Host indicado para o tópico indicado
-mosquitto_subscribe(); // Inscreve seu client em um tópico, assim, receberá atualizações sempre que algo for publicado no tópico
-mosquitto_username_pw_set(); // Coloca nome de usuário e senha. Necessário caso o broker requisite essas informações
-```
 
 <p align="justify">Esse sistema possui 5 tópicos, os quais são exibidos na tabela abaixo. O SBC é editor (publisher) de todos os tópicos e ouvinte (subscriber) apenas do tópico de tempo.</p>
 <table border="1">
@@ -91,6 +83,67 @@ mosquitto_username_pw_set(); // Coloca nome de usuário e senha. Necessário cas
         <td>Intervalo de tempo entre as medições</td>
     </tr>
  </table>
+
+<p align="justify">Utilizamos a ferramenta <i>Mosquitto</i> para nos auxiliar e, por isso, toda nossa comunicação de dados de sensores com o broker é feita com o <i>Mosquitto</i>. A biblioteca disponibilizada pelo <i>Mosquitto</i>, a <i>Mosquitto.h</i>, foi usada para implementarmos funções necessárias assim como suas modificação para acomodar as especificidades do nosso problema.</p>
+
+```c
+mosquitto_lib_init(); // Inicializa o Mosquitto
+mosquitto_connect(); // Se conecta ao Host indicado
+mosquitto_publish(); // Publica uma menssagem em um Host indicado para o tópico indicado
+mosquitto_subscribe(); // Inscreve seu client em um tópico, assim, receberá atualizações sempre que algo for publicado no tópico
+mosquitto_username_pw_set(); // Coloca nome de usuário e senha. Necessário caso o broker requisite essas informações
+```
+
+<p align="justify">Abaixo mostraremos exemplos de como funciona nosso código para um Subscriber</p>
+
+```c
+mosquitto_lib_init(); // Inicializador da biblioteca Mosquitto
+struct mosquitto *mosq; // Criamos uma struct mosquito, ela servirá como base de todas nossas funções Mosquitto
+
+mosq = mosquitto_new("Nome do client mosquitto",true,NULL); // indicamos o ID da nossa sessão mosquitto, 
+                                                            // se ela vai começar com sem dados (True ou False)
+                                                            // Algum callback específico (não utilizaremos agora)
+                                                            
+mosquitto_connect_callback_set(mosq, on_connect);           // Opcional. Se quisermos fazer alguma ação quando tentarmos 
+                                                            // nos conectar ao broker, deve ser especificada
+                                                            // numa função. Essa função é então chamada dentro do connect_callback_set. 
+                                                            // portanto, nesse exemplo, temos uma função chamada on_connect em que ela 
+                                                            // indica o comportamento ao tentarmos nos conectar ao broker.
+                                                            
+mosquitto_message_callback_set(mosq, on_message);           // Opcional. Se quisermos fazer alguma ação quando recebermos
+                                                            // alguma mensagem no tópico. A função tem que ser específicada
+                                                            // assim como no exemplo acima.
+                                                             
+mosquitto_username_pw_set(mosq,"aluno","aluno*123");        // Define usuario e senha da sessão MQTT. Importante caso o seu
+                                                            // broker necessite de autenticação.
+                                                            
+mosquitto_connect(mosq,Host,1883,10);                       // Definimos nossa sessão, o IP do Host, nesse caso o IP do Broker.
+                                                            // O endereço da porta a se conectar. Utilizamos o padrão do Mosquitto.
+                                                            // O tempo em segundos que ele tentará se conectar ao broker.
+
+mosquitto_subscribe(mosq,NULL,Topico,1);                    // Definimos o tópico em que nos inscreveremos
+                                                            // Assim como o QOS, neste caso, 1
+
+mosquitto_loop_start(mosq);                                 // Iniciamos um loop com a função do mosquitto
+
+getchar();                                                  // Utilizamos o getchar pra caso quisermos sair do loop
+                                                            // precisamos apenas pressionar alguma tecla
+                                                            
+mosquitto_loop_stop(mosq,true);                             // Encerramos o loop
+	
+mosquitto_disconnect(mosq);                                 // Disconectamos a sessão do broker
+
+mosquitto_destroy(mosq);                                    // Destruirmos a sessão mosquitto
+
+mosquitto_lib_cleanup();                                    // Utilizamos a função da biblioteca para limparmos quaisquer lixo deixados
+
+```
+
+<p align="justify">Abaixo mostraremos exemplo de código para um Publisher</p>
+
+```c
+
+```
 
 <h2>Histórico de medições</h2>
 <p align="justify">
