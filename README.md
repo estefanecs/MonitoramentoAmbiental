@@ -64,6 +64,34 @@ mosquitto_subscribe(); // Inscreve seu client em um tópico, assim, receberá at
 mosquitto_username_pw_set(); // Coloca nome de usuário e senha. Necessário caso o broker requisite essas informações
 ```
 
+<p align="justify">Esse sistema possui 5 tópicos, os quais são exibidos na tabela abaixo. O SBC é editor (publisher) de todos os tópicos e ouvinte (subscriber) apenas do tópico de tempo.</p>
+<table border="1">
+    <tr>
+        <td align="center">Tópico</td>
+        <td align="center">Funcionalidade</td>
+    </tr>
+    <tr>
+        <td>monitoramentoAmbiental/temperatura</td>
+        <td>Valor da temperatura atual</td>
+    </tr>
+ 	<tr>
+        <td>monitoramentoAmbiental/umidade</td>
+        <td>Valor da umidade atual</td>
+    </tr>
+ 	<tr>
+        <td>monitoramentoAmbiental/luminosidade</td>
+        <td>Valor da luminosidade atual</td>
+    </tr>
+ 	<tr>
+        <td>monitoramentoAmbiental/pressao</td>
+        <td>Valor da pressão atmosférica atual</td>
+    </tr>
+ 	<tr>
+        <td>monitoramentoAmbiental/tempo</td>
+        <td>Intervalo de tempo entre as medições</td>
+    </tr>
+ </table>
+
 <h2>Histórico de medições</h2>
 <p align="justify">
    Para garantir uma visualização do perfil das medidas do sensoriamento foi estabelecido um historico de dados
@@ -90,7 +118,7 @@ mosquitto_username_pw_set(); // Coloca nome de usuário e senha. Necessário cas
 
 <p align="justify">Por exemplo, se a mensagem foi publicada no tópico <i>"monitoramentoAmbiental/luminosidade"</i>, o dado recebido será salvo alterando o valor do atributo <i>luminosidade</i> da classe <i>DadoSensores</i>.</p>
 
-<p align="justify">Se o tópico for referente ao histórico de uma das medições, inicialmente a string de dados recebida é separada e convertida para um vetor. Em seguida, o atributo ArrayList da medição correspondente é limpo com o método <i>clear()</i>, e por fim, cada elemento do vetor contendo os dados recebidos é adicionado na ArrayList, atualizando assim o histórico atual.</p>
+<p align="justify">O histórico é armazenado em um arrayList e há um array para cada medição. Após um dado ser recebido e salvo, verifica-se se o arrayList do histórico de medição já tem 10 itens, se sim, remove o último elemento. Sempre que um novo dado é recebido, sempre é adicionado no início do arrayList.</p>
 
 <p align="justify">Já a publicação no tópico <i>"monitoramentoAmbiental/tempo"</i> acontece sempre. Na interface há um campo para que o usuário insira o intervalo de tempo que deseja. Esse valor inserido na interface é convertido para String e em seguida para byte, e passado como parâmetro no método que realiza a publicação no tópico. É interessante ressaltar que o método publicar da biblioteca Paho tem como parâmetro o tópico, o dado a ser publicado no tipo Byte e a qualidade de serviço(0,1 ou 2). </p>
 
