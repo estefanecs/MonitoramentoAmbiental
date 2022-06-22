@@ -17,7 +17,8 @@
 
 
 <h2>Sensor DHT11</h2>
-
+<p aling="justify">O sensor de umidade e temperatura, assim como no nosso problema anterior, foi feito com o DHT11. Foi utilizado um código em <i>C</i> em conjunto com a biblioteca <i>WiringPI</i> para conseguirmos receber seus dados como estabelecido no seu protocolo.</p>
+<p aling="justify">O pino selecionado para a comunicação com o sensor foi o GPIO 17 (WiringPi 0) e é nele que recebemos e enviamos todos os sinais relativos ao sensor.</p>
 <h2>Sensor de luminosidade e pressão atmosférica</h2>
 <p align="justify">O sensor de luminosidade e pressão atmosférica foi simulado por dois potenciômetros, que estão no canal 0 e 3 respectivamente da Raspberry Pi utilizada. Para o sensor de luminosidade simulou-se o <i>BH1750</i> que tem faixa de medição de 1 até 65535 LUX. Já para o sensor de pressão atmosférica, simulou-se o <i>BMP180</i> que possui faixa de medição de 300 a 1100 hPa.</p>
 
@@ -53,6 +54,15 @@ float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, floa
 ```
 
 <h2>Protocolo Message Queuing Telemetry Transport (MQTT)</h2>
+<p align="justify">Foi implementado o protocolo MQTT, que é um protocolo de envio e recebimento de mensagens que utiliza um esquema <i>Publisher/Subscriber</i>. Cada subscriber se increve em um "Tópico" e aguarda recebimentos de mensagens, enquanto isso, o publisher envia essas mensagens para os tópicos específicos. O local onde os tópicos se encontram é chamado de <i>Broker</i>, é nele em que nossos Publishers e Subscribers se conectam e fazem a comunicação necessária. </p>
+<p align="justify">Utilizamos a ferramenta <i>Mosquitto</i> para nos auxiliar e, por isso, toda nossa comunicação de dados de sensores com o broker é feita com o <i>Mosquitto</i>. A biblioteca disponibilizada pelo <i>Mosquitto</i>, a <i>Mosquitto.h</i>, foi usada para implementarmos funções necessárias assim como suas modificação para acomodar as especificidades do nosso problema.</p>
+
+```c
+mosquitto_connect(); // Se conecta ao Host indicado
+mosquitto_publish(); // Publica uma menssagem em um Host indicado para o tópico indicado
+mosquitto_subscribe(); // Inscreve seu client em um tópico, assim, receberá atualizações sempre que algo for publicado no tópico
+mosquitto_username_pw_set(); // Coloca nome de usuário e senha. Necessário caso o broker requisite essas informações
+```
 
 <h2>Histórico de medições</h2>
 <p align="justify">
