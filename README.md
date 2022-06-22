@@ -6,14 +6,14 @@
 <p align="center"><img src ="imagens/arquitetura do sistema.drawio.png"></p>
 <p align="justify"> O protótipo é capaz de tratar e controlar medidas de temperatura, umidade, pressão atmosférica e luminosidade através de leitura de sensores. Esse módulo é chamado de Single Board Computer (SBC).  Além disso, o protótipo possui duas Interface Homem-Máquina (IHM) que apresenta em tempo real as medições de cada sensor, histórico com as 10 últimas medições de cada sensor, além de permitir o ajuste do intervalo de tempo entre as medições. A IHM local utiliza o display LCD e a IHM remota é uma interface desktop em JAVA.</p>
 
-<p align=”justify”>Para o desenvolvimento do SBC utilizou-se o conceito de threads para que fosse possível realizar a leitura de forma simultânea a exibição das informações no display LCD, bem como a alteração do intervalo de tempo na interface. Optou-se por utilizar threads pela facilidade de implementação além de ser viável para a solução deste problema.</p>
+<p align=”justify”>Para o desenvolvimento do SBC utilizou-se o conceito de threads para que fosse possível realizar a leitura de forma simultânea a exibição das informações no display LCD, o envio dos dados medidos para o broker, bem como a alteração do intervalo de tempo na interface. Optou-se por utilizar threads pela facilidade de implementação além de ser viável para a solução deste problema.</p>
 
 <p align="justify">Para o desenvolvimento deste protótipo foram utilizados a Raspberry PI 0, o sensor DHT11, dois potenciômetros de 10k Ohm, display LCD 16x2, três botões, a linguagem de programação C e JAVA. </p>
 
 <h1>Single Board Computer (SBC)</h1>
 <p align="justify">O SBC é o módulo composto pela leitura de umidade e temperatura através do sensor digital DHT11, simulação dos sensores analógicos de luminosidade (BH1750) e pressão atmosférica (BMP180), além de ser responsável pelo gerenciamento desses dados e envio para a interface local (display LCD) e a interface remota. </p>
 
-<p align="justify">O SBC possui o fluxo de execução principal (main) e duas threads: uma thread para a leitura dos dados dos sensores e envio dos dados para a IHM remota, e outra thread para a exibição no display LCD, dos dados lidos. Na <i>main</i> são criados os clientes MQTT para o envio e recebimento dos dados via o protocolo, configuração da biblioteca WiringPi, inicialização da biblioteca <i>Mosquitto</i> e criação das threads. Para a utilização de threads utilizou-se a biblioteca <i>pthread.h</i> </p>
+<p align="justify">O SBC possui o fluxo de execução principal (main) e três threads: uma thread para a leitura dos dados dos sensores, uma thread para o envio dos dados para a IHM remota, e outra thread para a exibição no display LCD, dos dados lidos. Na <i>main</i> são criados os clientes MQTT para o envio e recebimento dos dados via o protocolo, configuração da biblioteca WiringPi, inicialização da biblioteca <i>Mosquitto</i> e criação das threads. Para a utilização de threads utilizou-se a biblioteca <i>pthread.h</i> </p>
 
 
 <h2>Sensor DHT11</h2>
