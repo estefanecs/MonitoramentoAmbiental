@@ -18,7 +18,28 @@
 
 <h2>Sensor DHT11</h2>
 <p aling="justify">O sensor de umidade e temperatura, assim como no nosso problema anterior, foi feito com o DHT11. Foi utilizado um código em <i>C</i> em conjunto com a biblioteca <i>WiringPI</i> para conseguirmos receber seus dados como estabelecido no seu protocolo.</p>
+
 <p aling="justify">O pino selecionado para a comunicação com o sensor foi o GPIO 17 (WiringPi 0) e é nele que recebemos e enviamos todos os sinais relativos ao sensor.</p>
+
+<p align="justify">Abaixo mostraremos parte do código que faz o processo inicial do protocolo de recebimento dos dados do DHT11</p>
+
+```c
+wiringPiSetup(); // Inicializa a biblioteca
+pinMode( DHTPIN, OUTPUT ); // Seleciona um pino e o coloca como Saida
+digitalWrite( DHTPIN, LOW ); // Coloca o sinal desse pino para baixo
+delay( 20 ); // espera 20 ms
+digitalWrite( DHTPIN, HIGH ); // Coloca o sinal desse pino para alto
+delayMicroseconds( 50 ); // espera 50 us
+pinMode( DHTPIN, INPUT ); // Altera o pino selecionado para Entrada
+ 
+```
+<p align="justify">O código do DHT11 foi retirado do https://github.com/nkundu/wiringpi-examples/blob/master/dht11.c. Poucas alterações substanciais foram feitas no código.</p>
+<p align="justify">A função de leitura do sensor retorna um vetor de inteiros de tamanho 4, contendo os digitos antes e depois da virgula da temperatura e umidade.</p>
+
+```c
+printf( "Umidade = %d.%d %% Temperatura = %d.%d° C\n",dht11_dat[0], dht11_dat[1], dht11_dat[2], dht11_dat[3]);
+```
+
 <h2>Sensor de luminosidade e pressão atmosférica</h2>
 <p align="justify">O sensor de luminosidade e pressão atmosférica foi simulado por dois potenciômetros, que estão no canal 0 e 3 respectivamente da Raspberry Pi utilizada. Para o sensor de luminosidade simulou-se o <i>BH1750</i> que tem faixa de medição de 1 até 65535 LUX. Já para o sensor de pressão atmosférica, simulou-se o <i>BMP180</i> que possui faixa de medição de 300 a 1100 hPa.</p>
 
