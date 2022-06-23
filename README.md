@@ -6,17 +6,39 @@
 <p align="center"><img src ="imagens/arquitetura do sistema.drawio.png"></p>
 <p align="justify"> O protótipo é capaz de tratar e controlar medidas de temperatura, umidade, pressão atmosférica e luminosidade através de leitura de sensores. Esse módulo é chamado de Single Board Computer (SBC).  Além disso, o protótipo possui duas Interface Homem-Máquina (IHM) que apresenta em tempo real as medições de cada sensor, histórico com as 10 últimas medições de cada sensor, além de permitir o ajuste do intervalo de tempo entre as medições. A IHM local utiliza o display LCD e a IHM remota é uma interface desktop em JAVA.</p>
 
-<p align=”justify”>Para o desenvolvimento do SBC utilizou-se o conceito de threads para que fosse possível realizar a leitura de forma simultânea a exibição das informações no display LCD, bem como a alteração do intervalo de tempo na interface. Optou-se por utilizar threads pela facilidade de implementação além de ser viável para a solução deste problema.</p>
+<p align=”justify”>Para o desenvolvimento do SBC utilizou-se o conceito de threads para que fosse possível realizar a leitura de forma simultânea a exibição das informações no display LCD, o envio dos dados medidos para o broker, bem como a alteração do intervalo de tempo na interface. Optou-se por utilizar threads pela facilidade de implementação além de ser viável para a solução deste problema.</p>
 
 <p align="justify">Para o desenvolvimento deste protótipo foram utilizados a Raspberry PI 0, o sensor DHT11, dois potenciômetros de 10k Ohm, display LCD 16x2, três botões, a linguagem de programação C e JAVA. </p>
 
 <h1>Single Board Computer (SBC)</h1>
 <p align="justify">O SBC é o módulo composto pela leitura de umidade e temperatura através do sensor digital DHT11, simulação dos sensores analógicos de luminosidade (BH1750) e pressão atmosférica (BMP180), além de ser responsável pelo gerenciamento desses dados e envio para a interface local (display LCD) e a interface remota. </p>
 
-<p align="justify">O SBC possui o fluxo de execução principal (main) e duas threads: uma thread para a leitura dos dados dos sensores e envio dos dados para a IHM remota, e outra thread para a exibição no display LCD, dos dados lidos. Na <i>main</i> são criados os clientes MQTT para o envio e recebimento dos dados via o protocolo, configuração da biblioteca WiringPi, inicialização da biblioteca <i>Mosquitto</i> e criação das threads. Para a utilização de threads utilizou-se a biblioteca <i>pthread.h</i> </p>
+<p align="justify">O SBC possui o fluxo de execução principal (main) e três threads: uma thread para a leitura dos dados dos sensores, uma thread para o envio dos dados para a IHM remota, e outra thread para a exibição no display LCD, dos dados lidos. Na <i>main</i> são criados os clientes MQTT para o envio e recebimento dos dados via o protocolo, configuração da biblioteca WiringPi, inicialização da biblioteca <i>Mosquitto</i> e criação das threads. Para a utilização de threads utilizou-se a biblioteca <i>pthread.h</i> </p>
 
 
 <h2>Sensor DHT11</h2>
+<p aling="justify">O sensor de umidade e temperatura, assim como no nosso problema anterior, foi feito com o DHT11. Foi utilizado um código em <i>C</i> em conjunto com a biblioteca <i>WiringPI</i> para conseguirmos receber seus dados como estabelecido no seu protocolo.</p>
+
+<p aling="justify">O pino selecionado para a comunicação com o sensor foi o GPIO 17 (WiringPi 0) e é nele que recebemos e enviamos todos os sinais relativos ao sensor.</p>
+
+<p align="justify">Abaixo mostraremos parte do código que faz o processo inicial do protocolo de recebimento dos dados do DHT11</p>
+
+```c
+wiringPiSetup(); // Inicializa a biblioteca
+pinMode( DHTPIN, OUTPUT ); // Seleciona um pino e o coloca como Saida
+digitalWrite( DHTPIN, LOW ); // Coloca o sinal desse pino para baixo
+delay( 20 ); // espera 20 ms
+digitalWrite( DHTPIN, HIGH ); // Coloca o sinal desse pino para alto
+delayMicroseconds( 50 ); // espera 50 us
+pinMode( DHTPIN, INPUT ); // Altera o pino selecionado para Entrada
+ 
+```
+<p align="justify">O código do DHT11 foi retirado do https://github.com/nkundu/wiringpi-examples/blob/master/dht11.c. Poucas alterações substanciais foram feitas no código.</p>
+<p align="justify">A função de leitura do sensor retorna um vetor de inteiros de tamanho 4, contendo os digitos antes e depois da virgula da temperatura e umidade.</p>
+
+```c
+printf( "Umidade = %d.%d %% Temperatura = %d.%d° C\n",dht11_dat[0], dht11_dat[1], dht11_dat[2], dht11_dat[3]);
+```
 
 <h2>Sensor de luminosidade e pressão atmosférica</h2>
 <p align="justify">O sensor de luminosidade e pressão atmosférica foi simulado por dois potenciômetros, que estão no canal 0 e 3 respectivamente da Raspberry Pi utilizada. Para o sensor de luminosidade simulou-se o <i>BH1750</i> que tem faixa de medição de 1 até 65535 LUX. Já para o sensor de pressão atmosférica, simulou-se o <i>BMP180</i> que possui faixa de medição de 300 a 1100 hPa.</p>
@@ -53,7 +75,146 @@ float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, floa
 ```
 
 <h2>Protocolo Message Queuing Telemetry Transport (MQTT)</h2>
+<p align="justify">Foi implementado o protocolo MQTT, que é um protocolo de envio e recebimento de mensagens que utiliza um esquema <i>Publisher/Subscriber</i>. Cada subscriber se increve em um "Tópico" e aguarda recebimentos de mensagens, enquanto isso, o publisher envia essas mensagens para os tópicos específicos. O local onde os tópicos se encontram é chamado de <i>Broker</i>, é nele em que nossos Publishers e Subscribers se conectam e fazem a comunicação necessária. </p>
 
+<p align="justify">Esse sistema possui 5 tópicos, os quais são exibidos na tabela abaixo. O SBC é editor (publisher) de todos os tópicos e ouvinte (subscriber) apenas do tópico de tempo.</p>
+<table border="1">
+    <tr>
+        <td align="center">Tópico</td>
+        <td align="center">Funcionalidade</td>
+    </tr>
+    <tr>
+        <td>monitoramentoAmbiental/temperatura</td>
+        <td>Valor da temperatura atual</td>
+    </tr>
+ 	<tr>
+        <td>monitoramentoAmbiental/umidade</td>
+        <td>Valor da umidade atual</td>
+    </tr>
+ 	<tr>
+        <td>monitoramentoAmbiental/luminosidade</td>
+        <td>Valor da luminosidade atual</td>
+    </tr>
+ 	<tr>
+        <td>monitoramentoAmbiental/pressao</td>
+        <td>Valor da pressão atmosférica atual</td>
+    </tr>
+ 	<tr>
+        <td>monitoramentoAmbiental/tempo</td>
+        <td>Intervalo de tempo entre as medições</td>
+    </tr>
+ </table>
+
+<p align="justify">Utilizamos a ferramenta <i>Mosquitto</i> para nos auxiliar e, por isso, toda nossa comunicação de dados de sensores com o broker é feita com o <i>Mosquitto</i>. A biblioteca disponibilizada pelo <i>Mosquitto</i>, a <i>Mosquitto.h</i>, foi usada para implementarmos funções necessárias assim como suas modificação para acomodar as especificidades do nosso problema.</p>
+
+```c
+mosquitto_lib_init(); // Inicializa o Mosquitto
+mosquitto_connect(); // Se conecta ao Host indicado
+mosquitto_publish(); // Publica uma menssagem em um Host indicado para o tópico indicado
+mosquitto_subscribe(); // Inscreve seu client em um tópico, assim, receberá atualizações sempre que algo for publicado no tópico
+mosquitto_username_pw_set(); // Coloca nome de usuário e senha. Necessário caso o broker requisite essas informações
+```
+
+<p align="justify">Abaixo mostraremos exemplos de como funciona nosso código para um Subscriber</p>
+
+```c
+mosquitto_lib_init(); // Inicializador da biblioteca Mosquitto
+struct mosquitto *mosq; // Criamos uma struct mosquito, ela servirá como base de todas nossas funções Mosquitto
+
+mosq = mosquitto_new("Nome do client mosquitto",true,NULL); // indicamos o ID da nossa sessão mosquitto, 
+                                                            // se ela vai começar com sem dados (True ou False)
+                                                            // Algum callback específico (não utilizaremos agora)
+                                                            
+mosquitto_connect_callback_set(mosq, on_connect);           // Opcional. Se quisermos fazer alguma ação quando tentarmos 
+                                                            // nos conectar ao broker, deve ser especificada
+                                                            // numa função. Essa função é então chamada dentro do connect_callback_set. 
+                                                            // portanto, nesse exemplo, temos uma função chamada on_connect em que ela 
+                                                            // indica o comportamento ao tentarmos nos conectar ao broker.
+                                                            
+mosquitto_message_callback_set(mosq, on_message);           // Opcional. Se quisermos fazer alguma ação quando recebermos
+                                                            // alguma mensagem no tópico. A função tem que ser específicada
+                                                            // assim como no exemplo acima.
+                                                             
+mosquitto_username_pw_set(mosq,"aluno","aluno*123");        // Define usuario e senha da sessão MQTT. Importante caso o seu
+                                                            // broker necessite de autenticação.
+                                                            
+mosquitto_connect(mosq,Host,1883,10);                       // Definimos nossa sessão, o IP do Host, nesse caso o IP do Broker.
+                                                            // O endereço da porta a se conectar. Utilizamos o padrão do Mosquitto.
+                                                            // O tempo em segundos que ele tentará se conectar ao broker.
+
+mosquitto_subscribe(mosq,NULL,Topico,1);                    // Definimos o tópico em que nos inscreveremos
+                                                            // Assim como o QOS, neste caso, 1
+
+mosquitto_loop_start(mosq);                                 // Iniciamos um loop com a função do mosquitto
+
+getchar();                                                  // Utilizamos o getchar pra caso quisermos sair do loop
+                                                            // precisamos apenas pressionar alguma tecla
+                                                            
+mosquitto_loop_stop(mosq,true);                             // Encerramos o loop
+	
+mosquitto_disconnect(mosq);                                 // Disconectamos a sessão do broker
+
+mosquitto_destroy(mosq);                                    // Destruirmos a sessão mosquitto
+
+mosquitto_lib_cleanup();                                    // Utilizamos a função da biblioteca para limparmos quaisquer lixo deixados
+
+```
+
+<p align="justify">Abaixo mostraremos exemplo de código para um Publisher</p>
+
+```c
+struct mosquitto *mosq;
+mosquitto_lib_init();
+
+mosq = mosquitto_new(Nome,true,NULL);
+
+mosquitto_username_pw_set(mosq,"aluno","aluno*123"); //Define usuario e senha
+
+mosquitto_connect(mosq,Host,1883,60);
+printf("%s conectou-se ao broker.\n",pub.Nome);
+	
+mosquitto_publish(mosq,NULL,Topico,strlen(Msg),Msg,1,true); // A diferença primordial para com o do subscriber
+									// é essa função. Nela indicamos a nossa sessão mosquitto
+									// indicamos qual tópico iremos publicar a mensagem
+									// indicamos o tamanho da mensagem e a própria mensagem
+									// assim como o QOS, neste caso, 1
+	
+mosquitto_disconnect(mosq);
+mosquitto_destroy(mosq);
+mosquitto_lib_cleanup();
+```
+
+<p align="justify">Abaixo mostraremos exemplo de código para o On_Message, que utilizamos para capturar os valores recebidos para o tópicos</p>
+
+```c
+void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg)
+{
+	intervaloTempo = atof((char *) msg->payload); // Utilizamos o Payload com um cast para Char, assim conseguimos pegar a mensagem enviada nos tópicos.
+	return;
+}
+
+```
+<p align="justify">Para facilitar as implementações de publisher e subscribers, criamos structs onde já passamos inicialmente os valores necessários.
+Abstraindo assim, a complexidade para conseguir se conectar ao Broker, Enviar uma mensagem para um tópico, e receber mensagens de um tópico.</p>
+
+```c
+typedef struct Cliente{   
+    char Nome[255];
+    char Host[255];
+    char Topico[255];
+}Cliente;
+
+//Struct para publisher mqtt
+typedef struct Publisher{   
+    char Nome[255];
+    char Host[255];
+    char Topico[255];
+    char Msg[300];
+}Publisher;
+
+void publicar(Publisher pub);
+void create_client(Cliente client);
+```
 <h2>Histórico de medições</h2>
 <p align="justify">
    Para garantir uma visualização do perfil das medidas do sensoriamento foi estabelecido um historico de dados
@@ -80,7 +241,7 @@ float fmap(float valorLido, float minPotenciometro, float maxPotenciometro, floa
 
 <p align="justify">Por exemplo, se a mensagem foi publicada no tópico <i>"monitoramentoAmbiental/luminosidade"</i>, o dado recebido será salvo alterando o valor do atributo <i>luminosidade</i> da classe <i>DadoSensores</i>.</p>
 
-<p align="justify">Se o tópico for referente ao histórico de uma das medições, inicialmente a string de dados recebida é separada e convertida para um vetor. Em seguida, o atributo ArrayList da medição correspondente é limpo com o método <i>clear()</i>, e por fim, cada elemento do vetor contendo os dados recebidos é adicionado na ArrayList, atualizando assim o histórico atual.</p>
+<p align="justify">O histórico é armazenado em um arrayList e há um array para cada medição. Após um dado ser recebido e salvo, verifica-se se o arrayList do histórico de medição já tem 10 itens, se sim, remove o último elemento. Sempre que um novo dado é recebido, sempre é adicionado no início do arrayList.</p>
 
 <p align="justify">Já a publicação no tópico <i>"monitoramentoAmbiental/tempo"</i> acontece sempre. Na interface há um campo para que o usuário insira o intervalo de tempo que deseja. Esse valor inserido na interface é convertido para String e em seguida para byte, e passado como parâmetro no método que realiza a publicação no tópico. É interessante ressaltar que o método publicar da biblioteca Paho tem como parâmetro o tópico, o dado a ser publicado no tipo Byte e a qualidade de serviço(0,1 ou 2). </p>
 
@@ -101,7 +262,7 @@ public void publicar(String topico, byte[] informacao, int qos);
 <h1>Interface Local</h1>
 <p align="justify"> Para o acesso e visualização dos dados dos sensores no SBC, foi construída uma interface homem máquina local que viabiliza o usuário interagir com o SBC.</p>
 
-<p align="justify"> A interface foi construída usando um display LCD 16x2, e push buttons. Para o controle do display LCD foi utilizada a biblioteca LCD.h e para uso dos botões e GPIO da Raspberry foi utilizada a biblioteca wiringPi. As bibliotecas definem as funções para a comunicação com os dispositivos, abaixo tem-se a listagem das funções utilizadas e sua finalidade. </p>
+<p align="justify"> A interface foi construída usando um display LCD 16x2, e push buttons. Para o controle do display LCD foi utilizada a biblioteca LCD.h e para uso dos botões e GPIO da Raspberry foi utilizada a biblioteca wiringPi. As bibliotecas definem as funções para a comunicação com o dispositivo</p>
 
 <p align="justify">A interface local exibe os dados de temperatura, umidade, pressão atmosférica e luminosidade, com o histórico das dez últimas medições de cada sensor, além do ajuste do tempo de medição.</p>
 
@@ -138,7 +299,7 @@ if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
 <h1>Descrição e análise dos testes realizados</h1>
 
 <h1>Referências</h1>
-
+<p align="left">Exemplos utilizando WiringPi, https://github.com/nkundu/wiringpi-examples, acesso em 25/05/2022</p>
 <h1>Como executar o projeto</h1>
 <h2>Interface Desktop</h2>
 <p align="justify">Para executar a interface desktop é necessário ter o Java instalado na máquina. Dentro da pasta <i>MonitoramentoAmbiental->dist</i> abra o terminal e execute o comando:</p>
