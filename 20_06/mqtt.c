@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "mqtt.h"
 
+
+// Topicos utilizados pelo nosso programa
 #define broker_temperatura "monitoramentoAmbiental/temperatura"
 #define broker_umidade "monitoramentoAmbiental/umidade"
 #define broker_luminosidade "monitoramentoAmbiental/luminosidade"
@@ -17,14 +19,12 @@
 
 struct mosquitto_message *destino;
 
-extern float intervaloTempo;
+extern float intervaloTempo; 
 
 /**
- * @brief 
+ * @brief Recebe uma struct do tipo Publisher e utiliza as informações contidas na struct para publicar uma mensagem.
  * 
- * @param publisher_nome 
- * @param topico 
- * @param msg 
+ * @param pub 
  */
 void publicar(Publisher pub){
 
@@ -55,10 +55,10 @@ void publicar(Publisher pub){
 }
 
 /**
- * @brief 
+ * @brief Cria um client, utilizando os valores previamente colocados numa struct do tipo Cliente.
+ * Utiliza essas dados para se conectar a um tópico e receber suas mensagens.
  * 
- * @param client_nome 
- * @param topico 
+ * @param Observer 
  */
 void create_client(Cliente Observer){
 
@@ -92,7 +92,14 @@ void create_client(Cliente Observer){
 
 	return;
 }
-
+/**
+ * @brief Callback para caso a nossa sessão mosq se conecte em algum broker. Caso sim, essa função é chamada.
+ * Deve ser definida anteriormente utilizando o mosquitto_connect_callback_set(sessao_do_Mosquito, Nome_da_função_Callback);
+ * 
+ * @param mosq 
+ * @param obj 
+ * @param rc 
+ */
 void on_connect(struct mosquitto *mosq, void *obj, int rc)
 {
 		printf("ID: %d\n", * (int *) obj);
@@ -104,6 +111,13 @@ void on_connect(struct mosquitto *mosq, void *obj, int rc)
 	return;
 }
 
+/**
+ * @brief Callback para caso a nossa sessão mosq esteja inscrita em algum tópico, e receba alguma mensagem, essa função é chamada.
+ *  Deve ser definida anteriormente utilizando o mosquitto_message_callback_set(sessao_do_Mosquito, Nome_da_função_Callback);
+ * @param mosq 
+ * @param obj 
+ * @param msg 
+ */
 void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg)
 {
 	intervaloTempo = atof((char *) msg->payload);

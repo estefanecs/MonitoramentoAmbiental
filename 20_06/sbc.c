@@ -382,13 +382,21 @@ float getSegundos(int digitos[7]){
             (digitos[3]) +  (digitos[4]*10) +
             ( digitos[5]+digitos[6]*10) *60;
 }
+/**
+ * @brief Criamos uma sessão mqtt para se inscrever no tópico de tempo, assim conseguimos fazer a leitura e observar as mudanças na variável intervaloTempo, que utilizamos
+ * para definir os intervalos em que o publisher envia os dados
+ * 
+ */
 void LerIntervaloTempo(){
+    // Criamos e colocamos valores numa struct do Tipo Cliente
     Cliente clientTempo;
     clientTempo = (Cliente){.Nome = "Leitor de intevalos - Client",.Host = Host_broker,.Topico = broker_tempo};
     create_client(clientTempo);
     
 }
 void * PublicarValores(){
+
+    // Criação dos Publisher, para assim publicarmos cada informação em seus tópicos específicos.
     Publisher pubTempo;
     pubTempo = (Publisher){.Nome = "SBC Tempo - Pub",.Host = Host_broker,.Topico = broker_tempo,.Msg = ""};
     Publisher pubPres;
@@ -401,16 +409,19 @@ void * PublicarValores(){
     pubTemp = (Publisher){.Nome = "dht11 Temperatura - Pub",.Host = Host_broker,.Topico = broker_temperatura,.Msg = ""};
     char tempo[255],pressao1[255],luminosidade1[255];
     do{
+        // Conversão das variáveis númericas em uma String, pois o nosso mqtt envia apenas strings
         sprintf(tempo,"%f",intervaloTempo);
         sprintf(pressao1,"%d",pressao);
         sprintf(luminosidade1,"%d",luminosidade);
 
+        // Passamos os respectivos valores para nossas structs, previamente contruidas, no campo de mensagem
         strcpy(pubPres.Msg,pressao1);
         strcpy(pubLumi.Msg,luminosidade1);
         strcpy(pubUmid.Msg,umidade);
         strcpy(pubTemp.Msg,temperatura);
         strcpy(pubTempo.Msg,tempo);
 
+        // Utilizamos a função publicar como forma de abstração para enviarmos os dados ao broker
         publicar(pubTempo);
         publicar(pubPres);
         publicar(pubLumi);

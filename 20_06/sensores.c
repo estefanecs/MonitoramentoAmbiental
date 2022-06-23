@@ -44,13 +44,13 @@ void leitura_dht11(char *temperatura, char *umidade){
     
         dht11_dat[0] = dht11_dat[1] = dht11_dat[2] = dht11_dat[3] = dht11_dat[4] = 0;
 
-        wiringPiSetup(); 
-        pinMode( DHTPIN, OUTPUT );
-        digitalWrite( DHTPIN, LOW );
-        delay( 20 );
-        digitalWrite( DHTPIN, HIGH );
-        delayMicroseconds( 50 );
-        pinMode( DHTPIN, INPUT );
+        wiringPiSetup(); // Inicializa o WiringPi
+        pinMode( DHTPIN, OUTPUT ); // Coloca o pino selecionado como Saida
+        digitalWrite( DHTPIN, LOW ); // Altera o valor de Saida para baixo
+        delay( 20 ); // Espera por 20 ms
+        digitalWrite( DHTPIN, HIGH ); // Altera o valor de Saida para alto
+        delayMicroseconds( 50 ); // Espera por 50 us
+        pinMode( DHTPIN, INPUT ); // Altera o pino selecionado para Entrada
     
         for ( i = 0; i < MAXTIMINGS; i++ ){
             counter = 0;
@@ -93,7 +93,7 @@ void leitura_dht11(char *temperatura, char *umidade){
 
         }else  {
             leu = 0;
-            delay( 1000 ); 
+            delay( 500 ); 
         }
     }while(leu == 0);
     
