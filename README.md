@@ -163,6 +163,37 @@ mosquitto_destroy(mosq);
 mosquitto_lib_cleanup();
 ```
 
+<p align="justify">Abaixo mostraremos exemplo de código para o On_Message, que utilizamos para capturar os valores recebidos para o tópicos</p>
+
+```c
+void on_message(struct mosquitto *mosq, void *obj, const struct mosquitto_message *msg)
+{
+	intervaloTempo = atof((char *) msg->payload); // Utilizamos o Payload com um cast para Char, assim conseguimos pegar a mensagem enviada nos tópicos.
+	return;
+}
+
+```
+<p align="justify">Para facilitar as implementações de publisher e subscribers, criamos structs onde já passamos inicialmente os valores necessários.
+Abstraindo assim, a complexidade para conseguir se conectar ao Broker, Enviar uma mensagem para um tópico, e receber mensagens de um tópico.</p>
+
+```c
+typedef struct Cliente{   
+    char Nome[255];
+    char Host[255];
+    char Topico[255];
+}Cliente;
+
+//Struct para publisher mqtt
+typedef struct Publisher{   
+    char Nome[255];
+    char Host[255];
+    char Topico[255];
+    char Msg[300];
+}Publisher;
+
+void publicar(Publisher pub);
+void create_client(Cliente client);
+```
 <h2>Histórico de medições</h2>
 <p align="justify">
    Para garantir uma visualização do perfil das medidas do sensoriamento foi estabelecido um historico de dados
@@ -210,7 +241,7 @@ public void publicar(String topico, byte[] informacao, int qos);
 <h1>Interface Local</h1>
 <p align="justify"> Para o acesso e visualização dos dados dos sensores no SBC, foi construída uma interface homem máquina local que viabiliza o usuário interagir com o SBC.</p>
 
-<p align="justify"> A interface foi construída usando um display LCD 16x2, e push buttons. Para o controle do display LCD foi utilizada a biblioteca LCD.h e para uso dos botões e GPIO da Raspberry foi utilizada a biblioteca wiringPi. As bibliotecas definem as funções para a comunicação com os dispositivo. </p>
+<p align="justify"> A interface foi construída usando um display LCD 16x2, e push buttons. Para o controle do display LCD foi utilizada a biblioteca LCD.h e para uso dos botões e GPIO da Raspberry foi utilizada a biblioteca wiringPi. As bibliotecas definem as funções para a comunicação com os dispositivos, abaixo tem-se a listagem das funções utilizadas e sua finalidade. </p>
 
 <p align="justify">A interface local exibe os dados de temperatura, umidade, pressão atmosférica e luminosidade, com o histórico das dez últimas medições de cada sensor, além do ajuste do tempo de medição.</p>
 
