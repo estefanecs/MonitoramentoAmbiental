@@ -26,11 +26,7 @@ public class ControladorDados {
         Ouvinte ouvinteLuminosidade = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/luminosidade", 2);
         Ouvinte ouvintePressao = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/pressao", 2);
         Ouvinte ouvinteTempo = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/tempo", 2);
-        Ouvinte ouvinteTemperaturas = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/historicoTemperatura", 2);
-        Ouvinte ouvinteUmidades = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/historicoUmidade", 2);
-        Ouvinte ouvinteLuminosidades = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/historicoLuminosidade", 2);
-        Ouvinte ouvintePressoes = new Ouvinte(clienteMQTT, "monitoramentoAmbiental/historicoPressao", 2);
-        }
+       }
     
     public static synchronized ControladorDados getInstancia() {
         if (instancia == null) {

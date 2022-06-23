@@ -10,7 +10,11 @@ public class Historico extends javax.swing.JFrame implements Runnable {
         initComponents();
         this.setLocationRelativeTo(null);
         controlador = ControladorDados.getInstancia();;
-        
+        historicoUmidade.setText(null);
+        historicoTemperatura.setText(null);
+        historicoLuminosidade.setText(null);
+        historicoPressao.setText(null);
+         
         Thread t = new Thread(this);
         t.start();
 
