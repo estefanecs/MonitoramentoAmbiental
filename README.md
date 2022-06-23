@@ -299,7 +299,7 @@ if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
 <h1>Descrição e análise dos testes realizados</h1>
 
 <h1>Referências</h1>
-
+<p align="left">Exemplos utilizando WiringPi, https://github.com/nkundu/wiringpi-examples, acesso em 25/05/2022</p>
 <h1>Como executar o projeto</h1>
 <h2>Interface Desktop</h2>
 <p align="justify">Para executar a interface desktop é necessário ter o Java instalado na máquina. Dentro da pasta <i>MonitoramentoAmbiental->dist</i> abra o terminal e execute o comando:</p>
