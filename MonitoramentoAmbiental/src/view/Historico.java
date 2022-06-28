@@ -1,6 +1,8 @@
 package view;
 
 import Controller.ControladorDados;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Historico extends javax.swing.JFrame implements Runnable {
 
@@ -279,9 +281,15 @@ public class Historico extends javax.swing.JFrame implements Runnable {
 
     @Override
     public void run() {
-        int i, j, t, z;
+        
+        int intervalo =100; 
+        int delay= 100;
+        Timer timer = new Timer();
+         timer.scheduleAtFixedRate(new TimerTask() {
+             int i, j, t, z;
         String umidades, temperaturas, luminosidades, pressoes;
-        while (true) {
+            @Override
+            public void run() {
             //Histórico de umidade
             umidades = "";
             historicoUmidade.setText(null);
@@ -311,6 +319,8 @@ public class Historico extends javax.swing.JFrame implements Runnable {
             }
             historicoPressao.setText(pressoes);
         }
+           
+        },delay,intervalo);
     }
 
 }

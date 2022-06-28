@@ -1,6 +1,8 @@
 package view;
 
 import Controller.ControladorDados;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MonitoramentoSensores extends javax.swing.JFrame implements Runnable {
 
@@ -370,8 +372,13 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
 
     @Override
     public void run() {
-        while (true) {
-            //Imprime o valor de umidade na tela
+        int intervalo =100; 
+        int delay= 100;
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                           //Imprime o valor de umidade na tela
             if (controlador.getUmidade() != null) {
                 umidade.setText(" " + controlador.getUmidade() + "%");
             } else {
@@ -411,7 +418,9 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
             if(!novoTempo.equals(controlador.getTempo())){
                 controlador.alterarTempo(novoTempo);
             }
-        }
+            }
+           
+        },delay,intervalo);
     }
 
 }
