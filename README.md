@@ -317,8 +317,8 @@ Resultado Esperado: O sensor repete a leitura do sensor até que ele retorne um 
 Resultado Esperado: O sensor ler os dados de temperatura e umidade corretamente.</p>
 
 <h1>Referências</h1>
-<p align="left">Exemplos utilizando WiringPi. Disponível em: https://github.com/nkundu/wiringpi-examples, acesso em 25/05/2022</p>
-<p align="left">Biblioteca exemplo do ADS1115. Disponível em: https://www.embarcados.com.br/raspberry-pi-e-ads1115/, acesso em 25/05/2022</p>
+<p align="left">Exemplos utilizando WiringPi. Disponível em: https://github.com/nkundu/wiringpi-examples, acesso em 25/05/2022.</p>
+<p align="left">Biblioteca exemplo do ADS1115. Disponível em: https://www.embarcados.com.br/raspberry-pi-e-ads1115/, acesso em 25/05/2022.</p>
 <h1>Como executar o projeto</h1>
 <h2>Interface Desktop</h2>
 <p align="justify">Para executar a interface desktop é necessário ter o Java instalado na máquina. Dentro da pasta <i>MonitoramentoAmbiental->dist</i> abra o terminal e execute o comando:</p>
