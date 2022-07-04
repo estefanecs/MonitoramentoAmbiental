@@ -11,6 +11,8 @@ public class Historico extends javax.swing.JFrame implements Runnable {
     public Historico() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setResizable(false); //Impede de redimensionar
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE); //Impede que feche a janela
         controlador = ControladorDados.getInstancia();;
         historicoUmidade.setText(null);
         historicoTemperatura.setText(null);
@@ -74,7 +76,7 @@ public class Historico extends javax.swing.JFrame implements Runnable {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(temperaturaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(temperaturaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2)
@@ -86,8 +88,8 @@ public class Historico extends javax.swing.JFrame implements Runnable {
                 .addGap(7, 7, 7)
                 .addComponent(temperaturaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -119,8 +121,8 @@ public class Historico extends javax.swing.JFrame implements Runnable {
                 .addGap(7, 7, 7)
                 .addComponent(umidadeLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
@@ -139,7 +141,7 @@ public class Historico extends javax.swing.JFrame implements Runnable {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pressaoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+            .addComponent(pressaoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3)
@@ -151,8 +153,8 @@ public class Historico extends javax.swing.JFrame implements Runnable {
                 .addGap(7, 7, 7)
                 .addComponent(pressaoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
@@ -171,7 +173,7 @@ public class Historico extends javax.swing.JFrame implements Runnable {
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(luminosidadeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+            .addComponent(luminosidadeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane4)
@@ -183,8 +185,8 @@ public class Historico extends javax.swing.JFrame implements Runnable {
                 .addGap(7, 7, 7)
                 .addComponent(luminosidadeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         voltar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -208,11 +210,11 @@ public class Historico extends javax.swing.JFrame implements Runnable {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(89, 89, 89)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

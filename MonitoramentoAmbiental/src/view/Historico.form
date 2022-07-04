@@ -59,14 +59,14 @@
                               <Component id="jPanel8" max="32767" attributes="0"/>
                               <Component id="jPanel9" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                               <Component id="jPanel13" max="32767" attributes="0"/>
-                              <Component id="jPanel7" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="35" max="32767" attributes="0"/>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -127,7 +127,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="temperaturaLabel" max="32767" attributes="0"/>
+                  <Component id="temperaturaLabel" pref="273" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane2" max="32767" attributes="0"/>
@@ -141,8 +141,8 @@
                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       <Component id="temperaturaLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" min="-2" pref="185" max="-2" attributes="0"/>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" pref="204" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -215,8 +215,8 @@
                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       <Component id="umidadeLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="185" max="-2" attributes="0"/>
-                      <EmptySpace pref="31" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="205" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -276,7 +276,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pressaoLabel" alignment="0" pref="238" max="32767" attributes="0"/>
+                  <Component id="pressaoLabel" alignment="0" pref="277" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane3" max="32767" attributes="0"/>
@@ -290,8 +290,8 @@
                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       <Component id="pressaoLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane3" min="-2" pref="185" max="-2" attributes="0"/>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" pref="204" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -350,7 +350,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="luminosidadeLabel" alignment="0" pref="233" max="32767" attributes="0"/>
+                  <Component id="luminosidadeLabel" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane4" max="32767" attributes="0"/>
@@ -364,8 +364,8 @@
                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       <Component id="luminosidadeLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane4" min="-2" pref="185" max="-2" attributes="0"/>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" pref="204" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

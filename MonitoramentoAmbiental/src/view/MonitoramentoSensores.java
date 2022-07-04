@@ -5,12 +5,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MonitoramentoSensores extends javax.swing.JFrame implements Runnable {
-
+    
     private ControladorDados controlador;
-
+    
     public MonitoramentoSensores() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
         controlador = ControladorDados.getInstancia();
         //Altera os valores exibidos na tela
         umidade.setText("-");
@@ -51,7 +52,8 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
         luminLabel = new javax.swing.JLabel();
         luminosidade = new javax.swing.JLabel();
         pressao1 = new javax.swing.JLabel();
-        intervaloTempo = new javax.swing.JSpinner();
+        envioTempo = new javax.swing.JButton();
+        areaTempo = new java.awt.TextField();
         historico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -215,8 +217,19 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
                         .addContainerGap())))
         );
 
-        intervaloTempo.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        intervaloTempo.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        envioTempo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        envioTempo.setText("Salvar");
+        envioTempo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                envioTempoActionPerformed(evt);
+            }
+        });
+
+        areaTempo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                areaTempoActionPerformed(evt);
+            }
+        });
 
         historico.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         historico.setText("HISTÓRICO DE MEDIÇÕES");
@@ -232,35 +245,29 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(39, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(historico)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(tempo)
-                                .addGap(297, 297, 297))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(72, 72, 72)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(53, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(intervaloTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                        .addComponent(areaTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(envioTempo))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(18, 18, 18)
+                            .addComponent(tempo)
+                            .addGap(297, 297, 297))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(72, 72, 72)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(historico, javax.swing.GroupLayout.Alignment.TRAILING))))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,18 +288,20 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tempo))
-                .addGap(32, 32, 32)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(intervaloTempo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(areaTempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(envioTempo))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 636, Short.MAX_VALUE)
+            .addGap(0, 635, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -306,7 +315,21 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     //Altera o intervalo de tempo de medida dos sensores
+    private void envioTempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_envioTempoActionPerformed
+        String novoTempo = areaTempo.getText();
+        if(novoTempo.contains(",")){
+            novoTempo = novoTempo.replace(",", ".");
+        }
+        if(!novoTempo.equals("0")){
+            controlador.alterarTempo(novoTempo);
+        }
+    }//GEN-LAST:event_envioTempoActionPerformed
 
+    private void areaTempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_areaTempoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_areaTempoActionPerformed
+    //Direciona para a tela de histórico
     private void historicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historicoActionPerformed
         new Historico().setVisible(true);
     }//GEN-LAST:event_historicoActionPerformed
@@ -347,8 +370,9 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.TextField areaTempo;
+    private javax.swing.JButton envioTempo;
     private javax.swing.JButton historico;
-    private javax.swing.JSpinner intervaloTempo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -372,55 +396,49 @@ public class MonitoramentoSensores extends javax.swing.JFrame implements Runnabl
 
     @Override
     public void run() {
-        int intervalo =100; 
-        int delay= 100;
+        int intervalo = 100;        
+        int delay = 100;
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                           //Imprime o valor de umidade na tela
-            if (controlador.getUmidade() != null) {
-                umidade.setText(" " + controlador.getUmidade() + "%");
-            } else {
-                umidade.setText("-");
-            }
-            
-            //Imprime o valor da luminosidade na tela
-            if (controlador.getLuminosidade() != null) {
-                luminosidade.setText(" " + controlador.getLuminosidade() + " LUX");
-            } else {
-                luminosidade.setText("-");
-            }
-            
-            //Imprime o valor de temperatura na tela
-            if (controlador.getTemperatura() != null) {
-                temperatura.setText(" " + controlador.getTemperatura() + " ºC");
-            } else {
-                temperatura.setText("-");
-            }
-            
-            //Imprime o valor da pressao atmosferica
-            if (controlador.getPressao() != null) {
-                pressao.setText(" " + controlador.getPressao() + " hPa");
-            } else {
-                pressao.setText("-");
-            }
-            
-            //Imprime o valor do intervalo de tempo na tela
-            if (controlador.getTempo()!= null) {
-                tempo.setText(" " + controlador.getTempo() + " s");
-            } else {
-                tempo.setText("-");
-            }
-            
-            //Altera o intervalo de tempo de medida dos sensores
-            String novoTempo = String.valueOf(intervaloTempo.getValue());
-            if(!novoTempo.equals(controlador.getTempo())){
-                controlador.alterarTempo(novoTempo);
-            }
-            }
-           
-        },delay,intervalo);
-    }
+                //Imprime o valor de umidade na tela
+                if (controlador.getUmidade() != null) {
+                    umidade.setText(" " + controlador.getUmidade() + "%");
+                } else {
+                    umidade.setText("-");
+                }
 
+                //Imprime o valor da luminosidade na tela
+                if (controlador.getLuminosidade() != null) {
+                    luminosidade.setText(" " + controlador.getLuminosidade() + " LUX");
+                } else {
+                    luminosidade.setText("-");
+                }
+
+                //Imprime o valor de temperatura na tela
+                if (controlador.getTemperatura() != null) {
+                    temperatura.setText(" " + controlador.getTemperatura() + " ºC");
+                } else {
+                    temperatura.setText("-");
+                }
+
+                //Imprime o valor da pressao atmosferica
+                if (controlador.getPressao() != null) {
+                    pressao.setText(" " + controlador.getPressao() + " hPa");
+                } else {
+                    pressao.setText("-");
+                }
+
+                //Imprime o valor do intervalo de tempo na tela
+                if (controlador.getTempo() != null) {
+                    tempo.setText(" " + controlador.getTempo() + " s");
+                } else {
+                    tempo.setText("-");
+                }
+            }
+            
+        }, delay, intervalo);
+    }
+    
 }
