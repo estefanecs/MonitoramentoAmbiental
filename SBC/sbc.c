@@ -179,6 +179,7 @@ void *displayLCD(){
 
             case ES_HTEMP:
                /*Imprime no Display as informacoes do menu atual*/
+		split(historico_display[idx_historico].timeStamp,data,hora,'H');
                 lcdPosition(lcd,0,0);
                 lcdPrintf(lcd,"%d-%sC", idx_historico+1,historico_display[idx_historico].temp);  // Imprime dado no display
                 lcdPosition(lcd,0,1);
@@ -208,13 +209,14 @@ void *displayLCD(){
                         idx_historico=0;
                     else
                         idx_historico++;
-                    split(historico_display[idx_historico].timeStamp,data,hora,'H');
+                    
                 }
                 
                 break;
 
             case ES_HUMID:
                 /*Imprime no Display as informacoes do menu atual*/
+		split(historico_display[idx_historico].timeStamp,data,hora,'H');
                 lcdPosition(lcd,0,0);
                 lcdPrintf(lcd,"%d-%s%%", idx_historico+1,historico_display[idx_historico].umi);
                 lcdPosition(lcd,0,1);
@@ -244,12 +246,13 @@ void *displayLCD(){
                         idx_historico=0;
                     else
                         idx_historico++;
-                    split(historico_display[idx_historico].timeStamp,data,hora,'H');
+                   
                 }
                 break;
 
             case ES_HPRES:
                 /*Imprime no Display as informacoes do menu atual*/
+		split(historico_display[idx_historico].timeStamp,data,hora,'H');
                 lcdPosition(lcd,0,0);
                 lcdPrintf(lcd,"%d-%dbph", idx_historico+1,historico_display[idx_historico].press);
                 lcdPosition(lcd,0,1);
@@ -279,12 +282,13 @@ void *displayLCD(){
                         idx_historico=0;
                     else
                         idx_historico++;
-                    split(historico_display[idx_historico].timeStamp,data,hora,'H');
+                   
                 }
                 break;
 
             case ES_HLUMI:
                 /*Imprime no Display as informacoes do menu atual*/
+		split(historico_display[idx_historico].timeStamp,data,hora,'H');
                 lcdPosition(lcd,0,0);
                 lcdPrintf(lcd,"%d-%dlux", idx_historico+1,historico_display[idx_historico].lumi);
                 lcdPosition(lcd,0,1);
@@ -312,7 +316,7 @@ void *displayLCD(){
                         idx_historico=0;
                     else
                         idx_historico++;
-                    split(historico_display[idx_historico].timeStamp,data,hora,'H');
+                    
                 }
                 break;
 
@@ -334,6 +338,14 @@ void *displayLCD(){
                     estado = ES_MENU4;  // altera para o estado do menu de configurar tempo
                     /* atualiza o tempo de medicao*/
                     intervaloTempo= getSegundos(digitos_medicao); // chama funcao que converte o tempo definido nos digitos
+			/*Limpa digitos*/
+			digitos_medicao[0]=0;
+			digitos_medicao[1]=0;
+			digitos_medicao[2]=0;
+			digitos_medicao[3]=0;
+			digitos_medicao[4]=0;
+			digitos_medicao[5]=0;
+			digitos_medicao[6]=0;
                 }
                 if(!b0){    // Alterna o digito
                     idx ==6 ? idx=0:idx++;
