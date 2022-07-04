@@ -305,8 +305,20 @@ if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
 
 <p align="justify">A interface local (display LCD e botões) foi testada por repetição de ações simulando casos de uso:acessar menu de temperatura, acessar menu de umidade, acessar historico de temperatura,altenar historico, alternar data e hora no historico entre outros. os casos de uso foram repetidos com uma pessoa simulando um usuario interagindo com os botões e menus a fim de indentificar os possíveis erros.</p>
 
+<p align="justify"><strong>Caso de Testes DHT11:</strong></p>
+
+<p align="justify">Sensor Ausente - Com o nosso código executando, nós removemos o sensor DHT11.<br>
+Resultado Esperado: O Código aguarda o sensor ser encontrado novamente. Enquanto espera, o código não faz nenhuma leitura de nenhum outro sensor.</p>
+
+<p align="justify">Dado incorreto pelo sensor - O sensor envia dados incorretos (Sabemos pela verificação do checksum)<br>
+Resultado Esperado: O sensor repete a leitura do sensor até que ele retorne um resultado válido.</p>
+
+<p align="justify">Sensor em perfeito estado - O sensor está presente e funciona corretamente.<br>
+Resultado Esperado: O sensor ler os dados de temperatura e umidade corretamente.</p>
+
 <h1>Referências</h1>
-<p align="left">Exemplos utilizando WiringPi, https://github.com/nkundu/wiringpi-examples, acesso em 25/05/2022</p>
+<p align="left">Exemplos utilizando WiringPi. Disponível em: https://github.com/nkundu/wiringpi-examples, acesso em 25/05/2022</p>
+<p align="left">Biblioteca exemplo do ADS1115. Disponível em: https://www.embarcados.com.br/raspberry-pi-e-ads1115/, acesso em 25/05/2022</p>
 <h1>Como executar o projeto</h1>
 <h2>Interface Desktop</h2>
 <p align="justify">Para executar a interface desktop é necessário ter o Java instalado na máquina. Dentro da pasta <i>MonitoramentoAmbiental->dist</i> abra o terminal e execute o comando:</p>
