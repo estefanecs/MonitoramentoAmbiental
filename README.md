@@ -297,6 +297,13 @@ if(!b0 || !b1 || !b2){  //Limpa o display se algum botão foi pressionado
 <p align="justify"> No fim de cada <i>case</i> há um trecho que verifica a lógica da mudança do próximo estado, baseado no estado atual e em qual botão foi pressionado, e desta forma a variável estado é atualizada para o próximo estado.</p>
 
 <h1>Descrição e análise dos testes realizados</h1>
+<p align="justify">Durante o desenvolvimento, para testar a interface remota utilizou-se um cliente mqtt para enviar dados simulados a fim de verificar se o valor enviado realmente era o exibido na interface, bem como, para verificar se o valor enviado era separado na medição atual e o na medição contendo data e hora que seria exibida no histórico. Verificou-se que os dados recebidos correspondiam aos que estavam sendo enviados.</p>
+
+<p align="justify">Para a configuração do intervalo de tempo através da interface remota, inseriu-se valores decimais e inteiros e foi conferindo na interface local se o valor recebido era o enviado. Para o caso em que o usuário insere 0, realizamos o tratamento para que não seja enviado para o broker. Em relação a inserção de valores decimais, a nossa interface aceita valores com os separadores decimais "," e ".".</p>
+
+<p align="justify">Para simular os sensores de pressão atmosferica e luminosidade foram utilizados dois potenciomêtros fornecendo uma leitura analogica que é convertida em dado digital pelo conversor analogico digital ads1115 os testes para esse módulo foram realizados individualmente, foi criada uma rotina c que realizava a leitura dos canais 0 e 3 do ads1115 e os valores exibidos no terminal, analogamente as medias de tensão do potenciometrô foram tomadas com auxilio de um multimetro, em resumo a faixa de leitura dos potenciometros foram mapeadas por três vezes.</p>
+
+<p align="justify">A interface local (display LCD e botões) foi testada por repetição de ações simulando casos de uso:acessar menu de temperatura, acessar menu de umidade, acessar historico de temperatura,altenar historico, alternar data e hora no historico entre outros. os casos de uso foram repetidos com uma pessoa simulando um usuario interagindo com os botões e menus a fim de indentificar os possíveis erros.</p>
 
 <h1>Referências</h1>
 <p align="left">Exemplos utilizando WiringPi, https://github.com/nkundu/wiringpi-examples, acesso em 25/05/2022</p>
